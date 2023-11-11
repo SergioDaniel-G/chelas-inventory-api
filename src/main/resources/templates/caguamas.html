@@ -1,0 +1,112 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout:: head">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>gastos de caguamas</title>
+<!-- CSS only -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+<script src='main.js'></script>
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	<br>
+	<div class="container">
+		<div class="alert alert-dark" th:if="${success !=null}"
+			th:text="${success}"></div>
+		<div class="text2 text-dark">
+			<h1>Gastos de Caguamas</h1>
+			<style>
+.text2 h1 {
+	text-align: center;
+}
+</style>
+		</div>
+		<img src="img/caguamas.jpg" width="80" height="80" alt="caguamas"
+			class="img-fluid rounded float-right">
+		<div class="row">
+			<h4 class="card-title">
+				<a th:href="@{/exportarPDF}"
+					class="btn btn-danger btn-sm text-white">Exportar a PDF</a> <a
+					th:href="@{/exportarExcel}"
+					class="btn btn-ligth btn-danger btn-sm text-white">Exportar a
+					Excel</a>
+				<button onclick="ocultarDatos()"
+					class="btn btn-danger btn-sm text-white">Ocultar datos</button>
+				<button onclick="mostrarDatos()"
+					class="btn btn-danger btn-sm text-white">Mostrar datos</button>
+			</h4>
+		</div>
+		<br>
+		<table id="table2" class="table table-hover" rules="all" border="1">
+			<thead class="thead bg-secondary text-white">
+				<tr>
+					<th>Id</th>
+					<th>Marca</th>
+					<th>Precio</th>
+					<th>Cantidad</th>
+					<th>Total</th>
+					<th>Fecha de registro</th>
+					<th style="text-align: center">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="caguama:${caguamas}">
+					<td style="height: 35px;" th:text="${caguama.id}">id</td>
+					<td th:text="${caguama.marca}">marca</td>
+					<td th:text="${caguama.precio}">precio</td>
+					<td th:text="${caguama.cantidad}">cantidad</td>
+					<td th:text="${caguama.total}">total</td>
+					<td th:text="${caguama.fechaRegistro}">fecha de registro</td>
+
+					<td><a th:href="@{/ver/{id}(id=${caguama.id})}"
+						class="btn btn-ligth btn-sm text-dark">Detalles</a> <a
+						th:href="@{/caguamas/editar/{id}(id=${caguama.id})}"
+						class="btn btn-ligth btn-sm text-dark">Actualizar</a> <a
+						th:href="@{/caguamas/{id}(id=${caguama.id})}"
+						class="btn btn-ligth btn-sm text-dark">Eliminar</a></td>
+				</tr>
+			</tbody>
+			<tr>
+				<td id=total class="navbar bg-danger text-white">Total</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<nav th:replace="paginator-nav :: paginator"></nav>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+<script type="text/javascript">
+	//sum of column 2-7
+	for (var i = 3; i < 6; i++) {
+		var sum = 0;
+		// iteration through all td's in the column
+		$('#table2>tbody>tr>td:nth-child(' + i + ')').each(function() {
+			sum += parseInt($(this).text()) || 0;
+		});
+		// set total in last cell of the column
+		$('#table2>tbody>tr>td:nth-child(' + i + ')').last().html(sum);
+		$('#table2>tbody>tr>td:nth-child(' + i + ')').last().toggleClass(
+				'total');
+	}
+</script>
+<script type="text/javascript">
+	function ocultarDatos() {
+		document.getElementById("table2").style.display = "none";
+	}
+	function mostrarDatos() {
+		document.getElementById("table2").style.display = "";
+	}
+</script>
+
+</html>

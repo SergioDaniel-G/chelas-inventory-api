@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<div class="container py-4">
+		<div class="card ">
+			<div class="card-header"></div>
+			<div class="card-body">
+				<ul class="list-group">
+					<li class="list-group-item active" th:text="${precio.id}"></li>
+					<li class="list-group-item" th:text="${precio.id_producto}"></li>
+					<li class="list-group-item" th:text="${precio.descripcion}"></li>
+					<li class="list-group-item" th:text="${precio.existencia}"></li>
+					<li class="list-group-item" th:text="${precio.precio}"></li>
+					<li class="list-group-item" th:text="${precio.fechaRegistro}"></li>
+				</ul>
+				<a th:href="@{/precios}" class="btn btn-primary text-white">regresar
+					a precios</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

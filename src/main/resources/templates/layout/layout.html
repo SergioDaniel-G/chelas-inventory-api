@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="utf-8">
+<title>Gestión de caguamas</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<header th:fragment="header">   <!-- revisar si falta la clase header -->
+		<nav class="navbar navbar-expand-md bg-secondary text-white">
+			<a class="navbar-brand class= text-white" href="#">CAGUAMAS</a>
+			<!-- Navbar links -->
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link text-white"
+						th:href="@{/caguamas/nuevo}">Agregar gastos</a></li>
+					<li class="nav-item"><a class="nav-link text-white"
+						th:href="@{/index}">Regresar a menu</a></li>
+				</ul>
+			</div>
+			<ul class="nav navbar-nav">
+				<li sec:authorize="isAuthenticated()"><a
+					class="nav-link text-white" th:href="@{/logout}">Cerrar sesion</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="container">
+		<div th:if="${success != null}"
+			class="alert alert-primary alert-dismissible fade show">
+			[[${success}]]>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+	</div>
+
+	<div class="container">
+		<div th:if="${error != null}"
+			class="alert alert-danger alert-dismissible fade show">
+			[[${error}]]>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+	</div>
+
+	<div class="container">
+		<div th:if="${warning != null}"
+			class="alert alert-warning alert-dismissible fade show">
+			[[${warning}]]>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+	</div>
+
+	<div class="container">
+		<div th:if="${info != null}"
+			class="alert alert-info alert-dismissible fade show">
+			[[${info}]]>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+	</div>
+
+	<footer th:fragment="footer">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"></script>
+	</footer>
+</body>
+</html>

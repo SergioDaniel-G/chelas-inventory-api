@@ -1,0 +1,46 @@
+/*fondo de pantalla*/
+body{
+    background: url(../img/fondo.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+/*cajas de texto*/
+.form-controld {
+	width: 450px;
+	height: 35px;
+	background: #FF7A59;
+	opacity: .3;
+}
+/*Usuario o contraseña invalidos*/							
+.alert{
+	text-align: center;
+	width: 450px;
+	height: 35px;
+	background: red;
+	opacity: .6;	
+}
+/*correo usuario, contraseña usuario*/
+.form-group{
+	color: white;
+	opacity: 10;
+}
+/*micheladas chelas*/
+.col-md-6{
+	color: white;
+	opacity: 10;
+	font-family: Garamond;
+} 
+/*registrate aqui*/
+span a{
+	color: black;
+	opacity: 10;
+}
+/*ing sergio */
+.form-informacion{
+	text-align: right;
+	opacity: 10;
+}
+/*iniciar sesion */
+.col-md-4{
+	opacity: .6;
+}
+

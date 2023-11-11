@@ -1,0 +1,82 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>editar gastos</title>
+<!-- CSS only -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<a class="navbar-brand text-white" href="#">otros gastos</a>
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link text-white"
+					th:href="@{/gastos}">lista gastos</a></li>
+				<li class="nav-item"><a class="nav-link text-white"
+					th:href="@{/index}"> menu micheladas</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<br>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<div class="alert alert-success" th:if="${success !=null}"
+					th:text="${success}"></div>
+				<h1 class="text-center">Edición de otros gastos</h1>
+				<div class="card-body">
+
+					<form th:action="@{/gastos/{id}(id=${gasto.id})}"
+						th:object="${gasto}" method="POST">
+
+						<div class="form-group">
+							<label>Articulo: </label> <input type="text" name="articulo"
+								th:field="*{articulo}" class="form-control"
+								placeholder="ingresa el articulo : " required> <small
+								class="form-text text-danger offset-3"
+								th:if="${#fields.hasErrors('articulo')}" th:errors="*{articulo}"></small>
+						</div>
+
+						<div class="form-group">
+							<label>Cantidad : </label> <input type="text" name="cantidad"
+								th:field="*{cantidad}" class="form-control"
+								placeholder="ingresa la cantidad : " required> <small
+								class="form-text text-danger offset-3"
+								th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>
+						</div>
+
+						<div class="form-group">
+							<label>Precio : </label> <input type="text" name="precio"
+								th:field="*{precio}" class="form-control"
+								placeholder="ingresa el precio : " required> <small
+								class="form-text text-danger offset-3"
+								th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
+						</div>
+
+						<div class="form-group">
+							<label>Total : </label> <input type="text" name="total"
+								th:field="*{total}" class="form-control"
+								placeholder="ingresa el total : " required> <small
+								class="form-text text-danger offset-3"
+								th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></small>
+						</div>
+
+						<div class="box-footer">
+							<button class="btn btn-dark">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Micheladas</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<input type="checkbox" id="checkbox">
+	<header class="header">
+		<h2 class="u-name">
+			MICHELADAS <b>CHELAS</b> <label for="checkbox"> <i
+				id="navbtn" class="fa fa-bars" aria-hidden="true"></i>
+			</label>
+		</h2>
+		<h4>ingresaste como: <span sec:authentication="principal.username"></span></h4>
+		<i class="fa fa-user" aria-hidden="true"></i>
+	</header>
+	<div class="body">
+		<nav class="side-bar">
+			<div class="user-p">
+				<img src="img/micheladasChelas.jpg">
+				<h4>MENU</h4>
+			</div>
+			<ul>
+				<li><a th:href="@{/caguamas}"> <i class="fa fa-beer"
+						aria-hidden="true"></i> <span>Gastos Caguamas</span>
+				</a></li>
+				<li><a th:href="@{/clientes}"> <i
+						class="fa fa-address-book-o" aria-hidden="true"></i> <span>Clientes</span>
+				</a></li>
+				<li><a th:href="@{/cigarros}"> <i
+						class="fa fa-exclamation-circle" aria-hidden="true"></i> <span>Gastos
+							Cigarros</span>
+				</a></li>
+				<li><a th:href="@{/gastos}"> <i
+						class="fa fa-credit-card-alt" aria-hidden="true"></i> <span>Otros
+							Gastos</span>
+				</a></li>
+				<li><a th:href="@{/ventas}"> <i class="fa fa-signal"
+						aria-hidden="true"></i> <span>Ventas</span>
+				</a></li>
+				<li><a th:href="@{/precios}"> <i class="fa fa-money"
+						aria-hidden="true"></i> <span>Precios</span>
+				</a></li>
+				<li><a th:href="@{/prestados}"> <i class="fa fa-paypal"
+						aria-hidden="true"></i> <span>Prestado</span>
+				</a></li>
+				<li><a th:href="@{/proveedores}"> <i
+						class="fa fa-user-circle-o" aria-hidden="true"></i> <span>Proveedores</span>
+				</a></li>
+				<li><a th:href="@{/logout}"> <i class="fa fa-power-off"
+						aria-hidden="true"></i> <span>Salir</span>
+				</a></li>
+			</ul>
+		</nav>
+		<section class="section-1">
+			<h1>BIENVENIDO A</h1>
+			<p>menu micheladas</p>
+		</section>
+	</div>
+</body>
+</html>

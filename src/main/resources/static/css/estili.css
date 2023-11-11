@@ -1,0 +1,52 @@
+/*fondo de pantalla*/
+body{
+    background: url(../img/fondo3.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+/*modal completo*/
+.modal-content{
+	background-color: white;
+	width: 380px;
+	height: 80px;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top:18;
+	margin-left: 2%;
+}
+
+/*email*/
+.mb-3{
+	color: black;
+	background-color: white;
+}
+
+/*Recupera tu contraseña*/
+h1{
+	color: black;
+	background-color: white;
+}
+
+/*boton enviar*/
+.btn{
+	background-color: #AF1405;
+	color: white;
+
+}
+/*cajas de texto*/
+.form-control{
+	background-color: white;
+
+}
+img{
+	background-color: white;
+}
+h4{
+	background-color: white;
+}
+.col-12{
+	background-color: white;
+}
+.col-10{
+	background-color: white;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>Lista de clientes</title>
+<!-- CSS only -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+<script src='main.js'></script>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-md bg-secondary text-white">
+		<a class="navbar-brand class= text-white" href="#">CLIENTES</a>
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link text-white"
+					th:href="@{/clientes/nuevo}">Agregar cliente</a></li>
+				<li class="nav-item"><a class="nav-link text-white"
+					th:href="@{/index}">Regresar a menu</a></li>
+			</ul>
+		</div>
+		<ul class="nav navbar-nav">
+			<li sec:authorize="isAuthenticated()"><a
+				class="nav-link text-white" th:href="@{/logout}">Cerrar sesion</a></li>
+		</ul>
+	</nav>
+	<br>
+	<div class="container">
+		<div class="alert alert-dark" th:if="${success !=null}"
+			th:text="${success}"></div>
+		<div class="text1 text-dark">
+			<h1>Clientes</h1>
+			<style>
+.text1 h1 {
+	text-align: center;
+}
+</style>
+		</div>
+		<img src="img/clientes.png" width="80" height="80" alt="clientes"
+			class="img-fluid rounded float-right">
+		<div class="row">
+			<h4 class="card-title">
+				<a th:href="@{/exportarPDFcli}"
+					class="btn btn-danger btn-sm text-white">Exportar a PDF</a> <a
+					th:href="@{/exportarExcelcli}"
+					class="btn btn-danger btn-sm text-white">Exportar a Excel</a>
+				<button onclick="ocultarDatos()"
+					class="btn btn-danger btn-sm text-white">Ocultar datos</button>
+				<button onclick="mostrarDatos()"
+					class="btn btn-danger btn-sm text-white">Mostrar datos</button>
+			</h4>
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<form class="form-inline" th:action="@{/clientes}">
+				<div class="form-group">
+					<label>Filtrar:</label>
+				</div>
+				&nbsp; &nbsp;
+				<div class="form-group">
+					<input type="text" name="keyword"
+						placeholder="ingresa el cliente a buscar" required>
+				</div>
+				&nbsp; &nbsp; <input type="submit"
+					class="btn btn-info btn-sm text-white" value="Buscar">
+				&nbsp; &nbsp; <input type="button"
+					class="btn btn-info btn-sm text-white" value="Limpiar"
+					onclick="limpiarCampos()">
+			</form>
+		</div>
+		<br>
+		<table id="tabla8" class="table table-hover" rules="all" border="1">
+			<thead class="thead bg-secondary text-white">
+				<tr>
+					<th>Id</th>
+					<th>Num cliente</th>
+					<th>Nombre completo</th>
+					<th>Direccion</th>
+					<th>Cp</th>
+					<th style="text-align: center">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cliente:${clientes}">
+					<td style="height: 35px;" th:text="${cliente.id}">id</td>
+					<td th:text="${cliente.num_cliente}">num_cliente</td>
+					<td th:text="${cliente.nombre_completo}">nombre_completo</td>
+					<td th:text="${cliente.direccion}">direccion</td>
+					<td th:text="${cliente.cp}">cp</td>
+
+					<td><a th:href="@{/vercli/{id}(id=${cliente.id})}"
+						class="btn btn-ligth btn-sm text-dark">Detalles</a> <a
+						th:href="@{/clientes/editar/{id}(id=${cliente.id})}"
+						class="btn btn-ligth btn-sm text-dark">Actualizar</a> <a
+						th:href="@{/clientes/{id}(id=${cliente.id})}"
+						class="btn btn-ligth btn-sm text-dark">Eliminar</a></td>
+				</tr>
+			</tbody>
+
+		</table>
+		<nav th:replace="paginator-nav :: paginator"></nav>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+	<script type="text/javascript">
+		function limpiarCampos() {
+			window.location = '/clientes';
+		}
+	</script>
+	<script type="text/javascript">
+	function ocultarDatos() {
+		document.getElementById("tabla8").style.display = "none";
+	}
+	function mostrarDatos() {
+		document.getElementById("tabla8").style.display = "";
+	}
+</script>
+</body>
+</html>

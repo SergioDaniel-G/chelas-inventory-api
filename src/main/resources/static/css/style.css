@@ -1,0 +1,162 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: arial, sans-serif;
+}
+
+/*cabecera*/
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 30px;
+	background: white;
+	color: blue;
+}
+
+/*letras micheladas*/
+.u-name {
+	font-size: 20px;
+	padding-left: 17px;
+	color: maroon;
+}
+
+/*letras chelas*/
+.u-name b {
+	color: maroon;
+}
+
+/*boton menu*/
+.header i {
+	font-size: 30px;
+	cursor: pointer;
+	color: maroon;
+}
+
+/*signo usuario*/
+.header i:hover {
+	color: maroon;
+}
+
+.user-p {
+	text-align: center;
+	padding-left: 10px;
+	padding-top: 25px;
+}
+
+.user-p img {
+	width: 100px;
+	border-radius: 50%;
+}
+
+/* menu */
+.user-p h4 {
+	color: maroon;
+	padding: 5px 0;
+}
+
+/* menu lateral */
+.side-bar {
+	width: 250px;
+	background: radial-gradient(circle at 53.85% 54.59%, #ffae31 0, #ff9d36 16.67%,
+		#ff8b3a 33.33%, #f2793c 50%, #e2683e 66.67%, #d4583f 83.33%, #c64b41
+		100%);
+	min-height: 100vh;
+	transition: 500ms width;
+}
+
+.body {
+	display: flex;
+}
+
+.section-1 {
+	width: 100%;
+	background: url("../img/bg.png");
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+/*bienvenido a */
+.section-1 h1 {
+	color: orange;
+	font-size: 60px;
+}
+
+/*menu micheladas*/
+.section-1 p {
+	color: white;
+	font-size: 25px;
+	background: radial-gradient(circle at 53.85% 54.59%, #ffae31 0, #ff9d36 16.67%,
+		#ff8b3a 33.33%, #f2793c 50%, #e2683e 66.67%, #d4583f 83.33%, #c64b41
+		100%);
+	padding: 7px;
+	border-radius: 5px;
+}
+
+
+.side-bar ul {
+	margin-top: 20px;
+	list-style: none;
+}
+
+.side-bar ul li {
+	font-size: 16px;
+	padding: 15px 0px;
+	padding-left: 20px;
+	transition: 500ms background;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/*puntero del lado del menu*/
+.side-bar ul li:hover {
+	background: green;
+}
+
+/*letras de la barra lateral*/
+.side-bar ul li a {
+	text-decoration: none;
+	color: white;
+	cursor: pointer;
+	letter-spacing: 1px;
+}
+
+.side-bar ul li a i {
+	display: inline-block;
+	padding-right: 10px;
+	font-size: 23px;
+}
+
+#navbtn {
+	display: inline-block;
+	margin-left: 70px;
+	font-size: 20px;
+	transition: 500ms color;
+}
+
+#checkbox {
+	display: none;
+}
+
+#checkbox:checked ~ .body .side-bar {
+	width: 60px;
+}
+
+#checkbox:checked ~ .body .side-bar .user-p {
+	visibility: hidden;
+}
+
+#checkbox:checked ~ .body .side-bar a span {
+	display: none;
+}
+
+/* ingresaste como */
+h4{
+	color: maroon;
+}
