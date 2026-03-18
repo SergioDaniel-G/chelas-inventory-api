@@ -1,80 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>compra de caguamas</title>
-<!-- CSS only -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-</head>
+<head th:replace="~{layout/new :: head_comun('Compra de Caguamas')}"></head>
 <body>
 
+<header th:replace="~{layout/new :: navbar('Caguamas', '/caguamas', 'Datos de caguamas')}"></header>
 
-	<nav class="navbar navbar-expand-md bg-secondary navbar-white">
-		<a class="navbar-brand text-white" href="#">CAGUAMAS</a>
-		<!-- Navbar links -->
-		<div class="collapse navbar-collapse" id="collapsibleNavbar">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link text-white"
-					th:href="@{/caguamas}">Listado</a></li>
-				<li class="nav-item"><a class="nav-link text-white"
-					th:href="@{/index}">Menu micheladas</a></li>
-			</ul>
-		</div>
-	</nav>
+<main>
+	<div th:replace="~{layout/new :: alerta_success}"></div>
 
-	<br>
-	<div class="container">
-		<div class="row">
-			<div
-				class="col-lg-5 col-md-5 col-sm-5 container justify-content-center card border-dark mb-3">
-				<div class="alert alert-success" th:if="${success !=null}" th:text="${success}"></div>
-				<h1 class="text-center">Caguamas</h1>
-				<div class="card-body">
-					<form th:action="@{/caguamas/guardar}" th:object="${caguama}"
-						method="POST">
+	<h1>Registro de Caguamas</h1>
 
-						<div class="form-group">
-							<label>Marca: </label> <input type="text" name="marca"
-								th:field="*{marca}" class="form-control"
-								placeholder="ingresa la marca comprada: " required>
-								<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></small>
-						</div>
+	<form th:action="@{/caguamas/guardar}" th:object="${caguama}" method="POST">
+		<table>
+			<tr>
+				<td><label for="marca">Marca:</label></td>
+				<td>
+					<input type="text" th:field="*{marca}" id="marca">
+					<span th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}" style="color: red;"></span>
+				</td>
+			</tr>
 
-						<div class="form-group">
-							<label>Precio : </label> <input type="text" name="precio"
-								th:field="*{precio}" class="form-control"
-								placeholder="ingresa el precio del carton: " required>
-								<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
-						</div>
+			<tr>
+				<td><label for="precio">Precio:</label></td>
+				<td>
+					<span>$MXN</span>
+					<input type="number" th:field="*{precio}" id="precio" step="0.01">
+					<span th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" style="color: red;"></span>
+				</td>
+			</tr>
 
-						<div class="form-group">
-							<label>Cantidad : </label> <input type="text" name="cantidad"
-								th:field="*{cantidad}" class="form-control"
-								placeholder="ingresa la cantidad de cartones: " required>
-								<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>
-						</div>
+			<tr>
+				<td><label for="cantidad">Cantidad:</label></td>
+				<td>
+					<input type="number" th:field="*{cantidad}" id="cantidad" step="1">
+					<span th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}" style="color: red;"></span>
+				</td>
+			</tr>
 
-						<div class="form-group">
-							<label>Total : </label> <input type="text" name="total"
-								th:field="*{total}" class="form-control"
-								placeholder="ingresa el total pagado : " required>
-								<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></small>
-						</div>
+			<tr>
+				<td><label for="total">Total:</label></td>
+				<td>
+					<span>$MXN</span>
+					<input type="number" th:field="*{total}" id="total" step="0.01" readonly>
+					<span th:if="${#fields.hasErrors('total')}" th:errors="*{total}" style="color: red; "></span>
+				</td>
+			</tr>
 
-						<div class="box-footer">
-							<button class="btn btn-danger">Guardar</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Guardar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</main>
+
 </body>
 </html>

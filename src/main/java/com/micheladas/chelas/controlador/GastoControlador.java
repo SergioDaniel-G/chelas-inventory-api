@@ -7,8 +7,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import com.micheladas.chelas.exportar.GastoExportarExcel;
+import com.micheladas.chelas.exportar.GastoExportarPdf;
+import com.micheladas.chelas.servicio.GastoServicio;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,10 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lowagie.text.DocumentException;
 import com.micheladas.chelas.entidad.Gasto;
-import com.micheladas.chelas.exportar.GastoExportarExcel;
-import com.micheladas.chelas.exportar.GastoExportarPdf;
 import com.micheladas.chelas.pagination.PageRender;
-import com.micheladas.chelas.servicio.GastoServicio;
 
 @Controller
 public class GastoControlador {
@@ -50,7 +50,7 @@ public class GastoControlador {
 		if (keyword != null) {
 			modelo.addAttribute("gastos", servicio.findBykeyword(keyword));
 		} else {
-			modelo.addAttribute("gastos", servicio.listarTodosLosGastos());
+			modelo.addAttribute("gastos", gasto);
 		}
 		return "gastos";
 	}
@@ -67,7 +67,7 @@ public class GastoControlador {
 
 		modelo.put("gasto", gasto);
 		modelo.put("titulo", "Detalles de los gastos " + gasto.getArticulo());
-		return "verDetallesGastos";
+		return "vergastos";
 	}
 
 	@GetMapping("/gastos/nuevo")
@@ -78,11 +78,21 @@ public class GastoControlador {
 		return "nuevo_gastos";
 	}
 
-	// boton guardar guardarCaguamas num 3//
 	@PostMapping("/gastos/guardar")
-	public String guardarGastos(@Valid Gasto gasto, BindingResult result, RedirectAttributes flash) {
+	public String guardarGastos(
+			@Valid @ModelAttribute("gasto") Gasto gasto,
+			BindingResult result,
+			RedirectAttributes flash,
+			Model modelo) {
 		if (result.hasErrors()) {
-			return "gastos";
+			modelo.addAttribute("gastos", gasto);
+			modelo.addAttribute("titulo", "Registro de gastos");
+			return "nuevo_gastos";
+		}
+
+
+		if (gasto.getPrecio() != null && gasto.getCantidad() != null) {
+			gasto.setTotal(gasto.getPrecio() * gasto.getCantidad());
 		}
 
 		servicio.guardarGastos(gasto);
@@ -102,12 +112,37 @@ public class GastoControlador {
 	public String actualizarGastos(@PathVariable Long id, @ModelAttribute("gasto") Gasto gasto, Model modelo,
 			RedirectAttributes flash) {
 		Gasto gastoExistente = servicio.obtenerGastosPorId(id);
-		gastoExistente.setId(id);
-		gastoExistente.setId(gasto.getId());
-		gastoExistente.setTotal(gasto.getTotal());
-		gastoExistente.setCantidad(gasto.getCantidad());
-		gastoExistente.setPrecio(gasto.getPrecio());
+
+		// Comprobar si hubo algún cambio en los campos editables
+		boolean hayCambio = false;
+
+		if (!gastoExistente.getArticulo().equals(gasto.getArticulo())) {
+			hayCambio = true;
+		}
+		if (!gastoExistente.getPrecio().equals(gasto.getPrecio())) {
+			hayCambio = true;
+		}
+		if (!gastoExistente.getCantidad().equals(gasto.getCantidad())) {
+			hayCambio = true;
+		}
+		if (!gastoExistente.getTotal().equals(gasto.getTotal())) {
+			hayCambio = true;
+		}
+
+		if (!hayCambio) {
+			// No hubo cambios
+			flash.addFlashAttribute("info", "No has realizado ningún cambio.");
+			return "redirect:/cigarros/editar/" + id;
+		}
+
+		// Actualizar los campos
 		gastoExistente.setArticulo(gasto.getArticulo());
+		gastoExistente.setPrecio(gasto.getPrecio());
+		gastoExistente.setCantidad(gasto.getCantidad());
+		gastoExistente.setTotal(gasto.getTotal());
+
+		// Recalcular total
+		gastoExistente.setTotal(gasto.getPrecio() * gasto.getCantidad());
 
 		servicio.actualizarGastos(gastoExistente);
 		flash.addFlashAttribute("success", "información de otros gastos actualizada correctamente");

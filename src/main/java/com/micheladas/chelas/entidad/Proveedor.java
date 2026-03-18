@@ -1,15 +1,19 @@
 package com.micheladas.chelas.entidad;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "proveedores")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Proveedor {
 
 	@Id
@@ -19,56 +23,16 @@ public class Proveedor {
 	@NotEmpty(message = "Debe ingresar el nombre")
 	private String nombre;
 
-	@NotBlank(message = "Debe ingresar el telefono")
+	@NotEmpty(message = "Debe ingresar el telefono")
 	private String telefono;
 
-	@NotBlank(message = "Debe ingresar la ubicacion")
+	@NotEmpty(message = "Debe ingresar la ubicacion")
 	private String ubicacion;
 
-	public Proveedor(Long id, @NotEmpty(message = "Debe ingresar el nombre") String nombre,
-			@NotBlank(message = "Debe ingresar el telefono") String telefono,
-			@NotBlank(message = "Debe ingresar la ubicacion") String ubicacion) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.ubicacion = ubicacion;
-	}
+	private LocalDateTime fechaRegistro;
 
-	public Proveedor() {
-		super();
+	@PrePersist
+	public void asignarFechaRegistro() {
+		fechaRegistro = LocalDateTime.now();
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getUbicacion() {
-		return ubicacion;
-	}
-
-	public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-
 }

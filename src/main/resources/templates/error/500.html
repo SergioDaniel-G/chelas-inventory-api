@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error de Sistema | Micheladas Chelas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background-color: #fcfcfc; font-family: 'Inter', sans-serif; }
+        .error-box { max-width: 600px; margin: 100px auto; padding: 40px; border-top: 5px solid #dc3545; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="error-box text-center">
+        <h1 class="text-danger fw-bold">500</h1>
+        <h3 class="mb-3">Servicio Temporalmente No Disponible</h3>
+        <p class="text-muted">
+            Estamos experimentando una interrupción técnica en nuestros servicios de datos.
+            Nuestro equipo ha sido notificado automáticamente para resolver este inconveniente.
+        </p>
+        <hr class="my-4">
+        <div class="d-grid gap-2">
+            <a th:href="@{/}" class="btn btn-outline-danger">Reintentar Conexión</a>
+            <p class="small text-secondary mt-2">Error interno del servidor. Por favor, contacte al administrador.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -58,8 +58,8 @@ public class PrecioExportarPdf {
 			tabla.addCell(String.valueOf(precio.getId()));
 			tabla.addCell(precio.getId_producto());
 			tabla.addCell(precio.getDescripcion());
-			tabla.addCell(precio.getExistencia());
-			tabla.addCell(precio.getPrecio_producto());
+			tabla.addCell(String.valueOf(precio.getExistencia()));
+			tabla.addCell(String.valueOf(precio.getPrecio_producto()));
 		}
 	}
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{layout/view :: layout(~{::section})}">
+<body>
+
+<section>
+	<nav>
+		<a th:href="@{/cigarros}" class="btn-back">Página anterior</a>
+	</nav>
+	<h2>Datos registrados</h2>
+	<table>
+		<tr>
+			<th>ID:</th>
+			<td th:text="${cigarro.id}"></td>
+		</tr>
+		<tr>
+			<th>Marca:</th>
+			<td th:text="${cigarro.marca}"></td>
+		</tr>
+		<tr>
+			<th>Precio:</th>
+			<td th:text="${cigarro.precio}"></td>
+		</tr>
+		<tr>
+			<th>Cantidad:</th>
+			<td th:text="${cigarro.cantidad}"></td>
+		</tr>
+		<tr>
+			<th>Total:</th>
+			<td th:text="${cigarro.total}"></td>
+		</tr>
+		<tr>
+			<th>Fecha de Registro:</th>
+			<td th:text="${cigarro.fechaRegistro}"></td>
+		</tr>
+	</table>
+</section>
+
+</body>
+</html>

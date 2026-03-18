@@ -7,8 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import com.micheladas.chelas.entidad.Caguama;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,6 @@ public class CigarroControlador {
 	@Autowired
 	private CigarroServicio servicio;
 
-	// botn detalles num 4//
 	@GetMapping("/verci/{id}")
 	public String verDetallesDeLosCigarros(@PathVariable(value = "id") Long id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
@@ -49,7 +49,7 @@ public class CigarroControlador {
 
 		modelo.put("cigarro", cigarro);
 		modelo.put("titulo", "Detalles del empleado " + cigarro.getMarca());
-		return "verDetallesCigarros";
+		return "vercigarros";
 	}
 
 	// this is for findAll of caguamas 2//
@@ -80,9 +80,19 @@ public class CigarroControlador {
 
 	// boton guardar guardarCaguamas num 3//
 	@PostMapping("/cigarros/guardar")
-	public String guardarCigarros(@Valid Cigarro cigarro, BindingResult result, RedirectAttributes flash) {
+	public String guardarCigarros(
+			@Valid @ModelAttribute("cigarro") Cigarro cigarro,
+			BindingResult result,
+			RedirectAttributes flash,
+			Model modelo) {
 		if (result.hasErrors()) {
-			return "cigarros";
+			modelo.addAttribute("cigaros", cigarro);
+			modelo.addAttribute("titulo", "Registro de cigarros");
+			return "nuevo_cigarros";
+		}
+
+		if (cigarro.getPrecio() != null && cigarro.getCantidad() != null) {
+			cigarro.setTotal(cigarro.getPrecio() * cigarro.getCantidad());
 		}
 
 		servicio.guardarCigarros(cigarro);
@@ -101,16 +111,43 @@ public class CigarroControlador {
 	public String actualizarCigarros(@PathVariable Long id, @ModelAttribute("cigarro") Cigarro cigarro,
 			RedirectAttributes flash) {
 		Cigarro cigarroExistente = servicio.obtenerCigarrosPorId(id);
-		cigarroExistente.setId(id);
-		cigarroExistente.setId(cigarro.getId());
-		cigarroExistente.setTotal(cigarro.getTotal());
-		cigarroExistente.setCantidad(cigarro.getCantidad());
-		cigarroExistente.setPrecio(cigarro.getPrecio());
-		cigarroExistente.setMarca(cigarro.getMarca());
 
+		// Comprobar si hubo algún cambio en los campos editables
+		boolean hayCambio = false;
+
+		if (!cigarroExistente.getMarca().equals(cigarro.getMarca())) {
+			hayCambio = true;
+		}
+		if (!cigarroExistente.getPrecio().equals(cigarro.getPrecio())) {
+			hayCambio = true;
+		}
+		if (!cigarroExistente.getCantidad().equals(cigarro.getCantidad())) {
+			hayCambio = true;
+		}
+		if (!cigarroExistente.getTotal().equals(cigarro.getTotal())) {
+			hayCambio = true;
+		}
+
+		if (!hayCambio) {
+			// No hubo cambios
+			flash.addFlashAttribute("info", "No has realizado ningún cambio.");
+			return "redirect:/cigarros/editar/" + id;
+		}
+
+		// Actualizar los campos
+		cigarroExistente.setMarca(cigarro.getMarca());
+		cigarroExistente.setPrecio(cigarro.getPrecio());
+		cigarroExistente.setCantidad(cigarro.getCantidad());
+		cigarroExistente.setTotal(cigarro.getTotal());
+
+		// Recalcular total
+		cigarroExistente.setTotal(cigarro.getPrecio() * cigarro.getCantidad());
+
+		// Guardar cambios
 		servicio.actualizarCigarros(cigarroExistente);
-		flash.addFlashAttribute("success", "información actualizada con exito");
-		return "redirect:/cigarros/nuevo";
+
+		flash.addFlashAttribute("success", "Información de caguama actualizada correctamente");
+		return "redirect:/cigarros";
 
 	}
 
@@ -161,93 +198,5 @@ public class CigarroControlador {
 		CigarroExportarExcelci exportar = new CigarroExportarExcelci(cigarro);
 		exportar.exportar(response);
 	}
-
-	/*
-	 * @GetMapping("/index") public String home() { return "index"; }
-	 * 
-	 * 
-	 * // this is for list all pages of caguamas//
-	 * 
-	 * @GetMapping("/cigarros") public String listarTodasLosCigarros(Model modelo) {
-	 * modelo.addAttribute("cigarros", servicio.listarTodasLosCigarros()); return
-	 * "cigarros"; }
-	 * 
-	 * // this is for list the new form call nuevo_caguamas//
-	 * 
-	 * @GetMapping("/cigarros/nuevo") public String mostrarFormularioDeVentas(Model
-	 * modelo) { Cigarros cigarro = new Cigarros(); // aqui es el error cuando
-	 * aparece invalid marca bean modelo.addAttribute("cigarro", cigarro); return
-	 * "nuevo_cigarros"; }
-	 * 
-	 * // we generate the button edit//
-	 * 
-	 * @GetMapping("/cigarros/editar/{id}") public String
-	 * mostrarFormularioDeEditar(@PathVariable Long id, Model modelo) {
-	 * modelo.addAttribute("cigarro", servicio.obtenerCigarrosPorId(id)); return
-	 * "editar_cigarros"; }
-	 * 
-	 * //falta el boton guardar//
-	 * 
-	 * // this is when you stay in the form edit and press the button guardar//
-	 * 
-	 * @PostMapping("/cigarros/{id}") public String actualizarCigarros(@PathVariable
-	 * Long id, @ModelAttribute("cigarro") Cigarros cigarro, Model modelo) {
-	 * Cigarros cigarroExistente = servicio.obtenerCigarrosPorId(id);
-	 * cigarroExistente.setId(id); cigarroExistente.setId(cigarro.getId());
-	 * cigarroExistente.setTotal(cigarro.getTotal());
-	 * cigarroExistente.setCantidad(cigarro.getCantidad());
-	 * cigarroExistente.setPrecio(cigarro.getPrecio());
-	 * cigarroExistente.setMarca(cigarro.getMarca());
-	 * 
-	 * servicio.actualizarCigarros(cigarroExistente); return "redirect:/cigarros";
-	 * 
-	 * }
-	 * 
-	 * // this is for the button delete// now is an example
-	 * 
-	 * @GetMapping("/cigarros/{id}") public String eliminarCigarros(@PathVariable
-	 * (value = "id")Long id,RedirectAttributes flash) { if(id>0) {
-	 * servicio.eliminarCigarros(id); flash.addFlashAttribute("exito",
-	 * "cliente eliminado correctamente"); } return "redirect:/cigarros"; }
-	 * 
-	 * // this is for the button export pdf//
-	 * 
-	 * @GetMapping("/exportar2PDF") public void
-	 * exportarListadoDeCigarrosEnPDF(HttpServletResponse response) throws
-	 * DocumentException, IOException { response.setContentType("application/pdf");
-	 * 
-	 * DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-	 * String fechaActual = dateFormatter.format(new Date());
-	 * 
-	 * String cabecera = "Content-Disposition"; String valor =
-	 * "attachment; filename=Cigarros_" + fechaActual + ".pdf";
-	 * 
-	 * response.setHeader(cabecera, valor);
-	 * 
-	 * List<Cigarros> cigarro = servicio.listarTodasLosCigarros();
-	 * 
-	 * CigarrosExportarPdfci exportar = new CigarrosExportarPdfci(cigarro);
-	 * exportar.exportar(response); }
-	 * 
-	 * // this is for the button export excel//
-	 * 
-	 * @GetMapping("/exportar2Excel") public void
-	 * exportarListadoDeCigarrosEnExcel(HttpServletResponse response) throws
-	 * DocumentException, IOException {
-	 * response.setContentType("application/octet-stream");
-	 * 
-	 * DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-	 * String fechaActual = dateFormatter.format(new Date());
-	 * 
-	 * String cabecera = "Content-Disposition"; String valor =
-	 * "attachment; filename=Cigarros_" + fechaActual + ".xlsx";
-	 * 
-	 * response.setHeader(cabecera, valor);
-	 * 
-	 * List<Cigarros> cigarro = servicio.listarTodasLosCigarros();
-	 * 
-	 * CigarrosExportarExcelci exportar = new CigarrosExportarExcelci(cigarro);
-	 * exportar.exportar(response); }
-	 */
 
 }

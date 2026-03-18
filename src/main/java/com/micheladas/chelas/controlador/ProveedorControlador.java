@@ -7,8 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import com.micheladas.chelas.entidad.Gasto;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,7 @@ public class ProveedorControlador {
 	@Autowired
 	private ProveedorServicio servicio;
 
-	// botn detalles num 4//
+	// verDetalles//
 	@GetMapping("/verpro/{id}")
 	public String verDetallesDeLasProveedores(@PathVariable(value = "id") Long id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
@@ -49,7 +50,7 @@ public class ProveedorControlador {
 
 		modelo.put("proveedor", proveedor);
 		modelo.put("titulo", "Detalles del proveedor" + proveedor.getNombre());
-		return "verDetallesProveedores";
+		return "verproveedores";
 	}
 
 	// this is for findAll of caguamas 2//
@@ -79,11 +80,15 @@ public class ProveedorControlador {
 		return "nuevo_proveedores";
 	}
 
-	// boton guardar guardarCaguamas num 3//
 	@PostMapping("/proveedores/guardar")
-	public String guardarProveedores(@Valid Proveedor proveedor, BindingResult result, RedirectAttributes flash) {
+	public String guardarProveedores(@Valid @ModelAttribute("proveedor") Proveedor proveedor,
+									 BindingResult result,
+									 RedirectAttributes flash,
+									 Model modelo) {
 		if (result.hasErrors()) {
-			return "proveedores";
+			modelo.addAttribute("proveedores", proveedor);
+			modelo.addAttribute("titulo", "Registro de proveedores");
+			return "nuevo_proveedores";
 		}
 
 		servicio.guardarProveedores(proveedor);
@@ -103,8 +108,26 @@ public class ProveedorControlador {
 	public String actualizarProveedores(@PathVariable Long id, @ModelAttribute("proveedor") Proveedor proveedor,
 			RedirectAttributes flash) {
 		Proveedor proveedorExistente = servicio.obtenerProveedoresPorId(id);
-		proveedorExistente.setId(id);
-		proveedorExistente.setId(proveedor.getId());
+		boolean hayCambio = false;
+
+		if (!proveedorExistente.getNombre().equals(proveedor.getNombre())) {
+			hayCambio = true;
+		}
+		if (!proveedorExistente.getTelefono().equals(proveedor.getTelefono())) {
+			hayCambio = true;
+		}
+
+		if (!proveedorExistente.getUbicacion().equals(proveedor.getUbicacion())) {
+			hayCambio = true;
+		}
+
+		if (!hayCambio) {
+			// No hubo cambios
+			flash.addFlashAttribute("info", "No has realizado ningún cambio.");
+			return "redirect:/proveedores/editar/" + id;
+		}
+
+		// Actualizar los campos
 		proveedorExistente.setNombre(proveedor.getNombre());
 		proveedorExistente.setTelefono(proveedor.getTelefono());
 		proveedorExistente.setUbicacion(proveedor.getUbicacion());

@@ -1,46 +1,77 @@
-/*fondo de pantalla*/
-body{
-    background: url(../img/fondo.jpg) no-repeat center center fixed;
-    background-size: cover;
-}
-/*cajas de texto*/
-.form-controld {
-	width: 450px;
-	height: 35px;
-	background: #FF7A59;
-	opacity: .3;
-}
-/*Usuario o contraseña invalidos*/							
-.alert{
-	text-align: center;
-	width: 450px;
-	height: 35px;
-	background: red;
-	opacity: .6;	
-}
-/*correo usuario, contraseña usuario*/
-.form-group{
-	color: white;
-	opacity: 10;
-}
-/*micheladas chelas*/
-.col-md-6{
-	color: white;
-	opacity: 10;
-	font-family: Garamond;
-} 
-/*registrate aqui*/
-span a{
-	color: black;
-	opacity: 10;
-}
-/*ing sergio */
-.form-informacion{
-	text-align: right;
-	opacity: 10;
-}
-/*iniciar sesion */
-.col-md-4{
-	opacity: .6;
+/* Configuraciones Generales */
+:root {
+    --primario: #C6DEDC;
+    --texto: #000;
+    --gris-fondo-tabla: #eeeeee; /* Gris para toda la tabla */
+    --gris-borde: #cccccc;
+    --blanco: #ffffff;
 }
 
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--blanco);
+    margin: 0;
+    padding: 0;
+    /* Esto garantiza el centrado total en la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+/* Estilo de la Tabla (Todo Gris) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--gris-fondo-tabla); /* Fondo gris uniforme */
+    font-size: 0.75rem; /* Letra chica */
+    border: 1px solid var(--gris-borde);
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid var(--gris-borde);
+    color: var(--texto);
+}
+
+th {
+    text-align: left;
+    font-weight: bold;
+    width: 40%;
+}
+
+/* Navbar (El botÃ³n de regresar como barra arriba de la tabla) */
+nav {
+    background-color: none;
+    padding: 8px 15px;
+    border-radius: 4px 4px 0 0; /* Redondeado solo arriba */
+}
+
+.btn-back {
+    color: var(--texto);
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Footer a la orilla derecha */
+footer {
+    margin-top: 10px;
+    text-align: right;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.65rem;
+    color: #000;
+}
+
+footer strong {
+    color: #DB5739;
+}

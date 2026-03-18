@@ -1,75 +1,47 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-<title>editar proveedores</title>
-<!-- CSS only -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<th:block th:replace="~{layout/editar :: head('Editar Proveedores')}"></th:block>
 </head>
 <body>
 
+<header th:replace="~{layout/editar :: header('GESTIÓN DE Proveedores')}"></header>
 
-	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-		<a class="navbar-brand text-white" href="#">proveedores</a>
-		<!-- Navbar links -->
-		<div class="collapse navbar-collapse" id="collapsibleNavbar">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link text-white"
-					th:href="@{/proveedores}">lista proveedores</a></li>
-				<li class="nav-item"><a class="nav-link text-white"
-					th:href="@{/index}">menu principal</a></li>
-			</ul>
-		</div>
-	</nav>
+<div class="cuerpo-pagina">
+	<div class="tarjeta-edicion">
+		<h1 class="titulo-formulario">Edición de Proveedores</h1>
 
-	<br>
-	<div class="container">
-		<div class="row">
-			<div
-				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-				<div class="alert alert-success" th:if="${success !=null}"
-					th:text="${success}"></div>
-				<h1 class="text-center">Edición de proveedores</h1>
-				<div class="card-body">
-					<form th:action="@{/proveedores/{id}(id=${proveedor.id})}"
-						th:object="${proveedor}" method="POST">
-						<div class="form-group">
+		<form th:action="@{/proveedores/{id}(id=${proveedor.id})}" th:object="${proveedor}" method="POST">
+			<div th:replace="~{layout/new :: alertas_flash}"></div>
 
-							<label>Nombre : </label> <input type="text" name="nombre"
-								th:field="*{nombre}" class="form-control"
-								placeholder="Digite el nombre : " required> <small
-								class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
-						</div>
+			<input type="hidden" th:field="*{id}">
 
-						<div class="form-group">
-							<label>Telefono : </label> <input type="text" name="telefono"
-								th:field="*{telefono}" class="form-control"
-								placeholder="Digite el telefono : " required> <small
-								class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
-						</div>
-
-						<div class="form-group">
-							<label>Ubicacion : </label> <input type="text" name="ubicacion"
-								th:field="*{ubicacion}" class="form-control"
-								placeholder="Digite la ubicacion : " required> <small
-								class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('ubicacion')}" th:errors="*{ubicacion}"></small>
-						</div>
-
-						<div class="box-footer">
-							<button class="btn btn-dark">Guardar</button>
-						</div>
-					</form>
-				</div>
+			<div class="campo-grupo">
+				<label>Nombre:</label>
+				<input type="text" th:field="*{nombre}" required>
 			</div>
-		</div>
+
+			<div class="campo-grupo">
+				<label>Telefono:</label>
+				<input type="text" th:field="*{telefono}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Ubicacion:</label>
+				<input type="text" th:field="*{ubicacion}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Fecha de registro:</label>
+				<input type="text" th:field="*{fechaRegistro}" required>
+			</div>
+
+			<button type="submit" class="boton-guardar">Actualizar Registro</button>
+		</form>
 	</div>
+</div>
+
+<footer th:replace="~{layout/editar :: footer}"></footer>
+
 </body>
 </html>

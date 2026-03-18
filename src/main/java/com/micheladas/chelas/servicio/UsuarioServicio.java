@@ -9,8 +9,10 @@ import com.micheladas.chelas.entidad.Usuario;
 
 public interface UsuarioServicio extends UserDetailsService {
 
-	public Usuario guardar(UsuarioRegistroDto registroDTO);
+	Usuario guardar(UsuarioRegistroDto registroDTO);
 
-	public List<Usuario> listarUsuarios();
+	List<Usuario> listarUsuarios();
+
+	Usuario findByEmail(String email);
 
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{layout/view :: layout(~{::section})}">
+<body>
+
+<section>
+	<nav>
+		<a th:href="@{/precios}" class="btn-back">Página anterior</a>
+	</nav>
+	<h2>Datos registrados</h2>
+	<table>
+		<tr>
+			<th>ID:</th>
+			<td th:text="${precio.id}"></td>
+		</tr>
+		<tr>
+			<th>Numero/Producto:</th>
+			<td th:text="${precio.id_producto}"></td>
+		</tr>
+		<tr>
+			<th>Descripcion:</th>
+			<td th:text="${precio.descripcion}"></td>
+		</tr>
+		<tr>
+			<th>Existencia:</th>
+			<td th:text="${precio.existencia}"></td>
+		</tr>
+		<tr>
+			<th>Precio:</th>
+			<td th:text="${precio.precio_producto}"></td>
+		</tr>
+		<tr>
+			<th>Fecha de Registro:</th>
+			<td th:text="${precio.fechaRegistro}"></td>
+		</tr>
+	</table>
+</section>
+
+</body>
+</html>

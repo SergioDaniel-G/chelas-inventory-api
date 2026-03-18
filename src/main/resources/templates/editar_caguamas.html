@@ -1,83 +1,47 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-<title>editar caguamas</title>
-<!-- CSS only -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<th:block th:replace="~{layout/editar :: head('Editar Caguamas')}"></th:block>
 </head>
 <body>
 
+<header th:replace="~{layout/editar :: header('GESTIÓN DE CAGUAMAS')}"></header>
 
-	<nav class="navbar navbar-expand-md bg-dark navbar-white">
-		<a class="navbar-brand text-white" href="#">caguamas</a>
-		<!-- Navbar links -->
-		<div class="collapse navbar-collapse" id="collapsibleNavbar">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link text-white"
-					th:href="@{/caguamas}">lista caguamas</a></li>
-				<li class="nav-item"><a class="nav-link text-white"
-					th:href="@{/index}">menu principal</a></li>
-			</ul>
-		</div>
-	</nav>
+<div class="cuerpo-pagina">
+	<div class="tarjeta-edicion">
+		<h1 class="titulo-formulario">Actualizar registro</h1>
 
-	<br>
-	<div class="container">
-		<div class="row">
-			<div
-				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-				<div class="alert alert-success" th:if="${success !=null}"
-					th:text="${success}"></div>
-				<h1 class="text-center">Edición de caguamas</h1>
-				<div class="card-body">
-					<form th:action="@{/caguamas/{id}(id=${caguama.id})}"
-						th:object="${caguama}" method="POST">
+		<form th:action="@{/caguamas/{id}(id=${caguama.id})}" th:object="${caguama}" method="POST">
+			<div th:replace="~{layout/new :: alertas_flash}"></div>
 
-						<div class="form-group">
-							<label>Marca : </label> <input type="text" name="marca"
-								th:field="*{marca}" class="form-control"
-								placeholder="ingresa la cantidad total : " required> <small
-								class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></small>
-						</div>
+			<input type="hidden" th:field="*{id}">
 
-						<div class="form-group">
-							<label>Precio : </label> <input type="text" name="precio"
-								th:field="*{precio}" class="form-control"
-								placeholder="ingresa el precio de las caguamas : " required>
-							<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
-						</div>
-
-						<div class="form-group">
-							<label>Cantidad : </label> <input type="text" name="cantidad"
-								th:field="*{cantidad}" class="form-control"
-								placeholder="ingresa la marca de las caguamas : " required>
-							<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>
-						</div>
-
-						<div class="form-group">
-							<label>Total : </label> <input type="text" name="total"
-								th:field="*{total}" class="form-control"
-								placeholder="ingresa el total de las caguamas : " required>
-							<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></small>
-						</div>
-
-						<div class="box-footer">
-							<button class="btn btn-dark">Guardar</button>
-						</div>
-					</form>
-				</div>
+			<div class="campo-grupo">
+				<label>Marca:</label>
+				<input type="text" th:field="*{marca}" required>
 			</div>
-		</div>
+
+			<div class="campo-grupo">
+				<label>Precio:</label>
+				<input type="text" th:field="*{precio}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Cantidad:</label>
+				<input type="text" th:field="*{cantidad}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Total:</label>
+				<input type="text" th:field="*{total}" readonly>
+			</div>
+
+			<button type="submit" class="boton-guardar">Guardar</button>
+		</form>
 	</div>
+</div>
+
+<footer th:replace="~{layout/editar :: footer}"></footer>
+
 </body>
 </html>

@@ -1,0 +1,135 @@
+/* ERP COMPACTO - VERSIÓN ULTRA SLIM */
+:root {
+    --bg-gradient: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    --card-bg: #ffffff;
+    --primary: #3b82f6;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;           /*pendiente*/
+    --border: #e2e8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body.login-page {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; /* Reducido */
+}
+
+.login-card {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 350px;
+    padding: 18px 25px; /* Reducido el padding vertical */
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.login-header { text-align: center; margin-bottom: 15px; } /* Menos margen */
+
+.logo-circle {
+    background: var(--primary);
+    color: white;
+    width: 35px; height: 35px; /* Más pequeño */
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-weight: bold; margin: 0 auto 8px;
+    font-size: 1rem;
+}
+
+.login-header h1 { font-size: 1.1rem; color: var(--text-dark); }
+.login-header p { font-size: 0.75rem; color: var(--text-muted); }
+
+/* Grid para optimizar espacio vertical */
+.form-row {
+    display: flex;
+    gap: 8px;
+}
+
+.form-group {
+    margin-bottom: 10px; /* Espacio entre campos reducido */
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.7rem; /* Fuente más pequeña */
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 3px;
+    text-transform: uppercase; /* Estilo más corporativo */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px 10px; /* Inputs más delgados */
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    font-size: 0.85rem;
+    height: 34px; /* Altura reducida */
+}
+
+/* OJO DE CONTRASEÑA - AJUSTADO A LA NUEVA ALTURA */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    padding-right: 30px;
+}
+
+.eye-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent !important;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    z-index: 10;
+    padding: 0;
+    display: flex;
+}
+
+.eye-btn svg { width: 16px; height: 16px; }
+
+/* Botón y Footer Compactos */
+.btn-login {
+    width: 100%;
+    padding: 8px; /* Menos alto */
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.form-footer {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+.link-muted {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.footer-signature {
+    margin-top: 20px;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.65rem;
+    text-align: center;
+}

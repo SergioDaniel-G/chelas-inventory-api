@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(contenido)">
+<head>
+	<meta charset="UTF-8">
+	<title>Sistema Micheladas</title>
+	<link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<div class="container">
+	<main th:replace="${contenido}"></main>
+
+	<footer>
+		<hr>
+		<p>Desarrollado por <strong>micheladasChelas</strong> &copy; 2026</p>
+		<p>Derecho reservado por su uso</p>
+	</footer>
+</div>
+
+</body>
+</html>

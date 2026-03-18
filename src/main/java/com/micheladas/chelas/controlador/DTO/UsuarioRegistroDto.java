@@ -1,73 +1,42 @@
 package com.micheladas.chelas.controlador.DTO;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioRegistroDto {
 
-	private Long id;
+	@NotBlank(message = "El nombre es obligatorio")
 	private String nombre;
+
+	@NotBlank(message = "El apellido es obligatorio")
 	private String apellido;
+
+	@NotBlank(message = "Correo electrónico requerido")
+	@Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Ingrese una dirección de correo válido")
 	private String email;
+
+	@NotBlank(message = "La contraseña es obligatoria")
 	private String password;
+
+	@NotBlank(message = "Número telefónico obligatorio")
+	@Pattern(regexp = "^\\d{10}$", message = "El teléfono debe contener 10 números")
 	private String mobileNumber;
 
-	public UsuarioRegistroDto(String nombre, String apellido, String email, String password, String mobileNumber) {
-		super();
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.password = password;
-		this.mobileNumber = mobileNumber;
-	}
-
-	public UsuarioRegistroDto() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
-
 	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
 
+		if (mobileNumber != null) {
+			// Esto quita todos los espacios en blanco automáticamente
+			this.mobileNumber = mobileNumber.replaceAll("\\s+", "");
+		} else {
+			this.mobileNumber = mobileNumber;
+		}
+	}
 }

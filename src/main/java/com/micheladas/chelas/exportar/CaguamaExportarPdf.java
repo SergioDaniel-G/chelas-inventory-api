@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -57,9 +57,9 @@ public class CaguamaExportarPdf {
 		for (Caguama caguama : listarTodasLaVentas) {
 			tabla.addCell(String.valueOf(caguama.getId()));
 			tabla.addCell(caguama.getMarca());
-			tabla.addCell(caguama.getPrecio());
-			tabla.addCell(caguama.getCantidad());
-			tabla.addCell(caguama.getTotal());
+			tabla.addCell(String.valueOf(caguama.getPrecio()));
+			tabla.addCell(String.valueOf(caguama.getCantidad()));
+			tabla.addCell(String.valueOf(caguama.getTotal()));
 		}
 	}
 

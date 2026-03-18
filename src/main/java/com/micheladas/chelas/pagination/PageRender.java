@@ -3,8 +3,12 @@ package com.micheladas.chelas.pagination;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 
+@Getter
+@Setter
 public class PageRender<T> {
 
 	private String url;
@@ -43,38 +47,6 @@ public class PageRender<T> {
 		for (int i = 0; i < hasta; i++) {
 			paginas.add(new PageItem(desde + i, paginaActual == desde + i));
 		}
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public int getTotalPaginas() {
-		return totalPaginas;
-	}
-
-	public void setTotalPaginas(int totalPaginas) {
-		this.totalPaginas = totalPaginas;
-	}
-
-	public int getPaginaActual() {
-		return paginaActual;
-	}
-
-	public void setPaginaActual(int paginaActual) {
-		this.paginaActual = paginaActual;
-	}
-
-	public List<PageItem> getPaginas() {
-		return paginas;
-	}
-
-	public void setPaginas(List<PageItem> paginas) {
-		this.paginas = paginas;
 	}
 
 	public boolean isFirst() {

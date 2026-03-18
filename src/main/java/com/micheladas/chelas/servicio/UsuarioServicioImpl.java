@@ -5,7 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.micheladas.chelas.entidad.Rol;
+import com.micheladas.chelas.repositorio.UsuarioRepositorio;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -15,18 +16,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.micheladas.chelas.controlador.DTO.UsuarioRegistroDto;
-import com.micheladas.chelas.entidad.Rol;
 import com.micheladas.chelas.entidad.Usuario;
-import com.micheladas.chelas.repositorio.UsuarioRepositorio;
+
 
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
 
-	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
+	private final UsuarioRepositorio usuarioRepositorio;
+	private final BCryptPasswordEncoder passwordEncoder;
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	// Constructor Injection para evitar @Autowired y facilitar testing
+	public UsuarioServicioImpl(UsuarioRepositorio usuarioRepositorio, BCryptPasswordEncoder passwordEncoder) {
+		this.usuarioRepositorio = usuarioRepositorio;
+		this.passwordEncoder = passwordEncoder;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -43,15 +46,27 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Override
 	public Usuario guardar(UsuarioRegistroDto registroDTO) {
-		Usuario usuario = new Usuario(registroDTO.getNombre(), registroDTO.getApellido(), registroDTO.getEmail(),
-				passwordEncoder.encode(registroDTO.getPassword()), registroDTO.getMobileNumber(),
-				Arrays.asList(new Rol("ROLE_USER")));
+		// Usamos el "Constructor Inteligente" (Builder)
+		Usuario usuario = Usuario.builder()
+				.nombre(registroDTO.getNombre())
+				.apellido(registroDTO.getApellido())
+				.email(registroDTO.getEmail())
+				.password(passwordEncoder.encode(registroDTO.getPassword()))
+				.mobileNumber(registroDTO.getMobileNumber())
+				.roles(Arrays.asList(new Rol("ROLE_USER")))
+				.build(); // Esto junta todo y crea el usuario correctamente
+
 		return usuarioRepositorio.save(usuario);
 	}
 
 	@Override
 	public List<Usuario> listarUsuarios() {
 		return usuarioRepositorio.findAll();
+	}
+
+	@Override
+	public Usuario findByEmail(String email) {
+		return usuarioRepositorio.findByEmail(email);
 	}
 
 }

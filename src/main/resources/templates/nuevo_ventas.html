@@ -1,100 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>venta general</title>
-<!-- CSS only -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-</head>
+<head th:replace="~{layout/new :: head_comun('Venta General')}"></head>
 <body>
 
+<header th:replace="~{layout/new :: navbar('VENTAS', '/ventas', 'Lista de ventas')}"></header>
 
-	<nav class="navbar navbar-expand-md bg-secondary navbar-dark">
-		<a class="navbar-brand text-white" href="#">VENTAS</a>
-		<!-- Navbar links -->
-		<div class="collapse navbar-collapse" id="collapsibleNavbar">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link text-white"
-					th:href="@{/ventas}">Lista de ventas </a></li>
-				<li class="nav-item"><a class="nav-link text-white"
-					th:href="@{/index}">Menu micheladas</a></li>
-			</ul>
-		</div>
-	</nav>
+<main>
+	<div th:replace="~{layout/new :: alerta_success}"></div>
 
-	<br>
-	<div class="container">
-		<div class="row">
-			<div
-				class="col-lg-5 col-md-6 col-sm-6 container justify-content-center card border-dark mb-3">
-				<div class="alert alert-success" th:if="${success !=null}"
-					th:text="${success}"></div>
-				<h1 class="text-center">Ventas</h1>
-				<div class="card-body">
-					<form th:action="@{/ventas/guardar}" th:object="${venta}"
-						method="POST">
-						<div class="form-group">
-							<label>Vasos : </label> <input type="text" name="vasos"
-								th:field="*{vasos}" class="form-control"
-								placeholder="ingresa los vasos vendidos: " required> <small
-								class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('vasos')}" th:errors="*{vasos}"></small>
-						</div>
+	<h1>Registro de Ventas</h1>
 
-						<div class="form-group">
-							<label>Cigarros: </label> <input type="text" name="cigarros"
-								th:field="*{cigarros}" class="form-control"
-								placeholder="ingresa los cigarros vendidos: " required>
-							<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('cigarros')}" th:errors="*{cigarros}"></small>
-						</div>
+	<form th:action="@{/ventas/guardar}" th:object="${venta}" method="POST">
+		<table>
+			<tr>
+				<td><label for="vasos">Vasos:</label></td>
+				<td>
+					<input type="number" th:field="*{vasos}" id="vasos">
+					<span th:if="${#fields.hasErrors('vasos')}" th:errors="*{vasos}" style="color: red;"></span>
+				</td>
+			</tr>
 
-						<div class="form-group">
-							<label>Caguamas : </label> <input type="text" name="caguamas "
-								th:field="*{caguamas}" class="form-control"
-								placeholder="ingresa las caguamas vendidas: " required>
-							<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('caguamas')}" th:errors="*{caguamas}"></small>
-						</div>
+			<tr>
+				<td><label for="cigarros">Cigarros:</label></td>
+				<td>
+					<input type="number" th:field="*{cigarros}" id="cigarros">
+					<span th:if="${#fields.hasErrors('cigarros')}" th:errors="*{cigarros}" style="color: red;"></span>
+				</td>
+			</tr>
 
-						<div class="form-group">
-							<label>Stock caguamas : </label> <input type="text"
-								name="stock_caguamas " th:field="*{stock_caguamas}"
-								class="form-control"
-								placeholder="ingresa las caguamas en stock: " required>
-							<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('stock_caguamas')}"
-								th:errors="*{stock_caguamas}"></small>
-						</div>
+			<tr>
+				<td><label for="caguamas">Caguamas:</label></td>
+				<td>
+					<input type="number" th:field="*{caguamas}" id="caguamas">
+					<span th:if="${#fields.hasErrors('caguamas')}" th:errors="*{caguamas}" style="color: red;"></span>
+				</td>
+			</tr>
 
-						<div class="form-group">
-							<label>Stock cigarros : </label> <input type="text"
-								name="stock_cigarros " th:field="*{stock_cigarros}"
-								class="form-control"
-								placeholder="ingresa los cigarros en stock: " required>
-							<small class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('stock_cigarros')}"
-								th:errors="*{stock_cigarros}"></small>
-						</div>
+			<tr>
+				<td><label for="stock_caguamas">Stock caguamas:</label></td>
+				<td>
+					<input type="number" th:field="*{stock_caguamas}" id="stock_caguamas">
+					<span th:if="${#fields.hasErrors('stock_caguamas')}" th:errors="*{stock_caguamas}" style="color: red;"></span>
+				</td>
+			</tr>
 
-						<div class="form-group">
-							<label>Total : </label> <input type="text" name="total"
-								th:field="*{total}" class="form-control"
-								placeholder="ingresa el total vendido: " required> <small
-								class="form-text text-danger offset-3"
-								th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></small>
-						</div>
+			<tr>
+				<td><label for="stock_cigarros">Stock cigarros:</label></td>
+				<td>
+					<input type="number" th:field="*{stock_cigarros}" id="stock_cigarros">
+					<span th:if="${#fields.hasErrors('stock_cigarros')}" th:errors="*{stock_cigarros}" style="color: red;"></span>
+				</td>
+			</tr>
 
-						<div class="box-footer">
-							<button class="btn btn-danger">Guardar</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+			<tr>
+				<td><label for="total">Total:</label></td>
+				<td>
+					<span>$</span>
+					<input type="number" th:field="*{total}" id="total" step="0.01">
+					<span th:if="${#fields.hasErrors('total')}" th:errors="*{total}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Guardar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</main>
+
 </body>
 </html>

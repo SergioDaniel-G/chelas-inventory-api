@@ -2,16 +2,24 @@ package com.micheladas.chelas.entidad;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "cigarros")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cigarro {
 
 	// primary key//
@@ -19,86 +27,24 @@ public class Cigarro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "Debe ingresar la marca")
+	@NotEmpty(message = "Debe ingresar la marca")
 	private String marca;
 
-	@NotBlank(message = "Debe ingresar el precio")
-	private String precio;
+	@NotNull(message = "Debe ingresar el precio")
+	@Positive(message = "El precio debe ser mayor a 0")
+	private Double precio;
 
-	@NotBlank(message = "Debe ingresar la cantidad")
-	private String cantidad;
+	@NotNull(message = "Debe ingresar la cantidad")
+	@Positive(message = "La cantidad debe ser mayor a 0")
+	private Integer cantidad;
 
-	@NotBlank(message = "Debe ingresar el total")
-	private String total;
+	private Double total;
 
 	private LocalDateTime fechaRegistro;
 
-	public Cigarro(@NotBlank(message = "Debe ingresar la marca") String marca,
-			@NotBlank(message = "Debe ingresar el precio") String precio,
-			@NotBlank(message = "Debe ingresar la cantidad") String cantidad,
-			@NotBlank(message = "Debe ingresar el total") String total, LocalDateTime fechaRegistro) {
-		super();
-		this.marca = marca;
-		this.precio = precio;
-		this.cantidad = cantidad;
-		this.total = total;
-		this.fechaRegistro = fechaRegistro;
-	}
-
-	public Cigarro() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-	public String getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(String precio) {
-		this.precio = precio;
-	}
-
-	public String getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(String cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public String getTotal() {
-		return total;
-	}
-
-	public void setTotal(String total) {
-		this.total = total;
-	}
-
-	public LocalDateTime getFechaRegistro() {
-		return fechaRegistro;
-	}
-
-	public void setFechaRegistro(LocalDateTime fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
-
 	@PrePersist
 	public void asignarFechaRegistro() {
+
 		fechaRegistro = LocalDateTime.now();
 	}
 

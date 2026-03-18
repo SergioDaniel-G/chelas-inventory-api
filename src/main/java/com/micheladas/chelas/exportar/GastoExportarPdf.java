@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -57,9 +57,9 @@ public class GastoExportarPdf {
 		for (Gasto gasto : listarTodosLosGastos) {
 			tabla.addCell(String.valueOf(gasto.getId()));
 			tabla.addCell(gasto.getArticulo());
-			tabla.addCell(gasto.getPrecio());
-			tabla.addCell(gasto.getCantidad());
-			tabla.addCell(gasto.getTotal());
+			tabla.addCell(String.valueOf(gasto.getPrecio()));
+			tabla.addCell(String.valueOf(gasto.getCantidad()));
+			tabla.addCell(String.valueOf(gasto.getTotal()));
 		}
 	}
 

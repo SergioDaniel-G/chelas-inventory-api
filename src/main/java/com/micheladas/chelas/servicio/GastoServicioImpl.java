@@ -33,7 +33,7 @@ public class GastoServicioImpl implements GastoServicio {
 
 	@Override
 	public Gasto obtenerGastosPorId(Long id) {
-		return repositorio.findById(id).get();
+		return repositorio.findById(id).orElse(null);
 	}
 
 	@Override

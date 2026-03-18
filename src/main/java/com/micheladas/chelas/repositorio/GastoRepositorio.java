@@ -12,9 +12,11 @@ import com.micheladas.chelas.entidad.Gasto;
 @Repository
 public interface GastoRepositorio extends JpaRepository<Gasto, Long> {
 
-	@Query(value = "select * from gastos g where g.id like %:keyword%" + " or g.articulo like %:keyword%"
-			+ " or g.cantidad like %:keyword%" + " or g.total like %:keyword%"
-			+ " or g.precio like %:keyword%", nativeQuery = true)
+	@Query("SELECT g FROM Gasto g WHERE " +
+			"CAST(g.id AS string) LIKE %:keyword% OR " +
+			"g.articulo LIKE %:keyword% OR " +
+			"CAST(g.precio AS string) LIKE %:keyword% OR " +
+			"CAST(g.total AS string) LIKE %:keyword%")
 	List<Gasto> findBykeyword(@Param("keyword") String keyword);
 
 }

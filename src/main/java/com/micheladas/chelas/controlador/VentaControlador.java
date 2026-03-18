@@ -7,8 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import com.micheladas.chelas.entidad.Gasto;
+import com.micheladas.chelas.exportar.VentaExportarExcel;
+import com.micheladas.chelas.exportar.VentaExportarPdf;
+import com.micheladas.chelas.servicio.VentaServicio;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,19 +30,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lowagie.text.DocumentException;
 import com.micheladas.chelas.entidad.Venta;
-import com.micheladas.chelas.exportar.VentaExportarExcel;
-import com.micheladas.chelas.exportar.VentaExportarPdf;
 import com.micheladas.chelas.pagination.PageRender;
-import com.micheladas.chelas.servicio.VentaServicio;
+
 
 @Controller
 public class VentaControlador {
 
-	// we inject the CaguamasServicio interface//
 	@Autowired
 	private VentaServicio servicio;
 
-	// botn detalles num 4//
+	// vista de verDetalles//
 	@GetMapping("/verve/{id}")
 	public String verDetallesDeLasVentas(@PathVariable(value = "id") Long id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
@@ -50,7 +51,7 @@ public class VentaControlador {
 
 		modelo.put("venta", venta);
 		modelo.put("titulo", "Detalles de las ventas " + venta.getId());
-		return "verDetallesVentas";
+		return "verventas";
 	}
 
 	// this is for findAll of caguamas 2//
@@ -66,7 +67,7 @@ public class VentaControlador {
 		if (keyword != null) {
 			modelo.addAttribute("ventas", servicio.findBykeyword(keyword));
 		} else {
-			modelo.addAttribute("venta", servicio.listarTodasLasVentas());
+			modelo.addAttribute("ventas", servicio.listarTodasLasVentas());
 		}
 
 		return "ventas";
@@ -83,9 +84,14 @@ public class VentaControlador {
 
 	// boton guardar guardarCaguamas num 3//
 	@PostMapping("/ventas/guardar")
-	public String guardarVentas(@Valid Venta venta, BindingResult result, RedirectAttributes flash) {
+	public String guardarVentas(@Valid @ModelAttribute("venta") Venta venta,
+								BindingResult result,
+								RedirectAttributes flash,
+								Model modelo) {
 		if (result.hasErrors()) {
-			return "ventas";
+			modelo.addAttribute("ventas", venta);
+			modelo.addAttribute("titulo", "Registro de ventas");
+			return "nuevo_ventas";
 		}
 
 		servicio.guardarVentas(venta);
@@ -105,11 +111,40 @@ public class VentaControlador {
 	public String actualizarVentas(@PathVariable Long id, @ModelAttribute("venta") Venta venta, Model modelo,
 			RedirectAttributes flash) {
 		Venta ventaExistente = servicio.obtenerVentasPorId(id);
-		ventaExistente.setId(id);
-		ventaExistente.setId(venta.getId());
-		ventaExistente.setCaguamas(venta.getCaguamas());
-		ventaExistente.setCigarros(venta.getCigarros());
+
+		// Comprobar si hubo algún cambio en los campos editables
+		boolean hayCambio = false;
+
+		if (!ventaExistente.getVasos().equals(venta.getVasos())) {
+			hayCambio = true;
+		}
+		if (!ventaExistente.getCigarros().equals(venta.getCigarros())) {
+			hayCambio = true;
+		}
+		if (!ventaExistente.getCaguamas().equals(venta.getCaguamas())) {
+			hayCambio = true;
+		}
+		if (!ventaExistente.getTotal().equals(venta.getTotal())) {
+			hayCambio = true;
+		}
+
+		if (!ventaExistente.getStock_caguamas().equals(venta.getStock_caguamas())) {
+			hayCambio = true;
+		}
+		if (!ventaExistente.getStock_cigarros().equals(venta.getStock_cigarros())) {
+			hayCambio = true;
+		}
+
+		if (!hayCambio) {
+			// No hubo cambios
+			flash.addFlashAttribute("info", "No has realizado ningún cambio.");
+			return "redirect:/ventas/editar/" + id;
+		}
+
+		// Actualizar los campos
 		ventaExistente.setVasos(venta.getVasos());
+		ventaExistente.setCigarros(venta.getCigarros());
+		ventaExistente.setCaguamas(venta.getCaguamas());
 		ventaExistente.setTotal(venta.getTotal());
 		ventaExistente.setStock_caguamas(venta.getStock_caguamas());
 		ventaExistente.setStock_cigarros(venta.getStock_cigarros());

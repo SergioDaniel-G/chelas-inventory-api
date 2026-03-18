@@ -7,8 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import com.micheladas.chelas.entidad.Precio;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lowagie.text.DocumentException;
-import com.micheladas.chelas.entidad.Precio;
 import com.micheladas.chelas.exportar.PrecioExportarExcel;
 import com.micheladas.chelas.exportar.PrecioExportarPdf;
 import com.micheladas.chelas.pagination.PageRender;
@@ -50,7 +50,7 @@ public class PrecioControlador {
 
 		modelo.put("precio", precio);
 		modelo.put("titulo", "Detalles de los precios " + precio.getId());
-		return "verDetallesPrecios";
+		return "verprecios";
 	}
 
 	// this is for findAll of caguamas 2//2
@@ -82,9 +82,14 @@ public class PrecioControlador {
 
 	// boton guardar guardarCaguamas num 3//4
 	@PostMapping("/precios/guardar")
-	public String guardarPrecios(@Valid Precio precio, BindingResult result, RedirectAttributes flash) {
+	public String guardarPrecios(@Valid @ModelAttribute("precio") Precio precio,
+								 BindingResult result,
+								 RedirectAttributes flash,
+								 Model modelo) {
 		if (result.hasErrors()) {
-			return "precios";
+			modelo.addAttribute("precios", precio);
+			modelo.addAttribute("titulo", "Registro de precios");
+			return "nuevo_precios";
 		}
 
 		servicio.guardarPrecios(precio);
@@ -104,12 +109,35 @@ public class PrecioControlador {
 	public String actualizarPrecios(@PathVariable Long id, @ModelAttribute("precio") Precio precio, Model modelo,
 			RedirectAttributes flash) {
 		Precio precioExistente = servicio.obtenerPreciosPorId(id);
-		precioExistente.setId(id);
-		precioExistente.setId(precio.getId());
+
+		// Comprobar si hubo algún cambio en los campos editables
+		boolean hayCambio = false;
+
+		if (!precioExistente.getId_producto().equals(precio.getId_producto())) {
+			hayCambio = true;
+		}
+		if (!precioExistente.getDescripcion().equals(precio.getDescripcion())) {
+			hayCambio = true;
+		}
+
+		if (!precioExistente.getExistencia().equals(precio.getExistencia())) {
+			hayCambio = true;
+		}
+		if (!precioExistente.getPrecio_producto().equals(precio.getPrecio_producto())) {
+			hayCambio = true;
+		}
+
+		if (!hayCambio) {
+			// No hubo cambios
+			flash.addFlashAttribute("info", "No has realizado ningún cambio.");
+			return "redirect:/precios/editar/" + id;
+		}
+
+		// Actualizar los campos
 		precioExistente.setId_producto(precio.getId_producto());
 		precioExistente.setDescripcion(precio.getDescripcion());
 		precioExistente.setExistencia(precio.getExistencia());
-		precioExistente.setPrecio_producto(precio.getPrecio_producto());
+		precio.setPrecio_producto(precio.getPrecio_producto());
 
 		servicio.actualizarPrecios(precioExistente);
 		flash.addFlashAttribute("success", "información de precios actualizada correctamente");

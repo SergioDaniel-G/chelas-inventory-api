@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -59,9 +59,9 @@ public class CigarroExportarPdfci {
 		for (Cigarro cigarro : listarTodasLosCigarros) {
 			tabla.addCell(String.valueOf(cigarro.getId()));
 			tabla.addCell(cigarro.getMarca());
-			tabla.addCell(cigarro.getPrecio());
-			tabla.addCell(cigarro.getCantidad());
-			tabla.addCell(cigarro.getTotal());
+			tabla.addCell(String.valueOf(cigarro.getPrecio()));
+			tabla.addCell(String.valueOf(cigarro.getCantidad()));
+			tabla.addCell(String.valueOf(cigarro.getTotal()));
 		}
 	}
 

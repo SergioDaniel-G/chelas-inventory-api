@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{layout/view :: layout(~{::section})}">
+<body>
+
+<section>
+	<nav>
+		<a th:href="@{/clientes}" class="btn-back">Página anterior</a>
+	</nav>
+	<h2>Datos registrados</h2>
+	<table>
+		<tr>
+			<th>ID:</th>
+			<td th:text="${cliente.id}"></td>
+		</tr>
+		<tr>
+			<th>Numero/Cliente:</th>
+			<td th:text="${cliente.num_cliente}"></td>
+		</tr>
+		<tr>
+			<th>Nombre:</th>
+			<td th:text="${cliente.nombre_completo}"></td>
+		</tr>
+		<tr>
+			<th>Dirección:</th>
+			<td th:text="${cliente.direccion}"></td>
+		</tr>
+		<tr>
+			<th>CP:</th>
+			<td th:text="${cliente.cp}"></td>
+		</tr>
+		<tr>
+			<th>Fecha de Registro:</th>
+			<td th:text="${cliente.fechaRegistro}"></td>
+		</tr>
+	</table>
+</section>
+
+</body>
+</html>

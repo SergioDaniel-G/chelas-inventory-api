@@ -2,16 +2,22 @@ package com.micheladas.chelas.entidad;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "ventas")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Venta {
 
 	@Id
@@ -37,90 +43,6 @@ public class Venta {
 	private String stock_cigarros;
 
 	private LocalDateTime fechaRegistro;
-
-	public Venta(@NotBlank(message = "Debe ingresar los vasos") String vasos,
-			@NotBlank(message = "Debe ingresar el stock de caguamas") String stock_caguamas,
-			@NotBlank(message = "Debe ingresar el stock de cigarros") String stock_cigarros,
-			@NotBlank(message = "Debe ingresar los cigarros") String cigarros,
-			@NotBlank(message = "Debe ingresar las caguamas") String caguamas,
-			@NotBlank(message = "Debe ingresar el total") String total, LocalDateTime fechaRegistro) {
-		super();
-		this.vasos = vasos;
-		this.cigarros = cigarros;
-		this.caguamas = caguamas;
-		this.stock_caguamas = stock_caguamas;
-		this.caguamas = caguamas;
-		this.stock_cigarros = stock_cigarros;
-		this.fechaRegistro = fechaRegistro;
-	}
-
-	public Venta() {
-		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getVasos() {
-		return vasos;
-	}
-
-	public void setVasos(String vasos) {
-		this.vasos = vasos;
-	}
-
-	public String getCigarros() {
-		return cigarros;
-	}
-
-	public void setCigarros(String cigarros) {
-		this.cigarros = cigarros;
-	}
-
-	public String getCaguamas() {
-		return caguamas;
-	}
-
-	public void setCaguamas(String caguamas) {
-		this.caguamas = caguamas;
-	}
-
-	public String getTotal() {
-		return total;
-	}
-
-	public void setTotal(String total) {
-		this.total = total;
-	}
-
-	public String getStock_caguamas() {
-		return stock_caguamas;
-	}
-
-	public void setStock_caguamas(String stock_caguamas) {
-		this.stock_caguamas = stock_caguamas;
-	}
-
-	public String getStock_cigarros() {
-		return stock_cigarros;
-	}
-
-	public void setStock_cigarros(String stock_cigarros) {
-		this.stock_cigarros = stock_cigarros;
-	}
-
-	public LocalDateTime getFechaRegistro() {
-		return fechaRegistro;
-	}
-
-	public void setFechaRegistro(LocalDateTime fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
 
 	@PrePersist
 	public void asignarFechaRegistro() {

@@ -1,162 +1,197 @@
+:root {
+    --bg-body: #f8fafc;
+    --sidebar-bg: #1e293b; /* Azul pizarra oscuro */
+    --sidebar-hover: #334155;
+    --accent: #3b82f6; /* Azul corporativo */
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --white: #ffffff;
+    --border: #e2e8f0;
+}
+
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/*cabecera*/
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 15px 30px;
-	background: white;
-	color: blue;
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    display: flex;
 }
 
-/*letras micheladas*/
-.u-name {
-	font-size: 20px;
-	padding-left: 17px;
-	color: maroon;
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: var(--sidebar-bg);
+    color: var(--white);
+    position: fixed;
+    transition: all 0.3s ease;
+    z-index: 1000;
 }
 
-/*letras chelas*/
-.u-name b {
-	color: maroon;
+.sidebar-brand {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-/*boton menu*/
-.header i {
-	font-size: 30px;
-	cursor: pointer;
-	color: maroon;
+.logo-circle {
+    background: var(--accent);
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
 }
 
-/*signo usuario*/
-.header i:hover {
-	color: maroon;
+.sidebar-menu {
+    padding: 20px 0;
 }
 
-.user-p {
-	text-align: center;
-	padding-left: 10px;
-	padding-top: 25px;
+.menu-label {
+    padding: 15px 25px 5px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
 }
 
-.user-p img {
-	width: 100px;
-	border-radius: 50%;
+.sidebar-menu ul {
+    list-style: none;
 }
 
-/* menu */
-.user-p h4 {
-	color: maroon;
-	padding: 5px 0;
+.sidebar-menu ul li a {
+    display: block;
+    padding: 12px 25px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.2s;
 }
 
-/* menu lateral */
-.side-bar {
-	width: 250px;
-	background: radial-gradient(circle at 53.85% 54.59%, #ffae31 0, #ff9d36 16.67%,
-		#ff8b3a 33.33%, #f2793c 50%, #e2683e 66.67%, #d4583f 83.33%, #c64b41
-		100%);
-	min-height: 100vh;
-	transition: 500ms width;
+.sidebar-menu ul li a:hover {
+    background: var(--sidebar-hover);
+    color: var(--white);
 }
 
-.body {
-	display: flex;
+.menu-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 20px 25px;
 }
 
-.section-1 {
-	width: 100%;
-	background: url("../img/bg.png");
-	background-size: cover;
-	background-position: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+.navbar-link {
+    color: #fff !important;
+    padding: 12px 25px;
+
+    /* Añade estas líneas para el estilo de enlace */
+    background: none;      /* Quita el fondo gris de botón */
+    border: none;          /* Quita el borde */
+    cursor: pointer;       /* Pone la manito del ratón */
+    font-family: inherit;  /* Usa la misma letra del menú */
+    font-size: 0.7rem;    /* Para que iguale a los otros links <a> */
+    text-decoration: underline; /* El subrayado blanco que pediste */
+    display: block;        /* Para que ocupe su bloque en la lista */
+    width: 100%;           /* Ocupa el ancho del sidebar */
+    text-align: left;      /* Alinea el texto a la izquierda */
 }
 
-/*bienvenido a */
-.section-1 h1 {
-	color: orange;
-	font-size: 60px;
+/* Opcional: Para que brille un poco más al pasar el mouse */
+.navbar-link:hover {
+    color: #e2e8f0 !important;
 }
 
-/*menu micheladas*/
-.section-1 p {
-	color: white;
-	font-size: 25px;
-	background: radial-gradient(circle at 53.85% 54.59%, #ffae31 0, #ff9d36 16.67%,
-		#ff8b3a 33.33%, #f2793c 50%, #e2683e 66.67%, #d4583f 83.33%, #c64b41
-		100%);
-	padding: 7px;
-	border-radius: 5px;
+/* Contenido Principal */
+.main-content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-height: 100vh;
+    transition: all 0.3s ease;
 }
 
-
-.side-bar ul {
-	margin-top: 20px;
-	list-style: none;
+.top-nav {
+    height: 70px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    position: sticky;
+    top: 0;
 }
 
-.side-bar ul li {
-	font-size: 16px;
-	padding: 15px 0px;
-	padding-left: 20px;
-	transition: 500ms background;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-/*puntero del lado del menu*/
-.side-bar ul li:hover {
-	background: green;
+/* Icono de hamburguesa elegante */
+.menu-icon {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.menu-icon span {
+    width: 22px;
+    height: 2px;
+    background: var(--text-main);
 }
 
-/*letras de la barra lateral*/
-.side-bar ul li a {
-	text-decoration: none;
-	color: white;
-	cursor: pointer;
-	letter-spacing: 1px;
+.user-profile {
+    background: #f1f5f9;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
-.side-bar ul li a i {
-	display: inline-block;
-	padding-right: 10px;
-	font-size: 23px;
+/* Contenedores de página */
+.container {
+    padding: 40px;
 }
 
-#navbtn {
-	display: inline-block;
-	margin-left: 70px;
-	font-size: 20px;
-	transition: 500ms color;
+.page-header {
+    margin-bottom: 30px;
 }
 
-#checkbox {
-	display: none;
+.page-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
 }
 
-#checkbox:checked ~ .body .side-bar {
-	width: 60px;
+.page-header p {
+    color: var(--text-muted);
 }
 
-#checkbox:checked ~ .body .side-bar .user-p {
-	visibility: hidden;
+.card-placeholder {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 60px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.2rem;
 }
 
-#checkbox:checked ~ .body .side-bar a span {
-	display: none;
+/* Lógica del Toggle */
+#nav-toggle:checked ~ .sidebar {
+    width: 0;
+    overflow: hidden;
 }
 
-/* ingresaste como */
-h4{
-	color: maroon;
+#nav-toggle:checked ~ .main-content {
+    margin-left: 0;
+    width: 100%;
 }
