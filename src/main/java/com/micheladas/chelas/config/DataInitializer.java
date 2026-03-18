@@ -17,10 +17,10 @@ public class DataInitializer implements CommandLineRunner {
     private final BCryptPasswordEncoder passwordEncoder;
 
     // Inyectamos los valores desde el entorno
-    @Value("${app.admin.email:admin@chelas.com}")
+    @Value("${app.admin.email}")
     private String adminEmail;
 
-    @Value("${app.admin.password:admin123}")
+    @Value("${app.admin.password}")
     private String adminPassword;
 
     public DataInitializer(UsuarioRepositorio usuarioRepositorio, BCryptPasswordEncoder passwordEncoder) {
@@ -35,11 +35,11 @@ public class DataInitializer implements CommandLineRunner {
 
             // 2. Creamos el usuario con todos los datos
             Usuario admin = Usuario.builder()
-                    .nombre("Jefe")
-                    .apellido("Chelas")
+                    .nombre("Administrador")
+                    .apellido("Sistema")
                     .email(adminEmail)
                     .password(passwordEncoder.encode(adminPassword))
-                    .mobileNumber("1234567890")
+                    .mobileNumber("1299997836")
                     .roles(Arrays.asList(new Rol("ROLE_ADMIN")))
                     .build();// <--- AQUÍ LE DAMOS EL PODER
 
