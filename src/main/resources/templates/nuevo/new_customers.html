@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/new :: head_comun('Clientes')}"></head>
+<body>
+
+<header th:replace="~{layout/new :: navbar('CLIENTES', '/clientes', 'Datos de los clientes')}"></header>
+
+<main>
+	<div th:replace="~{layout/new :: alerta_success}"></div>
+
+	<h1>Registro de Clientes</h1>
+
+	<form th:action="@{/clientes/guardar}" th:object="${cliente}" method="POST">
+		<table>
+			<tr>
+				<td><label for="customerNumber">Número/Cliente:</label></td>
+				<td>
+					<input type="text" th:field="*{customerNumber}" id="customerNumber">
+					<span th:if="${#fields.hasErrors('customerNumber')}" th:errors="*{customerNumber}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="fullName">Nombre completo:</label></td>
+				<td>
+					<input type="text" th:field="*{fullName}" id="fullName">
+					<span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="address">Dirección:</label></td>
+				<td>
+					<input type="text" th:field="*{address}" id="address">
+					<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="zipCode">CP:</label></td>
+				<td>
+					<input type="text" th:field="*{zipCode}" id="zipCode">
+					<span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>
+					<br>
+					<button type="submit">Guardar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</main>
+
+</body>
+</html>

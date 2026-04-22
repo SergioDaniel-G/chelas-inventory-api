@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{layout/view :: layout(~{::section})}">
+<body>
+
+<section>
+	<nav>
+		<a th:href="@{/prestados}" class="btn-back">Página anterior</a>
+	</nav>
+
+	<h2>Información registrada</h2>
+
+	<table class="table-detail">
+		<tr>
+			<th>ID:</th>
+			<td th:text="${prestado.id}"></td>
+		</tr>
+		<tr>
+			<th>Nombre:</th>
+			<td th:text="${prestado.customerName}"></td>
+		</tr>
+		<tr>
+			<th>Cantidad:</th>
+			<td th:text="${prestado.quantity}"></td>
+		</tr>
+		<tr>
+			<th>Descripción:</th>
+			<td th:text="${prestado.orderDescription}"></td>
+		</tr>
+		<tr>
+			<th>Total:</th>
+			<td th:text="${prestado.totalAmount}"></td>
+		</tr>
+		<tr>
+			<th>Fecha de Registro:</th>
+			<td th:text="${prestado.createdAt}"></td>
+		</tr>
+	</table>
+
+	<div class="actions-container">
+
+		<div th:if="${prestado.customerPhone != null}">
+			<p class="reminder-text">¿Deseas enviar el recordatorio de cobro?</p>
+			<a th:with="linea='%0A',
+                        bold='*',
+                        msg='*TICKET DE PRÉSTAMO - EL CHELAS*' + ${linea} + ${linea}
+                        + '👤 *Cliente:* ' + ${prestado.customerName} + ${linea}
+                        + '📝 *Nota:* ' + ${prestado.orderDescription} + ${linea}
+                        + '📦 *Prestamos:* ' + ${prestado.quantity} + ${linea}
+                        + '💰 *Total a Liquidar:* $' + ${#numbers.formatDecimal(prestado.totalAmount, 1, 2)} + ${linea}
+                        + '--------------------------' + ${linea}
+                        + '📅 *Fecha:* ' + ${#temporals.format(prestado.createdAt, 'dd/MM/yyyy HH:mm')} + ${linea}
+                        + '--------------------------' + ${linea}
+                        + 'Favor de pasar a liquidar saldo. ¡Salud! 🍺'"
+			   th:href="'https://wa.me/' + ${prestado.customerPhone} + '?text=' + ${msg}"
+			   target="_blank"
+			   class="btn-whatsapp-detail">
+				<i class="fab fa-whatsapp"></i> WhatsApp
+			</a>
+		</div>
+
+		<div th:if="${prestado.customerPhone == null}" class="alert-no-phone">
+			<i class="fas fa-exclamation-triangle"></i>
+			Este registro no tiene un teléfono configurado para WhatsApp.
+		</div>
+	</div>
+</section>
+
+</body>
+</html>

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Registro de Usuarios | Micheladas Chelas</title>
-	<link rel="stylesheet" th:href="@{/css/vistas/acceso.css}">
+	<link rel="stylesheet" th:href="@{/css/vistas/access.css}">
 </head>
 <body class="login-page">
 
@@ -23,14 +23,14 @@
 
 		<div class="form-row">
 			<div class="form-group">
-				<label for="nombre">Nombre:</label>
-				<input id="nombre" type="text" th:field="*{nombre}">
-				<small class="error-message" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				<label for="name">Nombre:</label>
+				<input id="name" type="text" th:field="*{name}">
+				<small class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
 			</div>
 			<div class="form-group">
-				<label for="apellido">Apellido:</label>
-				<input id="apellido" type="text" th:field="*{apellido}">
-				<small class="error-message" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+				<label for="surname">Apellido:</label>
+				<input id="surname" type="text" th:field="*{surname}">
+				<small class="error-message" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></small>
 			</div>
 		</div>
 

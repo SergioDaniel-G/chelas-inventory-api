@@ -1,77 +1,151 @@
-/* Configuraciones Generales */
+/* --- ERP MICHELADAS CHELAS - VISTA COMPACTA (SIN SCROLL) --- */
+
 :root {
-    --primario: #C6DEDC;
-    --texto: #000;
-    --gris-fondo-tabla: #eeeeee; /* Gris para toda la tabla */
-    --gris-borde: #cccccc;
-    --blanco: #ffffff;
+    --primary: #1e293b;
+    --accent: #f8fafc;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --bg-page: #f8fafc;
+    --border: #e2e8f0;
+    --white: #ffffff;
+    --success: #25D366;
+    --danger: #d9534f;
+}
+
+/* --- AJUSTE DE PANTALLA TOTAL --- */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Elimina el scroll de la página */
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--blanco);
-    margin: 0;
-    padding: 0;
-    /* Esto garantiza el centrado total en la pantalla */
+    font-family: 'Lora', serif;
+    background-color: var(--white);
+    color: var(--text-main);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
 
 .container {
-    width: 100%;
-    max-width: 450px;
-    padding: 20px;
+    width: 90%;
+    max-width: 340px;
+    padding: 15px; /* Reducido drásticamente */
+    background-color: var(--accent);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo de la Tabla (Todo Gris) */
+/* --- TÍTULOS Y NAV --- */
+h2 {
+    color: var(--primary);
+    text-align: center;
+    margin: 0 0 10px 0; /* Margen mínimo */
+    font-size: 1.1rem;
+}
+
+nav {
+    margin-bottom: 10px;
+}
+
+.btn-back {
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-decoration: none;
+    background-color: #334155;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* --- TABLA COMPACTA --- */
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--gris-fondo-tabla); /* Fondo gris uniforme */
-    font-size: 0.75rem; /* Letra chica */
-    border: 1px solid var(--gris-borde);
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid var(--gris-borde);
-    color: var(--texto);
 }
 
 th {
     text-align: left;
+    color: var(--primary);
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 6px 8px; /* Padding muy pequeño */
+    border-bottom: 1.5px solid var(--primary);
+}
+
+td {
+    padding: 6px 8px; /* Padding muy pequeño */
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    line-height: 1.1; /* Texto más junto */
+}
+
+tr:hover {
+    background-color: #334155;
+    color: var(--white);
+}
+
+/* --- SECCIÓN WHATSAPP (SIN ESPACIOS SOBRANTES) --- */
+.actions-container {
+    margin-top: 8px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding-top: 8px;
+}
+
+.reminder-text {
+    color: var(--text-muted);
+    margin: 0 0 4px 0; /* Casi pegado al botón */
+    font-size: 0.75rem;
+}
+
+.btn-whatsapp-detail {
+    background-color: var(--success);
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 50px;
+    text-decoration: none;
     font-weight: bold;
-    width: 40%;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s;
 }
 
-/* Navbar (El botón de regresar como barra arriba de la tabla) */
-nav {
-    background-color: none;
-    padding: 8px 15px;
-    border-radius: 4px 4px 0 0; /* Redondeado solo arriba */
+.btn-whatsapp-detail:hover {
+    transform: scale(1.02);
 }
 
-.btn-back {
-    color: var(--texto);
-    font-size: 0.7rem;
-    font-weight: bold;
-    text-decoration: underline;
+/* --- ALERTAS --- */
+.alert-no-phone {
+    color: var(--danger);
+    background: #f9f2f2;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
 }
 
-/* Footer a la orilla derecha */
+/* --- FOOTER OCULTO O MINI --- */
 footer {
     margin-top: 10px;
-    text-align: right;
+    padding-top: 5px;
+    border-top: 1px solid var(--border);
+    text-align: center;
 }
 
 footer p {
     margin: 0;
-    font-size: 0.65rem;
-    color: #000;
+    font-size: 0.75rem;
+    color: orange;
 }
 
 footer strong {
-    color: #DB5739;
+    color: var(--primary);
+    font-weight: 700;
 }

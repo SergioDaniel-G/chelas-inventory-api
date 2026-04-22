@@ -1,11 +1,11 @@
 :root {
     --bg-body: #f8fafc;
-    --sidebar-bg: #1e293b; /* Azul pizarra oscuro */
+    --sidebar-bg: #ffffff;
     --sidebar-hover: #334155;
-    --accent: #3b82f6; /* Azul corporativo */
+    --accent: #3b82f6;
     --text-main: #1e293b;
     --text-muted: #64748b;
-    --white: #ffffff;
+    --black: #000;
     --border: #e2e8f0;
 }
 
@@ -13,7 +13,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Lora', serif;
 }
 
 body {
@@ -22,12 +22,12 @@ body {
     display: flex;
 }
 
-/* Sidebar */
+/* --- SIDEBAR --- */
 .sidebar {
     width: 260px;
     height: 100vh;
     background: var(--sidebar-bg);
-    color: var(--white);
+    color: var(--black);
     position: fixed;
     transition: all 0.3s ease;
     z-index: 1000;
@@ -38,8 +38,8 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
+    font-size: 1.4rem;
+    font-weight: 900;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -51,66 +51,73 @@ body {
     display: grid;
     place-items: center;
     font-weight: bold;
+    color: white;
 }
 
+/* --- MENÚ --- */
 .sidebar-menu {
     padding: 20px 0;
 }
 
 .menu-label {
-    padding: 15px 25px 5px;
-    font-size: 0.75rem;
+    padding: 15px 25px 8px;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    color: var(--text-muted);
-    font-weight: 700;
+    color: #64748b;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 .sidebar-menu ul {
     list-style: none;
 }
 
-.sidebar-menu ul li a {
-    display: block;
+/* Unificamos el estilo de los enlaces y el botón de logout */
+.sidebar-menu ul li a,
+.navbar-link {
+    display: flex;
+    align-items: center;
     padding: 12px 25px;
-    color: #94a3b8;
+    color: #000;
     text-decoration: none;
-    font-size: 0.95rem;
-    transition: 0.2s;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+    background: none;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
 }
 
-.sidebar-menu ul li a:hover {
+/* Iconos alineados perfectamente */
+.sidebar-menu ul li a i,
+.navbar-link i {
+    width: 25px; /* Ancho fijo para que el texto no baile */
+    margin-right: 12px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.sidebar-menu ul li a:hover,
+.navbar-link:hover {
     background: var(--sidebar-hover);
     color: var(--white);
+}
+
+/* Resalte del icono al pasar el mouse */
+.sidebar-menu ul li a:hover i,
+.navbar-link:hover i {
+    color: var(--accent);
 }
 
 .menu-divider {
     height: 1px;
     background: rgba(255,255,255,0.1);
-    margin: 20px 25px;
+    margin: 15px 25px;
 }
 
-.navbar-link {
-    color: #fff !important;
-    padding: 12px 25px;
-
-    /* Añade estas líneas para el estilo de enlace */
-    background: none;      /* Quita el fondo gris de botón */
-    border: none;          /* Quita el borde */
-    cursor: pointer;       /* Pone la manito del ratón */
-    font-family: inherit;  /* Usa la misma letra del menú */
-    font-size: 0.7rem;    /* Para que iguale a los otros links <a> */
-    text-decoration: underline; /* El subrayado blanco que pediste */
-    display: block;        /* Para que ocupe su bloque en la lista */
-    width: 100%;           /* Ocupa el ancho del sidebar */
-    text-align: left;      /* Alinea el texto a la izquierda */
-}
-
-/* Opcional: Para que brille un poco más al pasar el mouse */
-.navbar-link:hover {
-    color: #e2e8f0 !important;
-}
-
-/* Contenido Principal */
+/* --- CONTENIDO PRINCIPAL --- */
 .main-content {
     margin-left: 260px;
     width: calc(100% - 260px);
@@ -136,13 +143,14 @@ body {
     gap: 20px;
 }
 
-/* Icono de hamburguesa elegante */
+/* Icono hamburguesa */
 .menu-icon {
     cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
+
 .menu-icon span {
     width: 22px;
     height: 2px;
@@ -151,44 +159,42 @@ body {
 
 .user-profile {
     background: #f1f5f9;
-    padding: 8px 15px;
+    padding: 8px 18px;
     border-radius: 50px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
+    color: var(--text-main);
 }
 
-/* Contenedores de página */
+/* --- DASHBOARD --- */
 .container {
     padding: 40px;
 }
 
-.page-header {
-    margin-bottom: 30px;
-}
-
 .page-header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
-.page-header p {
-    color: var(--text-muted);
+    font-size: 1.7rem;
+    color: var(--text-main);
 }
 
 .card-placeholder {
-    background: var(--white);
+    background: var(--sidebar-bg);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 60px;
+    padding: 40px;
     text-align: center;
-    color: var(--text-muted);
-    font-size: 1.2rem;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
 }
 
-/* Lógica del Toggle */
+.welcome-img {
+    max-width: 400px;
+    margin-top: 30px;
+    opacity: 0.8;
+}
+
+/* --- LÓGICA DEL TOGGLE --- */
 #nav-toggle:checked ~ .sidebar {
-    width: 0;
-    overflow: hidden;
+    transform: translateX(-260px);
 }
 
 #nav-toggle:checked ~ .main-content {

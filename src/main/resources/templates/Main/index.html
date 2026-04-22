@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sistema de Gestión | Micheladas Chelas</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<input type="checkbox" id="nav-toggle" hidden>
+
+<aside class="sidebar">
+	<div class="sidebar-brand">
+		<div class="logo-circle">MC</div>
+		<span>Micheladas <b>Chelas</b></span>
+	</div>
+
+	<nav class="sidebar-menu">
+		<ul>
+			<li class="menu-label">Inventario</li>
+			<li>
+				<a th:href="@{/caguamas}">
+					<i class="fas fa-beer-mug-empty"></i> <span>Caguamas</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/cigarros}">
+					<i class="fas fa-smoking"></i> <span>Cigarros</span>
+				</a>
+			</li>
+
+			<li class="menu-label">Administración</li>
+			<li>
+				<a th:href="@{/admin/usuarios}">
+					<i class="fas fa-user-shield"></i> <span>Gestión Usuarios</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/clientes}">
+					<i class="fas fa-users"></i> <span>Clientes</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/ventas}">
+					<i class="fas fa-cash-register"></i> <span>Ventas</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/gastos}">
+					<i class="fas fa-file-invoice-dollar"></i> <span>Gastos</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/precios}">
+					<i class="fas fa-tag"></i> <span>Precios</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/proveedores}">
+					<i class="fas fa-truck-moving"></i> <span>Proveedores</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/prestados}">
+					<i class="fas fa-hand-holding-hand"></i> <span>Prestados</span>
+				</a>
+			</li>
+
+			<li class="menu-divider"></li>
+			<li>
+				<form th:action="@{/logout}" method="post">
+					<button type="submit" class="navbar-link">
+						<i class="fas fa-sign-out-alt"></i> Cerrar sesión
+					</button>
+				</form>
+			</li>
+		</ul>
+	</nav>
+</aside>
+
+<main class="main-content">
+	<header class="top-nav">
+		<div class="nav-left">
+			<label for="nav-toggle" class="menu-icon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</label>
+			<h3>Dashboard General</h3>
+		</div>
+		<div class="nav-right">
+			<div class="user-profile">
+				<small>Sesión: </small>
+				<span sec:authentication="principal.username">Admin</span>
+			</div>
+		</div>
+	</header>
+
+	<section class="container">
+		<div class="page-header">
+			<h1>Gestión del Sistema</h1>
+			<p>RESUMEN OPERATIVO DE LA EMPRESA</p>
+		</div>
+
+		<div th:if="${usuarios != null and !#lists.isEmpty(usuarios.?[!accountNonLocked])}"
+			 style="background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid #e74c3c; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+
+			<h3 style="color: #333; margin-bottom: 15px; font-size: 1.1rem;">
+				<i class="fas fa-user-lock" style="color: #e74c3c;"></i> Cuentas Bloqueadas
+			</h3>
+
+			<div th:each="u : ${usuarios}" th:if="${!u.accountNonLocked}"
+				 style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fdf2f2; border-radius: 8px; margin-bottom: 8px;">
+
+				<div>
+					<b th:text="${u.name}" style="display: block;"></b>
+					<small th:text="${u.email}" style="color: #666;"></small>
+				</div>
+
+				<a th:href="@{/usuarios/bloquear/{id}(id=${u.id})}"
+				   style="background: #27ae60; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.8rem;">
+					<i class="fas fa-unlock"></i> DESBLOQUEAR
+				</a>
+			</div>
+		</div>
+
+		<div class="card-placeholder">
+			<p>Selecciona una opción del menú para comenzar a gestionar el negocio.</p>
+
+			<div class="welcome-image-container">
+				<img src="/img/bg.png" alt="Gestión de Micheladas" class="welcome-img">
+			</div>
+		</div>
+	</section>
+</main>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

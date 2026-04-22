@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="~{layout/editar :: head('Editar Clientes')}"></th:block>
+</head>
+<body>
+
+<header th:replace="~{layout/editar :: header('GESTIÓN DE CLIENTES')}"></header>
+
+<div class="cuerpo-pagina">
+	<div class="tarjeta-edicion">
+		<h1 class="titulo-formulario">Edición de Clientes</h1>
+
+		<form th:action="@{/clientes/{id}(id=${cliente.id})}" th:object="${cliente}" method="POST">
+			<div th:replace="~{layout/new :: alertas_flash}"></div>
+			<input type="hidden" th:field="*{id}">
+			<div class="campo-grupo">
+				<label>Id:</label>
+				<span class="texto-id" th:text="*{id}"></span>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Número de Cliente:</label>
+				<input type="text" th:field="*{customerNumber}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Nombre Completo:</label>
+				<input type="text" th:field="*{fullName}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Dirección:</label>
+				<input type="text" th:field="*{address}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Código Postal (CP):</label>
+				<input type="text" th:field="*{zipCode}" required>
+			</div>
+
+			<button type="submit" class="boton-guardar">Actualizar Registro</button>
+		</form>
+	</div>
+</div>
+
+<footer th:replace="~{layout/editar :: footer}"></footer>
+
+</body>
+</html>

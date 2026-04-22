@@ -22,10 +22,11 @@
 }
 
 .navbar-link {
+    background: transparent;
     font-size: 15px;
     font-weight: bold;
-    color: white;
     text-decoration: none;
+    color: white !important;
 }
 
 .navbar-link:hover {
@@ -34,10 +35,18 @@
 
 /* Navbar right */
 .navbar-right .navbar-link {
+    background: transparent;
     font-size: 13px;
     font-weight: bold;
-    color: white;
+    color: white !important;
     text-decoration: none;
+
+    border: none !important;      /* Quita el borde de botón */
+        outline: none !important;     /* Quita el recuadro de enfoque al hacer clic */
+        box-shadow: none !important;  /* Quita cualquier sombra sutil */
+        appearance: none;             /* Quita estilos nativos del sistema */
+        cursor: pointer;
+        padding: 0;
 }
 
 .navbar-right .navbar-link:hover {

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="~{layout/editar :: head('Editar Gastos')}"></th:block>
+</head>
+<body>
+
+<header th:replace="~{layout/editar :: header('GESTIÓN DE GASTOS')}"></header>
+
+<div class="cuerpo-pagina">
+	<div class="tarjeta-edicion">
+		<h1 class="titulo-formulario">Edición de Gastos</h1>
+
+		<form th:action="@{/gastos/{id}(id=${gasto.id})}" th:object="${gasto}" method="POST">
+			<div th:replace="~{layout/new :: alertas_flash}"></div>
+
+			<input type="hidden" th:field="*{id}">
+
+			<div class="campo-grupo">
+				<label>Id:</label>
+				<span class="texto-id" th:text="*{id}"></span>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Articulo:</label>
+				<input type="text" th:field="*{itemName}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Cantidad:</label>
+				<input type="text" th:field="*{quantity}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Precio:</label>
+				<input type="text" th:field="*{unitPrice}" required>
+			</div>
+
+			<div class="campo-grupo">
+				<label>Total:</label>
+				<input type="text" th:field="*{totalAmount}" readonly>
+			</div>
+
+			<button type="submit" class="boton-guardar">Actualizar Registro</button>
+		</form>
+	</div>
+</div>
+
+<footer th:replace="~{layout/editar :: footer}"></footer>
+
+</body>
+</html>

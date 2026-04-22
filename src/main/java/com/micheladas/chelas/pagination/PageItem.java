@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PageItem {
 
-	private int numero;
-	private boolean actual;
+	private int number;
+	private boolean current;
 
 }

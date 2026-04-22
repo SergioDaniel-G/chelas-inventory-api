@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Acceso al Sistema | Micheladas Chelas</title>
-	<link rel="stylesheet" th:href="@{/css/vistas/acceso.css}">
+	<link rel="stylesheet" th:href="@{/css/vistas/access.css}">
 </head>
 <body class="login-page">
 
@@ -18,10 +18,13 @@
 	<form th:action="@{/login}" th:object="${usuario}" method="post" class="login-form">
 
 		<div th:if="${param.error}" class="alert alert-error">
-			Usuario o contraseña incorrectos.
+    <span th:utext="${session.SPRING_SECURITY_LAST_EXCEPTION != null ? 'Usuario o contrase&ntilde;a incorrectos.' : 'Usuario o contrase&ntilde;a incorrectos.'}">
+       Error de acceso
+    </span>
 		</div>
+
 		<div th:if="${param.logout}" class="alert alert-info">
-			Sesión cerrada correctamente.
+			<i class="fas fa-check-circle"></i> Cerraste sesión correctamente.
 		</div>
 
 		<div class="form-group">

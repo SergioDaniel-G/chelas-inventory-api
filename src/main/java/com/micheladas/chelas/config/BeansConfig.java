@@ -7,6 +7,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 public class BeansConfig {
 
+    /**
+     * provide a BCrypt password encoder for secure
+     * password hashing. use this bean across the application
+     * to handle authentication
+     **/
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

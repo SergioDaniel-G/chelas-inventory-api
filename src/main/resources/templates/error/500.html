@@ -2,28 +2,140 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error de Sistema | Micheladas Chelas</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #fcfcfc; font-family: 'Inter', sans-serif; }
-        .error-box { max-width: 600px; margin: 100px auto; padding: 40px; border-top: 5px solid #dc3545; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        :root {
+            --slate-900: #0f172a;
+            --slate-600: #475569;
+            --slate-400: #94a3b8;
+            --red-600: #dc2626;
+            --bg-soft: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-soft);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: var(--slate-900);
+        }
+
+        .error-card {
+            background: white;
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            max-width: 580px;
+            width: 90%;
+            text-align: center;
+            border-bottom: 6px solid var(--red-600);
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #fee2e2;
+            color: var(--red-600);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-title {
+            font-size: 5rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1;
+            color: var(--slate-900);
+            letter-spacing: -3px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: var(--slate-900);
+        }
+
+        p {
+            color: var(--slate-600);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn-main {
+            background-color: var(--slate-900);
+            color: white;
+        }
+
+        .btn-main:hover {
+            background-color: #1e293b;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid #e2e8f0;
+            color: var(--slate-600);
+        }
+
+        .btn-outline:hover {
+            background-color: #f1f5f9;
+        }
+
+        .technical-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #f1f5f9;
+            font-size: 0.85rem;
+            color: var(--slate-400);
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="error-box text-center">
-        <h1 class="text-danger fw-bold">500</h1>
-        <h3 class="mb-3">Servicio Temporalmente No Disponible</h3>
-        <p class="text-muted">
-            Estamos experimentando una interrupción técnica en nuestros servicios de datos.
-            Nuestro equipo ha sido notificado automáticamente para resolver este inconveniente.
-        </p>
-        <hr class="my-4">
-        <div class="d-grid gap-2">
-            <a th:href="@{/}" class="btn btn-outline-danger">Reintentar Conexión</a>
-            <p class="small text-secondary mt-2">Error interno del servidor. Por favor, contacte al administrador.</p>
-        </div>
+
+<div class="error-card">
+    <div class="status-badge">Incidente Técnico Detectado</div>
+    <h1 class="code-title">500</h1>
+    <h2>Interrupción Crítica del Servicio</h2>
+
+    <p>
+        El sistema ha encontrado una excepción interna inesperada. <br>
+        Las operaciones de base de datos se han suspendido por seguridad.
+    </p>
+
+    <div class="action-group">
+        <a th:href="@{/}" class="btn btn-main">Reintentar Conexión</a>
+        <a href="mailto:danilinhoserg@hotmail.com" class="btn btn-outline">Reportar a IT</a>
+    </div>
+
+    <div class="technical-footer">
+        <strong>Micheladas Chelas Enterprise Suite</strong> | Nodo: <span th:text="${#httpServletRequest.serverName}">localhost</span><br>
+        Referencia: <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span>
     </div>
 </div>
+
 </body>
 </html>

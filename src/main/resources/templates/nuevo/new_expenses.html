@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/new :: head_comun('Otros Gastos')}"></head>
+<body>
+
+<header th:replace="~{layout/new :: navbar('OTROS GASTOS', '/gastos', 'Listado gastos')}"></header>
+
+<main>
+	<div th:replace="~{layout/new :: alerta_success}"></div>
+
+	<h1>Otros Gastos</h1>
+
+	<form th:action="@{/gastos/guardar}" th:object="${gasto}" method="POST">
+		<table>
+			<tr>
+				<td><label for="itemName">Artículo:</label></td>
+				<td>
+					<input type="text" th:field="*{itemName}" id="itemName">
+					<span th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="quantity">Cantidad:</label></td>
+				<td>
+					<input type="number" th:field="*{quantity}" id="quantity" step="1">
+					<span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="unitPrice">Precio:</label></td>
+				<td>
+					<span>$mxn</span>
+					<input type="number" th:field="*{unitPrice}" id="unitPrice" step="0.01">
+					<span th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="total">Total:</label></td>
+				<td>
+					<span>$mxn</span>
+					<input type="number" th:field="*{totalAmount}" id="totalAmount" step="0.01" readonly>
+					<span th:if="${#fields.hasErrors('totalAmount')}" th:errors="*{totalAmount}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Guardar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</main>
+
+</body>
+</html>

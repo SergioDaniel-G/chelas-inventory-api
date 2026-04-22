@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/new :: head_comun('Venta General')}"></head>
+<body>
+
+<header th:replace="~{layout/new :: navbar('VENTAS', '/ventas', 'Lista de ventas')}"></header>
+
+<main>
+	<div th:replace="~{layout/new :: alerta_success}"></div>
+
+	<h1>Registro de Ventas</h1>
+
+	<form th:action="@{/ventas/guardar}" th:object="${venta}" method="POST">
+		<table>
+			<tr>
+				<td><label for="cupsQuantity">Vasos:</label></td>
+				<td>
+					<input type="number" th:field="*{cupsQuantity}" id="cupsQuantity">
+					<span th:if="${#fields.hasErrors('cupsQuantity')}" th:errors="*{cupsQuantity}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="cigarettesQuantity">Cigarros:</label></td>
+				<td>
+					<input type="number" th:field="*{cigarettesQuantity}" id="cigarettesQuantity">
+					<span th:if="${#fields.hasErrors('cigarettesQuantity')}" th:errors="*{cigarettesQuantity}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="caguamasQuantity">Caguamas:</label></td>
+				<td>
+					<input type="number" th:field="*{caguamasQuantity}" id="caguamasQuantity">
+					<span th:if="${#fields.hasErrors('caguamasQuantity')}" th:errors="*{caguamasQuantity}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="caguamasStock">Stock caguamas:</label></td>
+				<td>
+					<input type="number" th:field="*{caguamasStock}" id="caguamasStock">
+					<span th:if="${#fields.hasErrors('caguamasStock')}" th:errors="*{caguamasStock}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="cigarettesStock">Stock cigarros:</label></td>
+				<td>
+					<input type="number" th:field="*{cigarettesStock}" id="cigarettesStock">
+					<span th:if="${#fields.hasErrors('cigarettesStock')}" th:errors="*{cigarettesStock}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="totalAmount">Total:</label></td>
+				<td>
+					<span>$</span>
+					<input type="number" th:field="*{totalAmount}" id="totalAmount" step="0.01">
+					<span th:if="${#fields.hasErrors('totalAmount')}" th:errors="*{totalAmount}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Guardar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</main>
+
+</body>
+</html>

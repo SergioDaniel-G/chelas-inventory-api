@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head th:replace="~{layout/layout :: head('Gestión de Gastos')}"></head>
+<body>
+<nav th:replace="~{layout/layout :: navbar('Gastos', '/gastos/nuevo')}"></nav>
+<div th:replace="~{layout/layout :: alerts}"></div>
+
+<div class="container table-container">
+	<h1>Otros Gastos</h1>
+	<img th:src="@{/img/expenses.jpg}" width="60" class="img-rounded float-right">
+
+	<!-- Acciones y Formulario (puedes dejarlos aquí o fragmentarlos si son iguales) -->
+	<div class="actions">
+		<a th:href="@{/exportarPDFga}" class="btn">PDF</a>
+		<a th:href="@{/exportarExcelga}" class="btn">Excel</a>
+		<button onclick="ocultarDatos()" class="btn">Ocultar</button>
+		<button onclick="mostrarDatos()" class="btn">Mostrar</button>
+	</div>
+
+	<div th:replace="~{layout/layout :: buscador('/ventas')}"></div>
+
+	<table id="table2">
+		<thead>
+		<tr><th>Id</th><th>Artículo</th><th>Cantidad</th><th>Precio</th><th>Total</th><th>Fecha</th><th>Acciones</th></tr>
+		</thead>
+		<tbody>
+		<tr th:each="gasto : ${gastos}">
+			<td th:text="${gasto.id}"></td>
+			<td th:text="${gasto.itemName}"></td>
+			<td th:text="${gasto.quantity}"></td>
+			<td th:text="'$ ' + ${#numbers.formatDecimal(gasto.unitPrice, 1, 2)}"></td>
+			<td th:text="'$ ' + ${#numbers.formatDecimal(gasto.totalAmount, 1, 2)}"></td>
+			<td th:text="${gasto.createdAt}"></td>
+			<td>
+				<a th:href="@{/verg/{id}(id=${gasto.id})}" class="btn">Consultar</a>
+				<a th:href="@{/gastos/editar/{id}(id=${gasto.id})}" class="btn">Actualizar</a>
+				<a sec:authorize="hasRole('ADMIN')" th:href="@{/gastos/{id}(id=${gasto.id})}"
+				   class="btn btn-danger"
+				   onclick="return confirm('¿Estás seguro de eliminar este registro?')">Eliminar</a>
+			</td>
+		</tr>
+		</tbody>
+		<tr id="granTotal">
+			<td colspan="4" align="right">Total:</td>
+			<td id="sumaTotal">$0</td>
+			<td colspan="2"></td>
+		</tr>
+	</table>
+
+	<div th:replace="~{layout/layout :: paginador(${page})}"></div>
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

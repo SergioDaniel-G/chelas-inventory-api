@@ -1,4 +1,15 @@
-/* --- RESET BÁSICO --- */
+/* ERP MICHELADAS CHELAS - CSS UNIFICADO (VISTAS DE DATOS Y EDICIÓN) */
+:root {
+    --primary: #1e293b;       /* Slate 800 - Consistente con el login */
+    --accent: #2563eb;        /* Azul vibrante acciones */
+    --bg-main: #f8fafc;       /* Fondo gris limpio */
+    --border-color: #e2e8f0;  /* Gris suave para líneas */
+    --text-dark: #334155;
+    --text-muted: #64748b;
+    --white: #ffffff;
+}
+
+/* --- RESET & ESTRUCTURA --- */
 * {
     margin: 0;
     padding: 0;
@@ -6,26 +17,26 @@
 }
 
 html, body {
-    height: 100%; /* Necesario para el centrado vertical */
+    height: 100%;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
-    background-color: #eeeeee; /* Fondo blanco */
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px; /* Letras más chicas */
-    width: 1200px; /* Ancho fijo (no responsivo) */
-    margin: 0 auto;
-    color: #333;
     display: flex;
     flex-direction: column;
+    min-width: 1200px; /* Mantiene el ancho solicitado */
 }
 
-/* --- NAVBAR / HEADER --- */
+/* --- NAVBAR / HEADER PROFESIONAL --- */
 .header-estatico {
     width: 100%;
-    border-bottom: 0px solid #000;
-    padding: 15px 0;
-    background-color: #F0FDFA;
+    background-color: var(--primary); /* Cambiado a primario para dar peso visual */
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 0.85rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
 }
 
 .nav-container {
@@ -37,112 +48,144 @@ body {
 }
 
 .logo-app {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
     text-decoration: none;
-    color: #000;
-}
-
-.menu-navegacion a {
-    color: #000;
-    margin-left: 20px;
-    font-size: 14px;
-    text-decoration: underline;
-}
-
-.menu-navegacion a:hover {
-    text-decoration: underline;
-}
-
-/* --- CONTENEDOR DE CENTRADO (ARRIBA Y ABAJO) --- */
-.cuerpo-pagina {
-    flex: 1; /* Ocupa todo el espacio entre header y footer */
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    padding: 20px;
-}
-
-/* --- ESTILOS DE TABLA --- */
-.tabla-datos {
-    width: 900px; /* Ancho fijo para la tabla */
-    border-collapse: collapse;
-    background-color: #fff;
-}
-
-.tabla-datos th {
-    background-color: #f9f9f9;
-    border: 1px solid #000;
-    padding: 8px;
-    text-align: left;
-    font-size: 11px;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
 }
 
-.tabla-datos td {
-    border: 1px solid #ccc;
-    padding: 6px;
+.menu-navegacion a {
+    color: #cbd5e1;
+    margin-left: 24px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.menu-navegacion a:hover {
+    color: var(--white);
+}
+
+/* --- CUERPO DE PÁGINA CENTRADO --- */
+.cuerpo-pagina {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* CENTRADO VERTICAL */
+    padding: 40px;
+    background-image: radial-gradient(circle at center, #f1f5f9 0%, #f8fafc 100%);
+}
+
+/* --- TABLA DE DATOS ESTILO DASHBOARD --- */
+.tabla-datos {
+    width: 1000px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--white);
+    border-radius: 12px; /* Bordes más redondeados como el login */
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+    transform: translateY(-20px); /* Ajuste visual de altura */
+}
+
+.tabla-datos th {
+    background-color: #f8fafc;
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
     font-size: 11px;
+    padding: 16px;
+    border-bottom: 2px solid var(--bg-main);
+}
+
+.tabla-datos td {
+    padding: 14px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-dark);
 }
 
 .tabla-datos tr:hover {
-    background-color: #f5f5f5;
+    background-color: #f1f5f9;
 }
 
-/* --- ESTILOS DE FORMULARIO (Mismo centrado) --- */
+/* --- TARJETA DE EDICIÓN (FORMULARIO) --- */
 .tarjeta-edicion {
-    width: 300px;
-    padding: 25px;
-    border: 1px solid #000;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+    width: 380px;
+    padding: 30px;
+    background-color: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-20px); /* Ajuste visual de altura */
 }
 
 .titulo-formulario {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary);
     text-align: center;
 }
 
 .campo-grupo {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .campo-grupo label {
     display: block;
-    margin-bottom: 3px;
-    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
 }
 
 .campo-grupo input {
     width: 100%;
-    padding: 5px;
-    border: 1px solid #999;
-    font-size: 12px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    height: 40px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.campo-grupo input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .boton-guardar {
     width: 100%;
-    padding: 8px;
-    background-color: #FFA2A2;
-    color: #000;
+    padding: 12px;
+    background-color: var(--accent); /* Cambiado a Azul Acción para consistencia */
+    color: var(--white);
     border: none;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 13px;
-    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: background 0.2s ease;
 }
 
 .boton-guardar:hover {
-    background-color: #333;
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
 }
 
 /* --- FOOTER --- */
 .footer-estatico {
     width: 100%;
-    border-top: 0px solid #000;
     padding: 15px 0;
     text-align: center;
-    font-size: 10px;
-    color: #000;
-    background-color: #fff;
+    font-size: 11px;
+    color: var(--text-muted);
+    background-color: var(--white);
+    border-top: 1px solid var(--border-color);
 }

@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head th:replace="~{layout/layout :: head('Gestión de Precios')}"></head>
+<body>
+<nav th:replace="~{layout/layout :: navbar('Precios', '/precios/nuevo')}"></nav>
+<div th:replace="~{layout/layout :: alerts}"></div>
+
+<div class="container table-container">
+	<h1>Precios</h1>
+	<img th:src="@{/img/prices.png}" width="60" class="img-rounded float-right">
+
+	<!-- Acciones y Formulario (puedes dejarlos aquí o fragmentarlos si son iguales) -->
+	<div class="actions">
+		<a th:href="@{/exportarPDFpre}" class="btn">PDF</a>
+		<a th:href="@{/exportarExcelpre}" class="btn">Excel</a>
+		<button onclick="ocultarDatos()" class="btn">Ocultar</button>
+		<button onclick="mostrarDatos()" class="btn">Mostrar</button>
+	</div>
+
+	<div th:replace="~{layout/layout :: buscador('/ventas')}"></div>
+
+	<table id="table2">
+		<thead>
+		<tr><th>Id</th><th>Numero/Producto</th><th>Descripción</th><th>Existencia</th><th>Precio</th><th>Fecha</th><th>Acciones</th></tr>
+		</thead>
+		<tbody>
+		<tr th:each="precio : ${precios}">
+			<td th:text="${precio.id}"></td>
+			<td th:text="${precio.productId}"></td>
+			<td th:text="${precio.description}"></td>
+			<td th:text="${precio.stock}"></td>
+			<td th:text="'$ ' + ${#numbers.formatDecimal(precio.productPrice, 1, 2)}"></td>
+			<td th:text="${precio.createdAt}"></td>
+			<td>
+				<a th:href="@{/verpre/{id}(id=${precio.id})}" class="btn">Consultar</a>
+				<a th:href="@{/precios/editar/{id}(id=${precio.id})}" class="btn">Actualizar</a>
+				<a sec:authorize="hasRole('ADMIN')" th:href="@{/precios/{id}(id=${precio.id})}"
+				   class="btn btn-danger"
+				   onclick="return confirm('¿Estás seguro de eliminar este registro?')">Eliminar</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
+	<div th:replace="~{layout/layout :: paginador(${page})}"></div>
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

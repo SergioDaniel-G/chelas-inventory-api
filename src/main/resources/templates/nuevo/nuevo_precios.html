@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/new :: head_comun('Precios')}"></head>
+<body>
+
+<header th:replace="~{layout/new :: navbar('PRECIOS', '/precios', 'Listado de precios')}"></header>
+
+<main>
+	<div th:replace="~{layout/new :: alerta_success}"></div>
+
+	<h1>Gestión de Precios</h1>
+
+	<form th:action="@{/precios/guardar}" th:object="${precio}" method="POST">
+		<table>
+			<tr>
+				<td><label for="productId">Id producto:</label></td>
+				<td>
+					<input type="text" th:field="*{productId}" id="productId">
+					<span th:if="${#fields.hasErrors('productId')}" th:errors="*{productId}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="description">Descripción:</label></td>
+				<td>
+					<input type="text" th:field="*{description}" id="description">
+					<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="stock">Existencia:</label></td>
+				<td>
+					<input type="number" th:field="*{stock}" id="stock">
+					<span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="productPrice">Precio:</label></td>
+				<td>
+					<span>$</span>
+					<input type="number" th:field="*{productPrice}" id="productPrice" step="0.01">
+					<span th:if="${#fields.hasErrors('productPrice')}" th:errors="*{productPrice}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Guardar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</main>
+
+</body>
+</html>

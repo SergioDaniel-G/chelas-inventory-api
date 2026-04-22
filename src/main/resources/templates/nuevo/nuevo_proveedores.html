@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/new :: head_comun('Proveedores')}"></head>
+<body>
+
+<header th:replace="~{layout/new :: navbar('PROVEEDORES', '/proveedores', 'Lista de proveedores')}"></header>
+
+<main>
+	<div th:replace="~{layout/new :: alerta_success}"></div>
+
+	<h1>Registro de Proveedores</h1>
+
+	<form th:action="@{/proveedores/guardar}" th:object="${proveedor}" method="POST">
+		<table>
+			<tr>
+				<td><label for="name">Nombre:</label></td>
+				<td>
+					<input type="text" th:field="*{name}" id="name">
+					<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="phone">Teléfono:</label></td>
+				<td>
+					<input type="text" th:field="*{phone}" id="phone">
+					<span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label for="location">Ubicación:</label></td>
+				<td>
+					<input type="text" th:field="*{location}" id="location">
+					<span th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color: red;"></span>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit">Guardar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</main>
+
+</body>
+</html>

@@ -1,49 +1,63 @@
 package com.micheladas.chelas.config;
 
-import com.micheladas.chelas.entidad.Usuario;
-import com.micheladas.chelas.entidad.Rol;
-import com.micheladas.chelas.repositorio.UsuarioRepositorio;
+import com.micheladas.chelas.entity.UserAccount;
+import com.micheladas.chelas.entity.Role;
+import com.micheladas.chelas.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 
+/**Data seeding component to initialize the database on startup.
+ * This class ensures that a default administrative user exists,
+ * leveraging externalized configuration for credentials.
+ **/
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    private final UsuarioRepositorio usuarioRepositorio;
+    private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    // Inyectamos los valores desde el entorno
     @Value("${app.admin.email}")
     private String adminEmail;
 
     @Value("${app.admin.password}")
     private String adminPassword;
 
-    public DataInitializer(UsuarioRepositorio usuarioRepositorio, BCryptPasswordEncoder passwordEncoder) {
-        this.usuarioRepositorio = usuarioRepositorio;
+    @Value("${app.admin.name}")
+    private String adminName;
+
+    @Value("${app.admin.surname}")
+    private String adminSurname;
+
+    @Value("${app.admin.mobile}")
+    private String adminMobile;
+
+    public DataInitializer(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
-        // 1. Verificamos si el admin ya existe para no duplicarlo
-        if (usuarioRepositorio.findByEmail(adminEmail) == null) {
 
-            // 2. Creamos el usuario con todos los datos
-            Usuario admin = Usuario.builder()
-                    .nombre("Administrador")
-                    .apellido("Sistema")
+        if (userRepository.findByEmail(adminEmail) == null) {
+
+            UserAccount admin = UserAccount.builder()
+                    .name(adminName)
+                    .surname(adminSurname)
                     .email(adminEmail)
                     .password(passwordEncoder.encode(adminPassword))
-                    .mobileNumber("1299997836")
-                    .roles(Arrays.asList(new Rol("ROLE_ADMIN")))
-                    .build();// <--- AQUÍ LE DAMOS EL PODER
+                    .mobileNumber(adminMobile)
+                    .accountNonLocked(true)
+                    .failedAttempts(0)
+                    .roles(Arrays.asList(new Role("ROLE_ADMIN")))
+                    .build();
 
-            usuarioRepositorio.save(admin);
+            userRepository.save(admin);
             System.out.println("ADMIN CONFIGURADO CORRECTAMENTE");
         }
     }
