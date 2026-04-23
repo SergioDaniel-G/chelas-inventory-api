@@ -38,7 +38,6 @@
 	</button>
 </form>
 
-<!-- ALERTAS INTELIGENTES (Unifica todas las alertas en un bucle) -->
 <div th:fragment="alerts" class="container">
 	<div th:each="msg : ${ {'success', 'error', 'warning', 'info'} }"
 		 th:if="${__${msg}__ != null}"
@@ -47,17 +46,16 @@
 		 th:text="${__${msg}__}"></div>
 </div>
 
-<!-- PAGINADOR UNIVERSAL -->
 <nav th:fragment="paginador(page)" aria-label="Page navigation">
 	<ul class="pagination justify-content-center">
 		<li class="page-item" th:classappend="${page.first} ? 'disabled'">
-			<a class="page-link" th:href="@{${page.url}(page=${page.paginaActual-2})}">Anterior</a>
+			<a class="page-link" th:href="@{${page.url}(page=${page.currentPage-2})}">Anterior</a>
 		</li>
-		<li class="page-item" th:each="p : ${page.paginas}" th:classappend="${p.actual} ? 'active'">
-			<a class="page-link" th:href="@{${page.url}(page=${p.numero-1})}" th:text="${p.numero}"></a>
+		<li class="page-item" th:each="p : ${page.pages}" th:classappend="${p.current} ? 'active'">
+			<a class="page-link" th:href="@{${page.url}(page=${p.number-1})}" th:text="${p.number}"></a>
 		</li>
 		<li class="page-item" th:classappend="${page.last} ? 'disabled'">
-			<a class="page-link" th:href="@{${page.url}(page=${page.paginaActual})}">Siguiente</a>
+			<a class="page-link" th:href="@{${page.url}(page=${page.currentPage})}">Siguiente</a>
 		</li>
 	</ul>
 </nav>

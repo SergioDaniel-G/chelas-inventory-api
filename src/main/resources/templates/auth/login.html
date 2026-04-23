@@ -18,7 +18,13 @@
 	<form th:action="@{/login}" th:object="${usuario}" method="post" class="login-form">
 
 		<div th:if="${param.error}" class="alert alert-error">
-    <span th:utext="${session.SPRING_SECURITY_LAST_EXCEPTION != null ? 'Usuario o contrase&ntilde;a incorrectos.' : 'Usuario o contrase&ntilde;a incorrectos.'}">
+    <span th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null and (#strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'lock') or #strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'bloque'))}"
+		  th:utext="'Tu cuenta ha sido bloqueada. Contacta al administrador.'">
+       Error de cuenta
+    </span>
+
+			<span th:unless="${session.SPRING_SECURITY_LAST_EXCEPTION != null and (#strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'lock') or #strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'bloque'))}"
+				  th:utext="'Usuario o contrase&ntilde;a incorrectos.'">
        Error de acceso
     </span>
 		</div>

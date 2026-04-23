@@ -31,11 +31,7 @@
 			</li>
 
 			<li class="menu-label">Administración</li>
-			<li>
-				<a th:href="@{/admin/usuarios}">
-					<i class="fas fa-user-shield"></i> <span>Gestión Usuarios</span>
-				</a>
-			</li>
+
 			<li>
 				<a th:href="@{/clientes}">
 					<i class="fas fa-users"></i> <span>Clientes</span>
@@ -103,14 +99,14 @@
 			<p>RESUMEN OPERATIVO DE LA EMPRESA</p>
 		</div>
 
-		<div th:if="${usuarios != null and !#lists.isEmpty(usuarios.?[!accountNonLocked])}"
+		<div th:if="${usuario != null and !#lists.isEmpty(usuario.?[!accountNonLocked])}"
 			 style="background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid #e74c3c; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
 
 			<h3 style="color: #333; margin-bottom: 15px; font-size: 1.1rem;">
 				<i class="fas fa-user-lock" style="color: #e74c3c;"></i> Cuentas Bloqueadas
 			</h3>
 
-			<div th:each="u : ${usuarios}" th:if="${!u.accountNonLocked}"
+			<div th:each="u : ${usuario}" th:if="${!u.accountNonLocked}"
 				 style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fdf2f2; border-radius: 8px; margin-bottom: 8px;">
 
 				<div>
@@ -119,6 +115,7 @@
 				</div>
 
 				<a th:href="@{/usuarios/bloquear/{id}(id=${u.id})}"
+				   onclick="return confirm('¿Estás seguro de que deseas desbloquear esta cuenta?')"
 				   style="background: #27ae60; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.8rem;">
 					<i class="fas fa-unlock"></i> DESBLOQUEAR
 				</a>

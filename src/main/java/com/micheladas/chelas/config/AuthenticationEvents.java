@@ -1,6 +1,5 @@
 package com.micheladas.chelas.config;
 
-import com.micheladas.chelas.entity.UserAccount;
 import com.micheladas.chelas.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +39,13 @@ public class AuthenticationEvents {
         String email = event.getAuthentication().getName();
 
         Optional.ofNullable(userRepository.findByEmail(email))
-                .filter(UserAccount::isAccountNonLocked)
                 .ifPresent(u -> {
+
+                    if (!u.isAccountNonLocked()) {
+                        log.error("Intento de acceso a cuenta YA bloqueada: {}", email);
+                        return;
+                    }
+
                     int newAttempts = u.getFailedAttempts() + 1;
                     u.setFailedAttempts(newAttempts);
 
@@ -49,8 +53,9 @@ public class AuthenticationEvents {
 
                     if (newAttempts >= MAX_FAILED_ATTEMPTS) {
                         u.setAccountNonLocked(false);
-                        log.error("¡CUENTA BLOQUEADA!: {}", email);
+                        log.error("¡UMBRAL ALCANZADO! Bloqueando cuenta: {}", email);
                     }
+
                     userRepository.save(u);
                 });
     }
