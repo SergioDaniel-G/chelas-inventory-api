@@ -20,19 +20,19 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Value("${app.admin.email}")
+    @Value("${app.admin.email:reclutador@ejemplo.com}")
     private String adminEmail;
 
-    @Value("${app.admin.password}")
+    @Value("${app.admin.password:password123}")
     private String adminPassword;
 
-    @Value("${app.admin.name}")
+    @Value("${app.admin.name:Reclutador}")
     private String adminName;
 
-    @Value("${app.admin.surname}")
+    @Value("${app.admin.surname:Prueba}")
     private String adminSurname;
 
-    @Value("${app.admin.mobile}")
+    @Value("${app.admin.mobile:1234567890}")
     private String adminMobile;
 
     public DataInitializer(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
