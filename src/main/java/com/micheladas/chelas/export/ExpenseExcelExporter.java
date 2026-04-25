@@ -2,6 +2,8 @@ package com.micheladas.chelas.export;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.micheladas.chelas.genericcontrollerexporter.GenericExcelExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import com.micheladas.chelas.entity.Expense;
 
@@ -9,11 +11,13 @@ import com.micheladas.chelas.entity.Expense;
  * Excel exporter specialized in Expense data, utilizing a generic engine
  * to handle workbook creation, data type mapping, and currency formatting.
  */
+
 public class ExpenseExcelExporter {
 
 	private List<Expense> listAllExpenses;
 
 	public ExpenseExcelExporter(List<Expense> listAllExpenses) {
+
 		this.listAllExpenses = listAllExpenses;
 	}
 

@@ -3,14 +3,12 @@ package com.micheladas.chelas.controller.DTO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-/**
- * Data Transfer Object for user registration, encapsulating validation logic
- * and data normalization before persisting to the database.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,6 +25,8 @@ public class UserRegistrationDto {
 	private String email;
 
 	@NotBlank(message = "{user.password.required}")
+	@Size(min = 8, max = 12, message = "{validation.password.size}")
+	@ToString.Exclude
 	private String password;
 
 	@NotBlank(message = "{user.phone.required}")

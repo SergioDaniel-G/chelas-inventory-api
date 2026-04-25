@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
-
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -42,8 +41,13 @@ public class Loan extends BaseEntity {
 	private String customerPhone;
 
 	/**
-	 * Compare and update data.
+	 * Compares the current loan record with updated data to identify changes.
+	 * Updates all fields if at least one difference is found.
+	 *
+	 * param newData The source object with the updated loan information.
+	 * return true if the entity was updated; false if data remains unchanged.
 	 */
+
 	public boolean updateFrom(Loan newData) {
 		if (newData == null) return false;
 

@@ -4,9 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Custom exception triggered when a requested resource is missing,
- * automatically mapped to an HTTP 404 Not Found response.
+ * Custom exception thrown when a requested resource (Entity) cannot be found
+ * in the database. Automatically maps to an HTTP 404 Not Found status.
  */
+
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException{
 

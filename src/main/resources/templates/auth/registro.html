@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Registro de Usuarios | Micheladas Chelas</title>
 	<link rel="stylesheet" th:href="@{/css/vistas/access.css}">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="login-page">
 
@@ -20,6 +21,55 @@
 	</div>
 
 	<form th:action="@{/registro}" method="post" th:object="${usuario}" class="login-form">
+
+		<div style="position: relative; margin-bottom: 20px;">
+			<div id="captcha-overlay" style="position: absolute; width: 100%; height: 78px; z-index: 10; cursor: not-allowed;"></div>
+
+			<div id="captcha-wrapper" style="opacity: 0.5; transition: 0.3s;">
+				<div class="g-recaptcha" th:data-sitekey="${@environment.getProperty('google.recaptcha.site')}"></div>
+			</div>
+
+			<div id="captcha-hint" style="display: none; color: #d93025; font-size: 0.85em; margin-top: 8px; font-weight: bold; text-align: center; background: #ffeaea; padding: 8px; border-radius: 4px; border: 1px solid #f5c6cb;">
+				⚠️ Por favor, rellena primero el formulario.
+			</div>
+		</div>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+                // Seleccionamos los campos específicos que queremos que tengan algo escrito
+                const campoNombre = document.getElementById('name');
+                const campoEmail = document.getElementById('email');
+
+                const wrapper = document.getElementById('captcha-wrapper');
+                const overlay = document.getElementById('captcha-overlay');
+                const hint = document.getElementById('captcha-hint');
+
+                function verificarCampos() {
+                    // Solo habilitamos si al menos el nombre y email tienen algo
+                    // Esto no bloquea las anotaciones de Spring Boot al enviar
+                    if (campoNombre.value.trim() !== "" && campoEmail.value.trim() !== "") {
+                        wrapper.style.opacity = "1";
+                        overlay.style.display = "none";
+                        hint.style.display = "none";
+                    } else {
+                        wrapper.style.opacity = "0.5";
+                        overlay.style.display = "block";
+                    }
+                }
+
+                // Escuchar cuando el usuario escribe en esos dos campos
+                campoNombre.addEventListener('input', verificarCampos);
+                campoEmail.addEventListener('input', verificarCampos);
+
+                // Al hacer clic en la "ruedita roja", mostramos el mensaje
+                overlay.addEventListener('click', () => {
+                    hint.style.display = "block";
+                });
+            });
+		</script>
+			<div th:if="${error}" class="error-message" style="color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 20px; text-align: center;">
+				<span th:text="${error}"></span>
+			</div>
 
 		<div class="form-row">
 			<div class="form-group">

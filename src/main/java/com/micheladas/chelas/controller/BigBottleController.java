@@ -23,10 +23,6 @@ import com.micheladas.chelas.export.BigBottleExcelExporter;
 import com.micheladas.chelas.export.BigBottlePdfExporter;
 import com.micheladas.chelas.service.BigBottleService;
 
-/**
- * Controller handling the lifecycle and reporting of BigBottle resources.
- * Leverages a generic view handler to standardize CRUD operations and data export.
- */
 @Controller
 public class BigBottleController {
 
@@ -35,7 +31,10 @@ public class BigBottleController {
     @Autowired
     private BigBottleService bigBottleService;
 
-    /** View Detail **/
+    /**
+     * Retrieves and displays the detailed view of a specific BigBottle by its ID.
+     */
+
     @GetMapping("/ver/{id}")
     public String showDetails(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
         BigBottle bigBottle = bigBottleService.getBigBottleById(id);
@@ -51,7 +50,10 @@ public class BigBottleController {
         );
     }
 
-    /** List **/
+    /**
+     * Fetches a paginated list of all BigBottles and renders the list view.
+     */
+
     @GetMapping("/caguamas")
     public String list(@RequestParam(name = "page", defaultValue = "0") int page,
                        Model model) {
@@ -59,7 +61,10 @@ public class BigBottleController {
                 bigBottleService::findAll, null);
     }
 
-    /** Display New Form **/
+    /**
+     * Prepares the model and displays the form to register a new BigBottle.
+     */
+
     @GetMapping("/caguamas/nuevo")
     public String showForm(Model model) {
         return ControllerGenericView.displayForm(
@@ -71,7 +76,10 @@ public class BigBottleController {
         );
     }
 
-    /** Save New **/
+    /**
+     * Validates and persists a new BigBottle entry into the database.
+     */
+
     @PostMapping("/caguamas/guardar")
     public String save(
             @Valid @ModelAttribute("caguama") BigBottle bigBottle,
@@ -91,20 +99,26 @@ public class BigBottleController {
         );
     }
 
-    /** Edit Form **/
+    /**
+     * Retrieves an existing BigBottle's data and displays the edit form.
+     */
+
     @GetMapping("/caguamas/editar/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         model.addAttribute("caguama", bigBottleService.getBigBottleById(id));
         return "edit/edit_bigbottle";
     }
 
-    /** 6. Update**/
+    /**
+     * Processes the update of an existing BigBottle after validating the input data.
+     */
+
     @PostMapping("/caguamas/{id}")
-    public String updatBigBottle(@PathVariable Long id,
-                                 @Valid @ModelAttribute("caguama") BigBottle bigBottle,
-                                 BindingResult result,
-                                 RedirectAttributes flash,
-                                 Model model) {
+    public String updateBigBottle(@PathVariable Long id,
+                                  @Valid @ModelAttribute("caguama") BigBottle bigBottle,
+                                  BindingResult result,
+                                  RedirectAttributes flash,
+                                  Model model) {
 
         return ControllerGenericView.updateEntity(
                 id,
@@ -122,14 +136,20 @@ public class BigBottleController {
         );
     }
 
-    /** Delete Data **/
+    /**
+     * Deletes a BigBottle record from the database. Restricted to ADMIN users.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/caguamas/eliminar/{id}")
     public String deleteBigBottle(@PathVariable Long id, RedirectAttributes flash) {
         return ControllerGenericView.executeDelete(id, bigBottleService::deleteBigBottle, "caguamas", flash);
     }
 
-    /** PDF Export **/
+    /**
+     * Generates and triggers the download of a PDF report containing all BigBottles.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/exportPDF")
     public void exportPdf(HttpServletResponse response) {
@@ -144,7 +164,10 @@ public class BigBottleController {
                 });
     }
 
-    /** Export To Excel **/
+    /**
+     * Generates and triggers the download of an Excel spreadsheet with the BigBottle inventory.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/excelExport")
     public void exportToExcel(HttpServletResponse response) {

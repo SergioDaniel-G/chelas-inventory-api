@@ -7,10 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-/**
- * Main dashboard controller that serves the application's landing page
- * and handles high-level administrative user management tasks.
- */
 @Controller
 public class IndexController {
 
@@ -22,6 +18,10 @@ public class IndexController {
 		model.addAttribute("usuario", userService.UserLists());
 		return "Main/index";
 	}
+
+	/**
+	 * Toggles the account lock status (Enabled/Disabled) for a specific user.
+	 */
 
 	@GetMapping("/usuarios/bloquear/{id}")
 	public String toggleUser(@PathVariable Long id) {

@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
  * Enables global JPA Auditing to automatically track and persist entity
- * lifecycle metadata such as creation and modification timestamps or users.
+ * lifecycle metadata, such as creation and modification timestamps or users.
  */
+
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class AuditConfig {

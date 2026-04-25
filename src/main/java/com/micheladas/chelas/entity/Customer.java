@@ -31,9 +31,12 @@ public class Customer extends BaseEntity {
     private String zipCode;
 
     /**
-     * Compare and update data.
-     *
+     * Updates the customer's information by comparing existing data with new input.
+     * Checks for changes in identification number, name, address, and zip code.
+     * param newData The source object containing the updated customer details.
+     * return true if any field was modified; false if the data is identical.
      */
+
     public boolean updateFrom(Customer newData) {
         if (Objects.equals(this.customerNumber, newData.getCustomerNumber()) &&
                 Objects.equals(this.fullName, newData.getFullName()) &&

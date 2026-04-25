@@ -3,6 +3,7 @@ package com.micheladas.chelas.export;
 import java.io.IOException;
 import java.util.List;
 
+import com.micheladas.chelas.genericcontrollerexporter.GenericPdfExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -12,6 +13,7 @@ import com.micheladas.chelas.entity.Customer;
  * PDF exporter specialized in Customers inventory reports.
  * Utilizes a generic rendering engine to ensure consistent document structure and styling.
  */
+
 public class CustomerPdfExporter {
 
 	private List<Customer> listAllCustomers;

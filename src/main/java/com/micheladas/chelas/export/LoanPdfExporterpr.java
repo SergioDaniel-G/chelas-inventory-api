@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
+import com.micheladas.chelas.genericcontrollerexporter.GenericPdfExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -14,6 +15,7 @@ import com.micheladas.chelas.entity.Loan;
  * PDF exporter specialized in Loans inventory reports.
  * Utilizes a generic rendering engine to ensure consistent document structure and styling.
  */
+
 public class LoanPdfExporterpr {
 
 	private List<Loan> listAllLoans;
@@ -43,9 +45,8 @@ public class LoanPdfExporterpr {
 			exporter.addSimpleCell(table, total, Element.ALIGN_CENTER);
 			exporter.addSimpleCell(table, loan.getOrderDescription(), Element.ALIGN_LEFT);
 
-			// 6. Fecha (createdAt)
-			String fecha = loan.getCreatedAt() != null ? loan.getCreatedAt().toString() : "N/A";
-			exporter.addSimpleCell(table, fecha, Element.ALIGN_CENTER);
+			String date = loan.getCreatedAt() != null ? loan.getCreatedAt().toString() : "N/A";
+			exporter.addSimpleCell(table, date, Element.ALIGN_CENTER);
 		});
 	}
 }

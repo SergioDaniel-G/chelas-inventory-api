@@ -1,7 +1,6 @@
 package com.micheladas.chelas.service;
 
 import java.util.List;
-
 import com.micheladas.chelas.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

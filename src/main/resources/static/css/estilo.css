@@ -1,4 +1,4 @@
-/* --- ERP MICHELADAS CHELAS - VISTA COMPACTA (SIN SCROLL) --- */
+/* --- ERP MICHELADAS CHELAS  --- */
 
 :root {
     --primary: #1e293b;
@@ -17,7 +17,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Elimina el scroll de la página */
+    overflow: hidden;
 }
 
 body {
@@ -32,7 +32,7 @@ body {
 .container {
     width: 90%;
     max-width: 340px;
-    padding: 15px; /* Reducido drásticamente */
+    padding: 15px;
     background-color: var(--accent);
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -43,7 +43,7 @@ body {
 h2 {
     color: var(--primary);
     text-align: center;
-    margin: 0 0 10px 0; /* Margen mínimo */
+    margin: 0 0 10px 0;
     font-size: 1.1rem;
 }
 
@@ -74,15 +74,15 @@ th {
     text-transform: uppercase;
     font-size: 0.65rem;
     font-weight: 700;
-    padding: 6px 8px; /* Padding muy pequeño */
+    padding: 6px 8px;
     border-bottom: 1.5px solid var(--primary);
 }
 
 td {
-    padding: 6px 8px; /* Padding muy pequeño */
+    padding: 6px 8px;
     border-bottom: 1px solid var(--border);
     font-size: 0.8rem;
-    line-height: 1.1; /* Texto más junto */
+    line-height: 1.1;
 }
 
 tr:hover {
@@ -100,7 +100,7 @@ tr:hover {
 
 .reminder-text {
     color: var(--text-muted);
-    margin: 0 0 4px 0; /* Casi pegado al botón */
+    margin: 0 0 4px 0;
     font-size: 0.75rem;
 }
 

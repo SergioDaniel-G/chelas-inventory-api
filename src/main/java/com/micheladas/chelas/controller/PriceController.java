@@ -21,17 +21,16 @@ import com.micheladas.chelas.export.PriceExcelExporter;
 import com.micheladas.chelas.export.PricePdfExporter;
 import com.micheladas.chelas.service.PriceService;
 
-/**
- * Controller managing the Customer lifecycle, providing standardized
- * CRUD operations and reporting tools.
- */
 @Controller
 public class PriceController {
 
 	@Autowired
 	private PriceService priceService;
 
-	/** View Detail **/
+	/**
+	 * Retrieves and displays the detailed view of a specific Price by its ID.
+	 */
+
 	@GetMapping("/verpre/{id}")
 	public String detailsPriceView(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		Price price = priceService.getPricesById(id);
@@ -47,7 +46,10 @@ public class PriceController {
 		);
 	}
 
-	/** List **/
+	/**
+	 * Fetches a paginated list of all Price and renders the list view.
+	 */
+
 	@GetMapping("/precios")
 	public String listAllPrices(@RequestParam(name = "page", defaultValue = "0") int page,
 								Model model, String keyword) {
@@ -56,7 +58,10 @@ public class PriceController {
 				priceService::findAll, priceService::findBykeyword);
 	}
 
-	/** Display New Form **/
+	/**
+	 * Prepares the model and displays the form to register a new Price.
+	 */
+
 	@GetMapping("/precios/nuevo")
 	public String showPricesForm(Model model) {
 
@@ -69,7 +74,10 @@ public class PriceController {
 		);
 	}
 
-	/** Save New **/
+	/**
+	 * Validates and persists a new Price entry into the database.
+	 */
+
 	@PostMapping("/precios/guardar")
 	public String savePrices(
 			@Valid @ModelAttribute("precio") Price price,
@@ -89,7 +97,10 @@ public class PriceController {
 		);
 	}
 
-	/** Edit Form **/
+	/**
+	 * Retrieves an existing Price data and displays the edit form.
+	 */
+
 	@GetMapping("/precios/editar/{id}")
 	public String showEditForm(@PathVariable Long id, Model modelo) {
 		modelo.addAttribute("precio", priceService.getPricesById(id));
@@ -97,7 +108,10 @@ public class PriceController {
 		return "edit/editar_precios";
 	}
 
-	/** Update **/
+	/**
+	 * Processes the update of an existing Price after validating the input data.
+	 */
+
 	@PostMapping("/precios/{id}")
 	public String updatePrice(@PathVariable Long id,
 							  @Valid @ModelAttribute("precio") Price price,
@@ -121,14 +135,20 @@ public class PriceController {
 		);
 	}
 
-	/** Delete Data **/
+	/**
+	 * Deletes a Price record from the database. Restricted to ADMIN users.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/precios/{id}")
 	public String deletePrice(@PathVariable Long id, RedirectAttributes flash) {
 		return ControllerGenericView.executeDelete(id, priceService::deletePrices, "precios", flash);
 	}
 
-	/** PDF Export **/
+	/**
+	 * Generates and triggers the download of a PDF report containing all Prices.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFpre")
 	public void listExportPricePdf(HttpServletResponse response) {
@@ -143,7 +163,10 @@ public class PriceController {
 				});
 	}
 
-	/** Export To Excel **/
+	/**
+	 * Generates and triggers the download of an Excel spreadsheet with the Price inventory.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarExcelpre")
 	public void listExportPriceExcel(HttpServletResponse response) {

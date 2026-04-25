@@ -21,17 +21,17 @@ import com.micheladas.chelas.export.CustomerExcelExporter;
 import com.micheladas.chelas.export.CustomerPdfExporter;
 import com.micheladas.chelas.service.CustomerService;
 
-/**
- * Controller managing the Customer lifecycle, providing standardized
- * CRUD operations and reporting tools.
- */
+
 @Controller
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    /** View Detail **/
+    /**
+     * Retrieves and displays the detailed view of a specific Customer by its ID.
+     */
+
     @GetMapping("/vercli/{id}")
     public String showDetails(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
@@ -48,7 +48,10 @@ public class CustomerController {
         );
     }
 
-    /** List **/
+    /**
+     * Fetches a paginated list of all Customers and renders the list view.
+     */
+
     @GetMapping("/clientes")
     public String list(@RequestParam(name = "page", defaultValue = "0") int page,
                        Model model, @RequestParam(required = false) String keyword) {
@@ -56,7 +59,10 @@ public class CustomerController {
                 customerService::findAll, customerService::findBykeyword);
     }
 
-    /** Display New Form **/
+    /**
+     * Prepares the model and displays the form to register a new Customer.
+     */
+
     @GetMapping("/clientes/nuevo")
     public String showForm(Model model) {
         return ControllerGenericView.displayForm(
@@ -68,7 +74,11 @@ public class CustomerController {
         );
     }
 
-    /** Save New **/
+    /**
+     * Validates and persists a new Customer entry into the database.
+     */
+
+
     @PostMapping("/clientes/guardar")
     public String save(
             @Valid @ModelAttribute("cliente") Customer customer,
@@ -88,7 +98,10 @@ public class CustomerController {
         );
     }
 
-    /** Edit Form **/
+    /**
+     * Retrieves an existing Customer data and displays the edit form.
+     */
+
     @GetMapping("/clientes/editar/{id}")
     public String editForm(@PathVariable Long id, Model model) {
         model.addAttribute("cliente", customerService.getCustomersById(id));
@@ -96,7 +109,10 @@ public class CustomerController {
         return "edit/edit_customers";
     }
 
-    /** 6. Update **/
+    /**
+     * Processes the update of an existing Customer after validating the input data.
+     */
+
     @PostMapping("/clientes/{id}")
     public String update(@PathVariable Long id,
                          @Valid @ModelAttribute("cliente") Customer customer,
@@ -120,14 +136,20 @@ public class CustomerController {
         );
     }
 
-    /** Delete Data **/
+    /**
+     * Deletes a Customer record from the database. Restricted to ADMIN users.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/clientes/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes flash) {
         return ControllerGenericView.executeDelete(id, customerService::deleteCustomers, "clientes", flash);
     }
 
-    /** PDF Export **/
+    /**
+     * Generates and triggers the download of a PDF report containing all Customers.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/exportarPDFcli")
     public void pdfExport(HttpServletResponse response) {
@@ -142,7 +164,10 @@ public class CustomerController {
                 });
     }
 
-    /** Export To Excel **/
+    /**
+     * Generates and triggers the download of an Excel spreadsheet with the Customer inventory.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/exportarExcelcli")
     public void exportToExcel(HttpServletResponse response) {

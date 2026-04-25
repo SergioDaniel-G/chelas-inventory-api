@@ -21,17 +21,16 @@ import com.micheladas.chelas.export.SupplierExcelExporterpro;
 import com.micheladas.chelas.export.SupplierPdfExporterpro;
 import com.micheladas.chelas.service.SupplierService;
 
-/**
- * Controller managing the Customer lifecycle, providing standardized
- * CRUD operations and reporting tools.
- */
 @Controller
 public class SupplierController {
 
 	@Autowired
 	private SupplierService supplierService;
 
-	/** View Detail **/
+	/**
+	 * Retrieves and displays the detailed view of a specific Supplier by its ID.
+	 */
+
 	@GetMapping("/verpro/{id}")
 	public String viewDetailsSuppliers(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		Supplier supplier = supplierService.getProveedoresById(id);
@@ -47,7 +46,10 @@ public class SupplierController {
 		);
 	}
 
-	/** List **/
+	/**
+	 * Fetches a paginated list of all Supplier and renders the list view.
+	 */
+
 	@GetMapping("/proveedores")
 	public String listAllSuppliers(@RequestParam(name = "page", defaultValue = "0") int page,
 								   Model model, String keyword) {
@@ -56,7 +58,10 @@ public class SupplierController {
 				supplierService::findAll, supplierService::findBykeyword);
 	}
 
-	/** Display New Form **/
+	/**
+	 * Prepares the model and displays the form to register a new Supplier.
+	 */
+
 	@GetMapping("/proveedores/nuevo")
 	public String showDetailsForm(Model model) {
 
@@ -69,7 +74,10 @@ public class SupplierController {
 		);
 	}
 
-	/** Save New **/
+	/**
+	 * Validates and persists a new Supplier entry into the database.
+	 */
+
 	@PostMapping("/proveedores/guardar")
 	public String saveSuppliers(
 			@Valid @ModelAttribute("proveedor") Supplier supplier,
@@ -89,7 +97,10 @@ public class SupplierController {
 		);
 	}
 
-	/** Edit Form **/
+	/**
+	 * Retrieves an existing Supplier data and displays the edit form.
+	 */
+
 	@GetMapping("/proveedores/editar/{id}")
 	public String showEditForm(@PathVariable Long id, Model model) {
 		model.addAttribute("proveedor", supplierService.getProveedoresById(id));
@@ -97,13 +108,16 @@ public class SupplierController {
 		return "edit/editar_proveedores";
 	}
 
-	/** Update **/
+	/**
+	 * Processes the update of an existing Supplier after validating the input data.
+	 */
+
 	@PostMapping("/proveedores/{id}")
-	public String actualizarProveedores(@PathVariable Long id,
-										@Valid @ModelAttribute("proveedor") Supplier supplier,
-										BindingResult result,
-										RedirectAttributes flash,
-										Model model) {
+	public String updateSuppliers(@PathVariable Long id,
+								  @Valid @ModelAttribute("proveedor") Supplier supplier,
+								  BindingResult result,
+								  RedirectAttributes flash,
+								  Model model) {
 
 		return ControllerGenericView.updateEntity(
 				id,
@@ -121,14 +135,20 @@ public class SupplierController {
 		);
 	}
 
-	/** Delete Data **/
+	/**
+	 * Deletes a Supplier record from the database. Restricted to ADMIN users.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/proveedores/{id}")
 	public String deleteSuppliers(@PathVariable Long id, RedirectAttributes flash) {
 		return ControllerGenericView.executeDelete(id, supplierService::deleteProveedores, "proveedores", flash);
 	}
 
-	/** PDF Export **/
+	/**
+	 * Generates and triggers the download of a PDF report containing all Suppliers.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFpro")
 	public void exportSuppliers(HttpServletResponse response) {
@@ -143,7 +163,10 @@ public class SupplierController {
 				});
 	}
 
-	/** Export To Excel **/
+	/**
+	 * Generates and triggers the download of an Excel spreadsheet with the Supplier inventory.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarExcelpro")
 	public void supplierListExportExcel(HttpServletResponse response) {

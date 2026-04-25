@@ -10,16 +10,23 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 /**
- * Event listener component that manages authentication success and failure events
- * to implement brute-force protection and account locking policies.
+ * Component that listens for Spring Security authentication events.
+ * Implements a security policy against brute-force attacks by
+ * managing the failed attempts counter and account locking.
  */
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AuthenticationEvents {
+public class AccountLockoutListener {
 
     private final UserRepository userRepository;
     private static final int MAX_FAILED_ATTEMPTS = 5;
+
+    /**
+     * Executes after a successful authentication.
+     * If the user had accumulated failed attempts, they are reset to zero.
+     */
 
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent event) {
@@ -33,6 +40,11 @@ public class AuthenticationEvents {
                     log.info("Login exitoso: Intentos reiniciados para {}", email);
                 });
     }
+
+    /**
+     * Executes when an authentication error occurs (incorrect password, etc.).
+     * Increments the failure counter and locks the account if the limit is reached.
+     */
 
     @EventListener
     public void onFailure(AbstractAuthenticationFailureEvent event) {
@@ -53,7 +65,7 @@ public class AuthenticationEvents {
 
                     if (newAttempts >= MAX_FAILED_ATTEMPTS) {
                         u.setAccountNonLocked(false);
-                        log.error("¡UMBRAL ALCANZADO! Bloqueando cuenta: {}", email);
+                        log.error("¡LIMITE ALCANZADO! Cuenta bloqueada: {}", email);
                     }
 
                     userRepository.save(u);

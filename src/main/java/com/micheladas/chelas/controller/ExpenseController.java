@@ -21,17 +21,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.micheladas.chelas.entity.Expense;
 
-/**
- * Controller managing the Customer lifecycle, providing standardized
- * CRUD operations and reporting tools.
- */
 @Controller
 public class ExpenseController {
 
 	@Autowired
 	private ExpenseService expenseService;
 
-	/** View Detail **/
+	/**
+	 * Retrieves and displays the detailed view of a specific Expense by its ID.
+	 */
+
+
 	@GetMapping("/verg/{id}")
 	public String showDetails(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		Expense expense = expenseService.getExpensesById(id);
@@ -47,7 +47,10 @@ public class ExpenseController {
 		);
 	}
 
-	/** List **/
+	/**
+	 * Fetches a paginated list of all Expenses and renders the list view.
+	 */
+
 	@GetMapping("/gastos")
 	public String list(@RequestParam(name = "page", defaultValue = "0") int page,
 					   Model model, String keyword) {
@@ -55,7 +58,10 @@ public class ExpenseController {
 				expenseService::findAll, expenseService::findBykeyword);
 	}
 
-	/** Display New Form **/
+	/**
+	 * Prepares the model and displays the form to register a new Expense.
+	 */
+
 	@GetMapping("/gastos/nuevo")
 	public String expensesForm(Model model) {
 		return ControllerGenericView.displayForm(
@@ -67,7 +73,9 @@ public class ExpenseController {
 		);
 	}
 
-	/** Save New **/
+	/**
+	 * Validates and persists a new Expense entry into the database.
+	 */
 	@PostMapping("/gastos/guardar")
 	public String save(
 			@Valid @ModelAttribute("gasto") Expense expense,
@@ -87,7 +95,10 @@ public class ExpenseController {
 		);
 	}
 
-	/** Edit Form **/
+	/**
+	 * Retrieves an existing Expense data and displays the edit form.
+	 */
+
 	@GetMapping("/gastos/editar/{id}")
 	public String editForm(@PathVariable Long id, Model model) {
 		model.addAttribute("gasto", expenseService.getExpensesById(id));
@@ -95,7 +106,10 @@ public class ExpenseController {
 		return "edit/edit_expenses";
 	}
 
-	/** Update **/
+	/**
+	 * Processes the update of an existing Expense after validating the input data.
+	 */
+
 	@PostMapping("/gastos/{id}")
 	public String update(@PathVariable Long id,
 						 @Valid @ModelAttribute("gasto") Expense expense,
@@ -119,14 +133,20 @@ public class ExpenseController {
 		);
 	}
 
-	/** Delete Data **/
+	/**
+	 * Deletes a Expense record from the database. Restricted to ADMIN users.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/gastos/{id}")
 	public String delete(@PathVariable Long id, RedirectAttributes flash) {
 		return ControllerGenericView.executeDelete(id, expenseService::deleteExpenses, "gastos", flash);
 	}
 
-	/** PDF Export **/
+	/**
+	 * Generates and triggers the download of a PDF report containing all Expenses.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFga")
 	public void exportPdf(HttpServletResponse response) {
@@ -141,7 +161,10 @@ public class ExpenseController {
 				});
 	}
 
-	/** Export To Excel **/
+	/**
+	 * Generates and triggers the download of an Excel spreadsheet with the Expense inventory.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarExcelga")
 	public void exportToExcel(HttpServletResponse response) {

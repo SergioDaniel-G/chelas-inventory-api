@@ -1,7 +1,10 @@
 package com.micheladas.chelas.controller;
 
+import com.micheladas.chelas.config.RecaptchaService;
 import com.micheladas.chelas.entity.UserAccount;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.micheladas.chelas.controller.DTO.UserRegistrationDto;
@@ -15,6 +18,9 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/registro")
 public class UserRegistrationController {
+
+	@Autowired
+	private RecaptchaService recaptchaService;
 
 	private UserService userService;
 
@@ -35,8 +41,21 @@ public class UserRegistrationController {
 		return "auth/registro";
 	}
 
+	/**
+	 * Processes the registration request, validating the reCAPTCHA,
+	 * checking for email uniqueness, and persisting the new user account.
+	 */
+
 	@PostMapping
-	public String userAccountRegister(@Valid @ModelAttribute("usuario") UserRegistrationDto userRegistrationDto, BindingResult result) {
+	public String userAccountRegister(@Valid @ModelAttribute("usuario") UserRegistrationDto userRegistrationDto,
+									  BindingResult result,
+									  @RequestParam(name = "g-recaptcha-response") String captchaResponse,
+									  Model model) {
+
+		if (!recaptchaService.validate(captchaResponse)) {
+			model.addAttribute("error", "Por favor, verifica el reCAPTCHA .");
+			return "auth/registro";
+		}
 
 		UserAccount accountExist = userService.findByEmail(userRegistrationDto.getEmail());
 

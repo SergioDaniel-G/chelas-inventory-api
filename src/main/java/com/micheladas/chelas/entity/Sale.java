@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
-
-import java.math.BigDecimal; // CAMBIO: Precisión absoluta para el cierre de caja
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -45,8 +44,12 @@ public class Sale extends BaseEntity {
 	private Integer cigarettesStock;
 
 	/**
-	 * Compare and update data.
+	 * Compares current sale data with new input to detect modifications.
+	 * Checks all item quantities, total amount, and recorded stock levels.
+	 * param newData The source object with updated sale details.
+	 * return true if any field has changed; false otherwise.
 	 */
+
 	public boolean updateFrom(Sale newData) {
 		boolean sameTotal = (this.totalAmount != null && newData.getTotalAmount() != null)
 				? this.totalAmount.compareTo(newData.getTotalAmount()) == 0

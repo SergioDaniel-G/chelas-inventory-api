@@ -36,8 +36,13 @@ public class Price extends BaseEntity {
 	private BigDecimal productPrice;
 
 	/**
-	 * Compare and update data.
+	 * Compares the current price record with new data to detect changes.
+	 * Updates fields locally if the product ID, description, stock, or price has changed.
+	 *
+	 * param newData The source object with updated price and stock details.
+	 * return true if the entity was modified; false otherwise.
 	 */
+
 	public boolean updateFrom(Price newData) {
 		boolean samePrice = (this.productPrice != null && newData.getProductPrice() != null)
 				? this.productPrice.compareTo(newData.getProductPrice()) == 0

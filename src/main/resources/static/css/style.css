@@ -72,7 +72,7 @@ body {
     list-style: none;
 }
 
-/* Unificamos el estilo de los enlaces y el botón de logout */
+
 .sidebar-menu ul li a,
 .navbar-link {
     display: flex;
@@ -90,10 +90,10 @@ body {
     text-align: left;
 }
 
-/* Iconos alineados perfectamente */
+
 .sidebar-menu ul li a i,
 .navbar-link i {
-    width: 25px; /* Ancho fijo para que el texto no baile */
+    width: 25px;
     margin-right: 12px;
     font-size: 1.1rem;
     text-align: center;
@@ -105,7 +105,7 @@ body {
     color: var(--white);
 }
 
-/* Resalte del icono al pasar el mouse */
+
 .sidebar-menu ul li a:hover i,
 .navbar-link:hover i {
     color: var(--accent);

@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  * This advice simplifies UI navigation by automatically calculating
  * the return path (referer) for "Back" buttons across all views.
  **/
+
 @ControllerAdvice
-public class GlobalControllerAdvice {
+public class BackNavigationAdvice {
 
     @ModelAttribute("backUrl")
     public String addBackUrl(HttpServletRequest request) {

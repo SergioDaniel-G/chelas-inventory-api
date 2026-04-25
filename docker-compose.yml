@@ -1,19 +1,22 @@
+version: '3.8'
+
 services:
   db:
     image: mysql:8.0
     container_name: mysql_micheladas
     restart: always
     environment:
-      - MYSQL_DATABASE=micheladas
+      - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     ports:
       - "3306:3306"
     networks:
       - miche-net
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
@@ -21,15 +24,20 @@ services:
     ports:
       - "9090:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_micheladas:3306/micheladas?useSSL=false&serverTimezone=America/Mexico_City&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=${DB_URL}
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
-      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
-      - ADMIN_EMAIL=${ADMIN_EMAIL}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-      - ADMIN_NOMBRE=${ADMIN_NOMBRE}
-      - ADMIN_APELLIDO=${ADMIN_APELLIDO}
-      - ADMIN_MOBILE=${ADMIN_MOBILE}
+
+      - SPRING_JPA_OPEN_IN_VIEW=false
+
+      - APP_ADMIN_EMAIL=${ADMIN_EMAIL}
+      - APP_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - APP_ADMIN_NAME=${ADMIN_NOMBRE}
+      - APP_ADMIN_SURNAME=${ADMIN_APELLIDO}
+      - APP_ADMIN_MOBILE=${ADMIN_MOBILE}
+
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
     depends_on:
       db:
         condition: service_healthy

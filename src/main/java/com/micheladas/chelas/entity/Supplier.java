@@ -28,8 +28,12 @@ public class Supplier extends BaseEntity {
 	private String location;
 
 	/**
-	 * Compare and update data
+	 * Updates the supplier's details by comparing existing values with new data.
+	 * Evaluates changes in name, phone, and location to determine if persistence is needed.
+	 * param newData The source object containing updated supplier information.
+	 * return true if any field was updated; false if the data remains identical.
 	 */
+
 	public boolean updateFrom(Supplier newData) {
 		if (Objects.equals(this.name, newData.getName()) &&
 				Objects.equals(this.phone, newData.getPhone()) &&

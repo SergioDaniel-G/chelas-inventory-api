@@ -3,6 +3,7 @@ package com.micheladas.chelas.export;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.micheladas.chelas.entity.BigBottle;
+import com.micheladas.chelas.genericcontrollerexporter.GenericPdfExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -13,6 +14,7 @@ import java.util.Locale;
  * PDF exporter specialized in BigBottle inventory reports.
  * Utilizes a generic rendering engine to ensure consistent document structure and styling.
  */
+
 public class BigBottlePdfExporter {
 
 	private List<BigBottle> bigBottleList;

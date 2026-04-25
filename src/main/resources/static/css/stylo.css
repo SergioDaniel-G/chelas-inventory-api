@@ -11,7 +11,7 @@
 .navbar-left {
     display: flex;
     align-items: center;
-    gap: 15px; /* espacio entre Caguamas y los links */
+    gap: 15px;
 }
 
 .navbar-brand {
@@ -41,10 +41,10 @@
     color: white !important;
     text-decoration: none;
 
-    border: none !important;      /* Quita el borde de botón */
-        outline: none !important;     /* Quita el recuadro de enfoque al hacer clic */
-        box-shadow: none !important;  /* Quita cualquier sombra sutil */
-        appearance: none;             /* Quita estilos nativos del sistema */
+    border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        appearance: none;
         cursor: pointer;
         padding: 0;
 }
@@ -54,17 +54,17 @@
 }
 
 .text2 {
-    text-align: center; /* centra el h1 dentro de este contenedor */
-    margin-bottom: 10px; /* opcional, separación del resto */
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .text2 h1 {
-    display: inline-block;        /* que solo ocupe lo que necesita */
-    background-color: #b0b0b0;    /* verde oscuro */
-    color: blanco;                 /* texto blanco */
-    padding: 6px 20px;            /* espacio interno */
-    font-size: 15px;              /* tamaño del texto */
-    margin: 0;                    /* eliminar margen por defecto */
+    display: inline-block;
+    background-color: #b0b0b0;
+    color: blanco;
+    padding: 6px 20px;
+    font-size: 15px;
+    margin: 0;
 }
 
 /* Tabla */
@@ -117,19 +117,19 @@
 }
 
 .actions .btn {
-    background: #2E7D32;       /* sin fondo */
-        border: none;           /* sin borde */
-        color: white;           /* texto negro */
-        padding: 0;             /* quitar padding extra */
-        margin-right: 10px;     /* separación entre botones */
+    background: #2E7D32;
+        border: none;
+        color: white;
+        padding: 0;
+        margin-right: 10px;
         font-size: 13px;
         font-family: 'Roboto', sans-serif;
         cursor: pointer;
-        text-decoration: none;  /* sin subrayado */
+        text-decoration: none;
 }
 
 .actions .btn:hover {
-    text-decoration: underline; /* opcional: efecto hover */
+    text-decoration: underline;
 }
 
 /* Título */
@@ -147,19 +147,19 @@
 }
 
 #granTotal {
-    background-color: #ffe5e5; /* fondo rojo muy suave */
+    background-color: #ffe5e5;
 }
 
 .pagination {
     display: flex;
     list-style: none;
     padding-left: 0;
-    justify-content: center; /* centra los botones */
+    justify-content: center;
     margin-top: 15px;
 }
 
 .page-item {
-    margin: 0 3px; /* separación entre botones */
+    margin: 0 3px;
 }
 
 .page-item .page-link {

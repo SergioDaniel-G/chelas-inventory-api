@@ -5,13 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Controller responsible for handling security-related exceptions and
- * displaying custom error pages for unauthorized access.
+ * displaying custom error pages for unauthorized access (Access Denied).
  */
+
 @Controller
 public class CustomErrorController {
 
     @GetMapping("/error/403")
     public String Forbidden() {
+
         return "error/403";
     }
 }

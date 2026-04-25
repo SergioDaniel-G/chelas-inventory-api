@@ -1,9 +1,9 @@
 /* ERP MICHELADAS CHELAS - CSS UNIFICADO (VISTAS DE DATOS Y EDICIÓN) */
 :root {
-    --primary: #1e293b;       /* Slate 800 - Consistente con el login */
-    --accent: #2563eb;        /* Azul vibrante acciones */
-    --bg-main: #f8fafc;       /* Fondo gris limpio */
-    --border-color: #e2e8f0;  /* Gris suave para líneas */
+    --primary: #1e293b;
+    --accent: #2563eb;
+    --bg-main: #f8fafc;
+    --border-color: #e2e8f0;
     --text-dark: #334155;
     --text-muted: #64748b;
     --white: #ffffff;
@@ -27,13 +27,13 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    min-width: 1200px; /* Mantiene el ancho solicitado */
+    min-width: 1200px;
 }
 
 /* --- NAVBAR / HEADER PROFESIONAL --- */
 .header-estatico {
     width: 100%;
-    background-color: var(--primary); /* Cambiado a primario para dar peso visual */
+    background-color: var(--primary);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding: 0.85rem 0;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
@@ -74,7 +74,7 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center; /* CENTRADO VERTICAL */
+    align-items: center;
     padding: 40px;
     background-image: radial-gradient(circle at center, #f1f5f9 0%, #f8fafc 100%);
 }
@@ -85,11 +85,11 @@ body {
     border-collapse: separate;
     border-spacing: 0;
     background-color: var(--white);
-    border-radius: 12px; /* Bordes más redondeados como el login */
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
     border: 1px solid var(--border-color);
-    transform: translateY(-20px); /* Ajuste visual de altura */
+    transform: translateY(-20px);
 }
 
 .tabla-datos th {
@@ -121,7 +121,7 @@ body {
     border-radius: 12px;
     border: 1px solid var(--border-color);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    transform: translateY(-20px); /* Ajuste visual de altura */
+    transform: translateY(-20px);
 }
 
 .titulo-formulario {
@@ -163,7 +163,7 @@ body {
 .boton-guardar {
     width: 100%;
     padding: 12px;
-    background-color: var(--accent); /* Cambiado a Azul Acción para consistencia */
+    background-color: var(--accent);
     color: var(--white);
     border: none;
     border-radius: 6px;

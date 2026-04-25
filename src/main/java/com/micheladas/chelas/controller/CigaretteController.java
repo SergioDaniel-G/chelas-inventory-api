@@ -21,17 +21,16 @@ import com.micheladas.chelas.export.CigaretteExcelExporter;
 import com.micheladas.chelas.export.CigarettePdfExporterci;
 import com.micheladas.chelas.service.CigaretteService;
 
-/**
- * Controller managing the Cigarette inventory lifecycle, providing standardized
- * CRUD operations and reporting tools.
- */
 @Controller
 public class CigaretteController {
 
 	@Autowired
 	private CigaretteService cigaretteService;
 
-	/** View Detail **/
+	/**
+	 * Retrieves and displays the detailed view of a specific Cigarette by its ID.
+	 */
+
 	@GetMapping("/verci/{id}")
 	public String showDetails(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		Cigarette cigarette = cigaretteService.getCigarettesById(id);
@@ -47,7 +46,10 @@ public class CigaretteController {
 		);
 	}
 
-	/** List **/
+	/**
+	 * Fetches a paginated list of all Cigarettes and renders the list view.
+	 */
+
 	@GetMapping("/cigarros")
 	public String list(@RequestParam(name = "page", defaultValue = "0") int page,
 					   Model model, String keyword) {
@@ -55,7 +57,10 @@ public class CigaretteController {
 				cigaretteService::findAll, cigaretteService::findBykeyword);
 	}
 
-	/** Display New Form **/
+	/**
+	 * Prepares the model and displays the form to register a new Cigarette.
+	 */
+
 	@GetMapping("/cigarros/nuevo")
 	public String showForm(Model model) {
 		return ControllerGenericView.displayForm(
@@ -67,7 +72,10 @@ public class CigaretteController {
 		);
 	}
 
-	/** Save New **/
+	/**
+	 * Validates and persists a new Cigarette entry into the database.
+	 */
+
 	@PostMapping("/cigarros/guardar")
 	public String save(
 			@Valid @ModelAttribute("cigarro") Cigarette cigarette,
@@ -87,7 +95,10 @@ public class CigaretteController {
 		);
 	}
 
-	/** Edit Form **/
+	/**
+	 * Retrieves an existing Cigarette data and displays the edit form.
+	 */
+
 	@GetMapping("/cigarros/editar/{id}")
 	public String showEditForm(@PathVariable Long id, Model model) {
 		model.addAttribute("cigarro", cigaretteService.getCigarettesById(id));
@@ -95,7 +106,10 @@ public class CigaretteController {
 		return "edit/edit_cigarettes";
 	}
 
-	/** 6. Update **/
+	/**
+	 * Processes the update of an existing Cigarette after validating the input data.
+	 */
+
 	@PostMapping("/cigarros/{id}")
 	public String update(@PathVariable Long id,
 						 @Valid @ModelAttribute("cigarro") Cigarette cigarette,
@@ -119,14 +133,21 @@ public class CigaretteController {
 		);
 	}
 
-	/** Delete Data **/
+	/**
+	 * Deletes a Cigarette record from the database. Restricted to ADMIN users.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/cigarros/{id}")
 	public String delete(@PathVariable Long id, RedirectAttributes flash) {
 		return ControllerGenericView.executeDelete(id, cigaretteService::deleteCigarettes, "cigarros", flash);
 	}
 
-	/** PDF Export **/
+	/**
+	 * Generates and triggers the download of a PDF report containing all BigBottles.
+	 */
+
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFci")
 	public void exportPdf(HttpServletResponse response) {
@@ -141,7 +162,10 @@ public class CigaretteController {
 				});
 	}
 
-	/** Export To Excel **/
+	/**
+	 * Generates and triggers the download of an Excel spreadsheet with the Cigarette inventory.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarExcelci")
 	public void exportToExcel(HttpServletResponse response) {

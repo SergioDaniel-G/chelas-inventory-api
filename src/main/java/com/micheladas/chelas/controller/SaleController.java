@@ -22,17 +22,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.micheladas.chelas.entity.Sale;
 
-/**
- * Controller managing the Customer lifecycle, providing standardized
- * CRUD operations and reporting tools.
- */
+
 @Controller
 public class SaleController {
 
 	@Autowired
 	private SaleService saleService;
 
-	/** View Detail **/
+	/**
+	 * Retrieves and displays the detailed view of a specific Sale by its ID.
+	 */
+
 	@GetMapping("/verve/{id}")
 	public String viewBigBottleDetails(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		Sale sale = saleService.getSalesById(id);
@@ -48,7 +48,10 @@ public class SaleController {
 		);
 	}
 
-	/** List **/
+	/**
+	 * Fetches a paginated list of all Sales and renders the list view.
+	 */
+
 	@GetMapping("/ventas")
 	public String listAllSales(@RequestParam(name = "page", defaultValue = "0") int page,
 							   Model model, String keyword) {
@@ -57,7 +60,10 @@ public class SaleController {
 				saleService::findAll, saleService::findBykeyword);
 	}
 
-	/** Display New Form **/
+	/**
+	 * Prepares the model and displays the form to register a new Sale.
+	 */
+
 	@GetMapping("/ventas/nuevo")
 	public String showSalesForm(Model model) {
 		return ControllerGenericView.displayForm(
@@ -69,7 +75,10 @@ public class SaleController {
 		);
 	}
 
-	/** Save New**/
+	/**
+	 * Validates and persists a new Sale entry into the database.
+	 */
+
 	@PostMapping("/ventas/guardar")
 	public String saveSales(
 			@Valid @ModelAttribute("venta") Sale sale,
@@ -89,7 +98,10 @@ public class SaleController {
 		);
 	}
 
-	/** Edit Form **/
+	/**
+	 * Retrieves an existing Sale data and displays the edit form.
+	 */
+
 	@GetMapping("/ventas/editar/{id}")
 	public String showEditForm(@PathVariable Long id, Model model) {
 		model.addAttribute("venta", saleService.getSalesById(id));
@@ -97,13 +109,15 @@ public class SaleController {
 		return "edit/editar_ventas";
 	}
 
-	/** Update **/
+	/**
+	 * Processes the update of an existing Sale after validating the input data.
+	 */
 	@PostMapping("/ventas/{id}")
-	public String actualizarVentas(@PathVariable Long id,
-								   @Valid @ModelAttribute("venta") Sale sale,
-								   BindingResult result,
-								   RedirectAttributes flash,
-								   Model model) {
+	public String updteSales(@PathVariable Long id,
+							 @Valid @ModelAttribute("venta") Sale sale,
+							 BindingResult result,
+							 RedirectAttributes flash,
+							 Model model) {
 
 		return ControllerGenericView.updateEntity(
 				id,
@@ -121,14 +135,20 @@ public class SaleController {
 		);
 	}
 
-	/** Delete Data **/
+	/**
+	 * Deletes a Sale record from the database. Restricted to ADMIN users.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/ventas/{id}")
 	public String deleteSales(@PathVariable Long id, RedirectAttributes flash) {
 		return ControllerGenericView.executeDelete(id, saleService::deleteSales, "ventas", flash);
 	}
 
-	/** PDF Export **/
+	/**
+	 * Generates and triggers the download of a PDF report containing all Sales.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFve")
 	public void salesExport(HttpServletResponse response) {
@@ -143,7 +163,10 @@ public class SaleController {
 				});
 	}
 
-	/** Export To Excel **/
+	/**
+	 * Generates and triggers the download of an Excel spreadsheet with the Sales inventory.
+	 */
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarExcelven")
 	public void listSalesExcelExport(HttpServletResponse response) {

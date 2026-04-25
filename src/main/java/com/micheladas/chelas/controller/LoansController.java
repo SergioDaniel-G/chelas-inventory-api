@@ -21,17 +21,16 @@ import com.micheladas.chelas.export.LoanExcelExporterpr;
 import com.micheladas.chelas.export.LoanPdfExporterpr;
 import com.micheladas.chelas.service.LoanService;
 
-/**
- * Controller managing the Customer lifecycle, providing standardized
- * CRUD operations and reporting tools.
- */
 @Controller
 public class LoansController {
 
     @Autowired
     private LoanService loanService;
 
-    /** View Detail **/
+    /**
+     * Retrieves and displays the detailed view of a specific Loan by its ID.
+     */
+
     @GetMapping("/verpr/{id}")
     public String showDetails(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
@@ -48,7 +47,10 @@ public class LoansController {
         );
     }
 
-    /** List **/
+    /**
+     * Fetches a paginated list of all Loans and renders the list view.
+     */
+
     @GetMapping("/prestados")
     public String list(@RequestParam(name = "page", defaultValue = "0") int page,
                        Model model, String keyword) {
@@ -57,7 +59,10 @@ public class LoansController {
                 loanService::findAll, loanService::findBykeyword);
     }
 
-    /** Display New Form **/
+    /**
+     * Prepares the model and displays the form to register a new Loan.
+     */
+
     @GetMapping("/prestados/nuevo")
     public String loansForm(Model model) {
 
@@ -70,7 +75,10 @@ public class LoansController {
         );
     }
 
-    /** Save New **/
+    /**
+     * Validates and persists a new Loans entry into the database.
+     */
+
     @PostMapping("/prestados/guardar")
     public String save(
             @Valid @ModelAttribute("prestado") Loan loan,
@@ -90,7 +98,10 @@ public class LoansController {
         );
     }
 
-    /** Edit Form **/
+    /**
+     * Retrieves an existing Loan data and displays the edit form.
+     */
+
     @GetMapping("/prestados/editar/{id}")
     public String editForm(@PathVariable Long id, Model model) {
         model.addAttribute("prestado", loanService.getLoansById(id));
@@ -98,7 +109,10 @@ public class LoansController {
         return "edit/edit_loans";
     }
 
-    /** 6. Actualizar (Ajustado al Generic) **/
+    /**
+     * Processes the update of an existing Loan after validating the input data.
+     */
+
     @PostMapping("/prestados/{id}")
     public String update(@PathVariable Long id,
                          @Valid @ModelAttribute("prestado") Loan loan,
@@ -122,14 +136,20 @@ public class LoansController {
         );
     }
 
-    /** Delete Data **/
+    /**
+     * Deletes a Loans record from the database. Restricted to ADMIN users.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/prestados/eliminar/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes flash) {
         return ControllerGenericView.executeDelete(id, loanService::deleteLoans, "prestados", flash);
     }
 
-    /** PDF Export **/
+    /**
+     * Generates and triggers the download of a PDF report containing all Loans.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/exportarPDFpr")
     public void exportPdf(HttpServletResponse response) {
@@ -141,7 +161,10 @@ public class LoansController {
                 });
     }
 
-    /** Export To Excel **/
+    /**
+     * Generates and triggers the download of an Excel spreadsheet with the Loan inventory.
+     */
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/exportarExcelpr")
     public void exportToExcel(HttpServletResponse response) {

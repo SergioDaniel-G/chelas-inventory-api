@@ -4,7 +4,7 @@
     --card-bg: #ffffff;
     --primary: #3b82f6;
     --text-dark: #1e293b;
-    --text-muted: #64748b;           /*pendiente*/
+    --text-muted: #64748b;
     --border: #e2e8f0;
 }
 
@@ -17,24 +17,24 @@ body.login-page {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px; /* Reducido */
+    padding: 10px;
 }
 
 .login-card {
     background: var(--card-bg);
     width: 100%;
     max-width: 350px;
-    padding: 18px 25px; /* Reducido el padding vertical */
+    padding: 18px 25px;
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-.login-header { text-align: center; margin-bottom: 15px; } /* Menos margen */
+.login-header { text-align: center; margin-bottom: 15px; }
 
 .logo-circle {
     background: var(--primary);
     color: white;
-    width: 35px; height: 35px; /* Más pequeño */
+    width: 35px; height: 35px;
     border-radius: 8px;
     display: grid; place-items: center;
     font-weight: bold; margin: 0 auto 8px;
@@ -51,26 +51,26 @@ body.login-page {
 }
 
 .form-group {
-    margin-bottom: 10px; /* Espacio entre campos reducido */
+    margin-bottom: 10px;
     width: 100%;
 }
 
 .form-group label {
     display: block;
-    font-size: 0.7rem; /* Fuente más pequeña */
+    font-size: 0.7rem;
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 3px;
-    text-transform: uppercase; /* Estilo más corporativo */
+    text-transform: uppercase;
 }
 
 .form-group input {
     width: 100%;
-    padding: 8px 10px; /* Inputs más delgados */
+    padding: 8px 10px;
     border: 1px solid var(--border);
     border-radius: 5px;
     font-size: 0.85rem;
-    height: 34px; /* Altura reducida */
+    height: 34px;
 }
 
 /* OJO DE CONTRASEÑA - AJUSTADO A LA NUEVA ALTURA */
@@ -103,7 +103,7 @@ body.login-page {
 /* Botón y Footer Compactos */
 .btn-login {
     width: 100%;
-    padding: 8px; /* Menos alto */
+    padding: 8px;
     background: var(--primary);
     color: white;
     border: none;

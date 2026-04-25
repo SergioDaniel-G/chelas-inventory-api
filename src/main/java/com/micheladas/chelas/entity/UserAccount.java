@@ -1,5 +1,6 @@
 package com.micheladas.chelas.entity;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -10,10 +11,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Core domain entity representing user identity, including authentication credentials,
- * role-based access control (RBAC), and security state management.
- */
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @Data
@@ -51,6 +48,14 @@ public class UserAccount {
 
 	@Column(name = "failed_attempts")
 	private int failedAttempts = 0;
+
+	@Column(name = "last_login")
+	private LocalDateTime lastLogin;
+
+	/**
+	 * Collection of security roles granted to the user.
+	 * Loaded eagerly to facilitate immediate authorization checks.
+	 */
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(

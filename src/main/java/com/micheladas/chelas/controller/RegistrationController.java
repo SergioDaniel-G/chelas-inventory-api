@@ -23,14 +23,16 @@ public class RegistrationController {
 	@Autowired
 	private UserService userService;
 
-	/* Show login page */
 	@GetMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("usuario", new UserRegistrationDto());
 		return "auth/login";
 	}
 
-	/* Loads the screen where the user requests to recover their password. */
+	/**
+	 * Displays the initial password recovery screen where the user requests a reset.
+	 */
+
 	@GetMapping("/loadForgotPassword")
 	public String loadForgotPassword(@RequestParam(required = false) String msg, Model model) {
 		if (msg != null) {
@@ -39,14 +41,20 @@ public class RegistrationController {
 		return "auth/forgot_password";
 	}
 
-	/*Displays the form to enter the new password.*/
+	/**
+	 * Renders the form to define a new password after successful identity verification.
+	 */
+
 	@GetMapping("/loadResetPassword/{id}")
 	public String loadResetPassword(@PathVariable Long id, Model model) {
 		model.addAttribute("id", id);
 		return "auth/reset_password";
 	}
 
-	/* User authentication for password recovery */
+	/**
+	 * Verifies user credentials to authorize a password reset.
+	 */
+
 	@PostMapping("/forgotPassword")
 	public String forgotPasword(@RequestParam String email,
 								@RequestParam String mobileNum,
@@ -62,7 +70,10 @@ public class RegistrationController {
 		}
 	}
 
-	/* The method that finally saves the new password */
+	/**
+	 * Encrypts and updates the user's password in the database after confirming matching inputs.
+	 */
+
 	@PostMapping("/changePassword")
 	public String resetPassword(@RequestParam String password,
 								@RequestParam String cpassword,

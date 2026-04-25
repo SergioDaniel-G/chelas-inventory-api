@@ -36,9 +36,12 @@ public class Cigarette extends BaseEntity {
 	private BigDecimal totalAmount;
 
 	/**
-	 * Compares current state with new data to prevent unnecessary database writes.
-	 * return true if the entity was updated, false otherwise.
+	 * Compares the current entity with new data to detect changes.
+	 * If changes are found, it updates the local fields and returns true.
+	 * param newData The object containing potentially updated information.
+	 * return true if the entity was modified; false if all relevant fields remain the same.
 	 */
+
 	public boolean updateFrom(Cigarette newData) {
 		boolean sameBrand = Objects.equals(this.brand, newData.getBrand());
 		boolean samequantity = Objects.equals(this.quantity, newData.getQuantity());
@@ -56,6 +59,11 @@ public class Cigarette extends BaseEntity {
 
 		return true;
 	}
+
+	/**
+	 * Lifecycle callback to automatically calculate the total inventory value
+	 * (Price * Quantity) before persisting or updating the record in the database.
+	 */
 
 	@PrePersist
 	@PreUpdate

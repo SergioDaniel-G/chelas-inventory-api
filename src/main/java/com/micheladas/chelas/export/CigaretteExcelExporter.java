@@ -2,6 +2,8 @@ package com.micheladas.chelas.export;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.micheladas.chelas.genericcontrollerexporter.GenericExcelExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import com.micheladas.chelas.entity.Cigarette;
 
@@ -9,6 +11,7 @@ import com.micheladas.chelas.entity.Cigarette;
  * Excel exporter specialized in Cigarette data, utilizing a generic engine
  * to handle workbook creation, data type mapping, and currency formatting.
  */
+
 public class CigaretteExcelExporter {
 
 	private List<Cigarette> listAllCigarettes;

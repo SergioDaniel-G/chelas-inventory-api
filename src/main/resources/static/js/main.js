@@ -1,30 +1,26 @@
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Sistema ERP Micheladas - Scripts cargados correctamente");
 
-    // 1. INICIALIZACIÓN DE TABLA
     actualizarGranTotal();
 
-    // 2. LÓGICA DEL OJO (CAMBIO REALIZADO AQUÍ)
-    // Seleccionamos todos los botones de ojo, ya sea por ID o por Clase
     const eyeButtons = document.querySelectorAll('#togglePassword, .eye-btn');
 
     eyeButtons.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Buscamos el input que está dentro del mismo contenedor que el botón
+
             const passwordInput = this.parentElement.querySelector('input');
 
             if (passwordInput) {
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
 
-                // Feedback visual: azul si se ve, gris si está oculto
                 this.style.color = type === 'text' ? '#3b82f6' : '#64748b';
                 this.style.opacity = type === 'text' ? '0.7' : '1';
             }
         });
     });
 
-    // 3. LÓGICA DE CERRAR SESIÓN (UNIFICADA)
+    // 3. LÓGICA DE CERRAR SESIÓN
     const logoutLink = document.querySelector('.navbar-link[href*="logout"], .btn-logout');
 
     if (logoutLink) {
@@ -42,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// --- FUNCIONES DE TABLA (Se mantienen igual para no afectar funcionalidad) ---
+// --- FUNCIONES DE TABLA ---
 
 function buscarEnTabla() {
     const input = document.querySelector('input[name="keyword"]');

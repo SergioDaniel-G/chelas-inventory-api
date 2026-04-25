@@ -1,5 +1,6 @@
 package com.micheladas.chelas.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import com.micheladas.chelas.controller.DTO.UserRegistrationDto;
@@ -14,5 +15,7 @@ public interface UserService extends UserDetailsService {
 	UserAccount findByEmail(String email);
 
 	void toggleLockStatus(Long id);
+
+	void updateLastLoginDate(String email, LocalDateTime loginDate);
 
 }

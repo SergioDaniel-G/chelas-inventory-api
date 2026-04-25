@@ -28,7 +28,6 @@ body.login-page, body.bg-reset, body:has(.auth-container) {
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
 }
 
-/* Encabezados */
 .login-header, .auth-header { text-align: center; margin-bottom: 15px; }
 
 .logo-circle, .user-img img {

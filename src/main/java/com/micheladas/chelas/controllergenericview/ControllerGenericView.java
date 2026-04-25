@@ -17,9 +17,10 @@ import java.util.Map;
 import java.util.function.*;
 
 /**
- * Utility class providing generic logic for Controller views,
- * pagination, and report exporting.
+ * Standardized Utility class providing reusable logic for Controller operations,
+ * including pagination, CRUD processing, and multi-format report exporting.
  */
+
 public class ControllerGenericView {
 
     private static final Logger log = LoggerFactory.getLogger(ControllerGenericView.class);
@@ -30,7 +31,9 @@ public class ControllerGenericView {
         void execute(HttpServletResponse response) throws Exception;
     }
 
-    /** View Detail Generic**/
+    /** * Orchestrates paginated listing and optional keyword-based searching.
+     */
+
     public static String viewDetail(Object entity, String nameModel, String view, String redir, String tittleItem, Map<String, Object> model, RedirectAttributes flash) {
 
         if (entity == null) {
@@ -42,7 +45,9 @@ public class ControllerGenericView {
         return view;
     }
 
-    /** List Generic**/
+    /** * Orchestrates paginated listing and optional keyword-based searching.
+     */
+
     public static <T> String processView(String name, int page, String keyword, Model model,
                                          Function<Pageable, Page<T>> searchPaginate,
                                          Function<String, Object> buscadorKeyword) {
@@ -57,14 +62,18 @@ public class ControllerGenericView {
         return "Main/" + name;
     }
 
-    /** Display New Form Generic**/
+    /** * Initializes the model for displaying a new entity creation form.
+     */
+
     public static <T> String displayForm(String attibuteName, String tittle, String viewPath, Model model, Supplier<T> entityFactory) {
         model.addAttribute(attibuteName, entityFactory.get());
         model.addAttribute("tittle", "Registro de " + tittle);
         return viewPath;
     }
 
-    /** 4. Save New Generic **/
+    /** * Handles validation and persistence for new entity records.
+     */
+
     public static <T> String saveEntity(T entity, BindingResult result, RedirectAttributes flash, Model model, String tittle, String formPath, Runnable save, String redirect) {
         if (result.hasErrors()) {
             model.addAttribute("titulo", tittle);
@@ -82,9 +91,9 @@ public class ControllerGenericView {
     }
 
     /**
-     * Processes the update of an entity by retrieving the original,
-     * comparing changes, and persisting them. Edit Form
+     * Processes an update by validating input, checking for changes, and persisting.
      */
+
     public static <T> String updateEntity(
             Long id,
             T newData,
@@ -131,7 +140,9 @@ public class ControllerGenericView {
         return "redirect:" + redirSuccess;
     }
 
-    /** Delete Data Generic**/
+    /** * Executes the deletion of a specific record by ID.
+     */
+
     public static String executeDelete(Long id, Consumer<Long> deleteAction, String redirect, RedirectAttributes flash) {
         if (id != null && id > 0) {
             deleteAction.accept(id);
@@ -140,7 +151,9 @@ public class ControllerGenericView {
         return "redirect:/" + redirect;
     }
 
-    /** PDF Export Generic **/
+    /** * Configures the HTTP response for PDF report generation.
+     */
+
     public static <T> void processPdfExport(HttpServletResponse response, String prefix, Supplier<List<T>> supplierData, BiConsumer<List<T>, HttpServletResponse> pdfGenerator) {
         try {
             response.setContentType("application/pdf");
@@ -152,7 +165,9 @@ public class ControllerGenericView {
         }
     }
 
-    /** Export To Excel Generic **/
+    /** * Configures the HTTP response for Excel report generation.
+     */
+
     public static void exportToExcel(HttpServletResponse response, String namePrefix, excelExporterAction exporterAction) {
         try {
             response.setContentType("application/octet-stream");

@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
+import com.micheladas.chelas.genericcontrollerexporter.GenericPdfExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -14,6 +15,7 @@ import com.micheladas.chelas.entity.Sale;
  * PDF exporter specialized in Sales inventory reports.
  * Utilizes a generic rendering engine to ensure consistent document structure and styling.
  */
+
 public class SalePdfExporter {
 
 	private List<Sale> listAllSales;

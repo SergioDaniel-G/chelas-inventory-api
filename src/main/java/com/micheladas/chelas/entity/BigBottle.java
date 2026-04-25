@@ -38,9 +38,12 @@ public class BigBottle extends BaseEntity {
     private BigDecimal totalAmount;
 
     /**
-     * Updates the state only if there are actual changes.
-     *return true if changes were applied, false if data was identical.
+     * Updates the current entity's fields with data from another BigBottle instance.
+     * Used by the Generic Controller to detect changes before persisting.
+     * * @param newData The source object containing updated values.
+     * return true if at least one field was modified, false otherwise.
      */
+
     public boolean updateFrom(BigBottle newData) {
         if (newData == null) return false;
 
@@ -64,6 +67,11 @@ public class BigBottle extends BaseEntity {
 
         return hasChanges;
     }
+
+    /**
+     * Automatically calculates the total_amount before saving or updating the record.
+     * Calculation: unitPrice * quantity (rounded to 2 decimal places).
+     */
 
     @PrePersist
     @PreUpdate

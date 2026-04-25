@@ -14,25 +14,26 @@ import java.util.Arrays;
  * This class ensures that a default administrative user exists,
  * leveraging externalized configuration for credentials.
  **/
+
 @Component
 public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Value("${app.admin.email:reclutador@ejemplo.com}")
+    @Value("${app.admin.email}")
     private String adminEmail;
 
-    @Value("${app.admin.password:password123}")
+    @Value("${app.admin.password}")
     private String adminPassword;
 
-    @Value("${app.admin.name:Reclutador}")
+    @Value("${app.admin.name}")
     private String adminName;
 
-    @Value("${app.admin.surname:Prueba}")
+    @Value("${app.admin.surname}")
     private String adminSurname;
 
-    @Value("${app.admin.mobile:1234567890}")
+    @Value("${app.admin.mobile}")
     private String adminMobile;
 
     public DataInitializer(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {

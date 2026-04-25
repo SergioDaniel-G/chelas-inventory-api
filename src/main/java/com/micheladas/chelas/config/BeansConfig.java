@@ -9,9 +9,9 @@ public class BeansConfig {
 
     /**
      * provide a BCrypt password encoder for secure
-     * password hashing. use this bean across the application
-     * to handle authentication
+     * password hashing.
      **/
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

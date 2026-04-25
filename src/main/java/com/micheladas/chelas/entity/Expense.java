@@ -10,10 +10,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-/**
- * Entity representing business expenditures, featuring automated total calculation
- * and state synchronization for financial auditing.
- */
+
 @Entity
 @Table(name = "expenses")
 @Getter
@@ -38,6 +35,13 @@ public class Expense extends BaseEntity {
 
 	@Column(name = "total_amount", precision = 12, scale = 2)
 	private BigDecimal totalAmount;
+
+	/**
+	 * Compares the current expense with updated data to determine if a persistence
+	 * update is necessary. Updates fields locally if changes are detected.
+	 * * @param newData The source object with updated expense details.
+	 * return true if changes were applied; false otherwise.
+	 */
 
 	public boolean updateFrom(Expense newData) {
 		boolean samePrice = (this.unitPrice != null && newData.getUnitPrice() != null)

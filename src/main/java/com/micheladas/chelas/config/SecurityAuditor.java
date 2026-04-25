@@ -10,8 +10,9 @@ import java.util.Optional;
  * Custom implementation of AuditorAware to bridge Spring Security's context
  * with JPA Auditing, providing the current authenticated user's identity.
  */
+
 @Component("auditorProvider")
-public class SpringSecurityAuditorAware implements AuditorAware<String> {
+public class SecurityAuditor implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
