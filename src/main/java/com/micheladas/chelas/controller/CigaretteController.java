@@ -39,7 +39,7 @@ public class CigaretteController {
 				cigarette,
 				"cigarro",
 				"see/viewcigarettes",
-				"/cigarros",
+				"/cigarettes",
 				(cigarette != null ? cigarette.getBrand() : ""),
 				model,
 				flash
@@ -53,7 +53,7 @@ public class CigaretteController {
 	@GetMapping("/cigarros")
 	public String list(@RequestParam(name = "page", defaultValue = "0") int page,
 					   Model model, String keyword) {
-		return ControllerGenericView.processView("cigarros", page, keyword, model,
+		return ControllerGenericView.processView("cigarettes", page, keyword, model,
 				cigaretteService::findAll, cigaretteService::findBykeyword);
 	}
 
@@ -65,8 +65,8 @@ public class CigaretteController {
 	public String showForm(Model model) {
 		return ControllerGenericView.displayForm(
 				"cigarro",
-				"cigarros",
-				"nuevo/new_cigarettes",
+				"cigarettes",
+				"newform/new_cigarettes",
 				model,
 				Cigarette::new
 		);
@@ -89,7 +89,7 @@ public class CigaretteController {
 				flash,
 				model,
 				"Registro de cigarros",
-				"nuevo/new_cigarettes",
+				"newform/new_cigarettes",
 				() -> cigaretteService.saveCigarettes(cigarette),
 				"redirect:/cigarros/nuevo"
 		);
@@ -151,7 +151,7 @@ public class CigaretteController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFci")
 	public void exportPdf(HttpServletResponse response) {
-		ControllerGenericView.processPdfExport(response, "Cigarros",
+		ControllerGenericView.processPdfExport(response, "cigarettes",
 				cigaretteService::findAllCigarettes,
 				(list, resp) -> {
 					try {
@@ -170,7 +170,7 @@ public class CigaretteController {
 	@GetMapping("/exportarExcelci")
 	public void exportToExcel(HttpServletResponse response) {
 		List<Cigarette> cigarettes = cigaretteService.findAllCigarettes();
-		ControllerGenericView.exportToExcel(response, "Cigarros", res -> {
+		ControllerGenericView.exportToExcel(response, "Cigarettes", res -> {
 			new CigaretteExcelExporter(cigarettes).exportar(res);
 		});
 	}

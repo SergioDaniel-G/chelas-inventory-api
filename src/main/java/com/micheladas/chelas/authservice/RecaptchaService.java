@@ -1,4 +1,4 @@
-package com.micheladas.chelas.config;
+package com.micheladas.chelas.authservice;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

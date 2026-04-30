@@ -41,9 +41,9 @@ public class BigBottleController {
 
         return ControllerGenericView.viewDetail(
                 bigBottle,
-                "bigBottle",
+                "caguama",
                 "see/viewbigbottle",
-                "/caguamas",
+                "/bigbottles",
                 (bigBottle != null ? bigBottle.getBrand() : ""),
                 model,
                 flash
@@ -57,7 +57,7 @@ public class BigBottleController {
     @GetMapping("/caguamas")
     public String list(@RequestParam(name = "page", defaultValue = "0") int page,
                        Model model) {
-        return ControllerGenericView.processView("caguamas", page, null, model,
+        return ControllerGenericView.processView("bigbottles", page, null, model,
                 bigBottleService::findAll, null);
     }
 
@@ -69,8 +69,8 @@ public class BigBottleController {
     public String showForm(Model model) {
         return ControllerGenericView.displayForm(
                 "caguama",
-                "caguamas",
-                "nuevo/newbigbottle",
+                "bigbottles",
+                "newform/newbigbottle",
                 model,
                 BigBottle::new
         );
@@ -93,7 +93,7 @@ public class BigBottleController {
                 flash,
                 model,
                 "Registro de caguamas",
-                "nuevo/newbigbottle",
+                "newform/newbigbottle",
                 () -> bigBottleService.saveBigBottle(bigBottle),
                 "redirect:/caguamas/nuevo"
         );
@@ -153,7 +153,7 @@ public class BigBottleController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/exportPDF")
     public void exportPdf(HttpServletResponse response) {
-        ControllerGenericView.processPdfExport(response, "Caguamas",
+        ControllerGenericView.processPdfExport(response, "bigbottles",
                 bigBottleService::findAllBigBottle,
                 (list, resp) -> {
                     try {
@@ -172,7 +172,7 @@ public class BigBottleController {
     @GetMapping("/excelExport")
     public void exportToExcel(HttpServletResponse response) {
         List<BigBottle> caguamas = bigBottleService.findAllBigBottle();
-        ControllerGenericView.exportToExcel(response, "Caguamas", res -> {
+        ControllerGenericView.exportToExcel(response, "bigbottles", res -> {
             new BigBottleExcelExporter(caguamas).export(res);
         });
     }

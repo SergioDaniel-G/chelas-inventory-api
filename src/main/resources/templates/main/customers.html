@@ -24,7 +24,7 @@
 		</thead>
 		<tbody>
 		<!--llamamos clientes de listarTodosLosClientes-->
-		<tr th:each="cliente : ${clientes}">
+		<tr th:each="cliente : ${customers}">
 			<td th:text="${cliente.id}"></td>
 			<td th:text="${cliente.customerNumber}"></td>
 			<td th:text="${cliente.fullName}"></td>

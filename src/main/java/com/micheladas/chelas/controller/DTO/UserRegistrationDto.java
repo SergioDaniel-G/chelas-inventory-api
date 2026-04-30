@@ -37,11 +37,10 @@ public class UserRegistrationDto {
 	 * Normalizes the phone number by removing non-digit characters.
 	 * This ensures consistency before the validation pattern is applied.
 	 */
+
 	public void setMobileNumber(String mobileNumber) {
 		if (mobileNumber != null) {
 			this.mobileNumber = mobileNumber.replaceAll("\\D", "");
-		} else {
-			this.mobileNumber = null;
 		}
 	}
 }

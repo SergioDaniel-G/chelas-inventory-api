@@ -23,7 +23,7 @@
 		<tr><th>Id</th><th>Nombre</th><th>Cantidad</th><th>Descripción</th><th>Total</th><th>Teléfono</th><th>Fecha</th><th>Acciones</th></tr>
 		</thead>
 		<tbody>
-		<tr th:each="prestado : ${prestados}">
+		<tr th:each="prestado : ${loans}">
 			<td th:text="${prestado.id}"></td>
 			<td th:text="${prestado.customerName}"></td>
 			<td th:text="${prestado.quantity}"></td>

@@ -1,4 +1,4 @@
-package com.micheladas.chelas.controller;
+package com.micheladas.chelas.controller.auth;
 
 import com.micheladas.chelas.controller.DTO.UserRegistrationDto;
 import com.micheladas.chelas.service.UserService;
@@ -56,9 +56,9 @@ public class RegistrationController {
 	 */
 
 	@PostMapping("/forgotPassword")
-	public String forgotPasword(@RequestParam String email,
-								@RequestParam String mobileNum,
-								RedirectAttributes redirectAttributes) {
+	public String forgotPassword(@RequestParam String email,
+								 @RequestParam String mobileNum,
+								 RedirectAttributes redirectAttributes) {
 
 		UserAccount userAccount = userRepository.findByEmailAndMobileNumber(email, mobileNum);
 

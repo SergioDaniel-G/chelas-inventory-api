@@ -30,43 +30,52 @@
 			</div>
 
 			<div id="captcha-hint" style="display: none; color: #d93025; font-size: 0.85em; margin-top: 8px; font-weight: bold; text-align: center; background: #ffeaea; padding: 8px; border-radius: 4px; border: 1px solid #f5c6cb;">
-				⚠️ Por favor, rellena primero el formulario.
+				Por favor, rellena primero el formulario.
 			</div>
 		</div>
 
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
-                // Seleccionamos los campos específicos que queremos que tengan algo escrito
-                const campoNombre = document.getElementById('name');
-                const campoEmail = document.getElementById('email');
+                  // 1. Referencias correctas a los campos (SIN DUPLICADOS)
+                  const inputNombre = document.getElementById('name');
+                  const inputApellido = document.getElementById('surname');
+                  const inputEmail = document.getElementById('email');
+                  const inputPass = document.getElementById('password');
+                  const inputTel = document.getElementById('mobileNumber');
 
-                const wrapper = document.getElementById('captcha-wrapper');
-                const overlay = document.getElementById('captcha-overlay');
-                const hint = document.getElementById('captcha-hint');
+                  const wrapper = document.getElementById('captcha-wrapper');
+                  const overlay = document.getElementById('captcha-overlay');
+                  const hint = document.getElementById('captcha-hint');
 
-                function verificarCampos() {
-                    // Solo habilitamos si al menos el nombre y email tienen algo
-                    // Esto no bloquea las anotaciones de Spring Boot al enviar
-                    if (campoNombre.value.trim() !== "" && campoEmail.value.trim() !== "") {
-                        wrapper.style.opacity = "1";
-                        overlay.style.display = "none";
-                        hint.style.display = "none";
-                    } else {
-                        wrapper.style.opacity = "0.5";
-                        overlay.style.display = "block";
-                    }
-                }
+                  function verificarCampos() {
+                      // Verificamos que los campos principales no estén vacíos
+                      const estaCompleto = inputNombre.value.trim() !== "" &&
+                                           inputEmail.value.trim() !== "" &&
+                                           inputPass.value.trim() !== "";
 
-                // Escuchar cuando el usuario escribe en esos dos campos
-                campoNombre.addEventListener('input', verificarCampos);
-                campoEmail.addEventListener('input', verificarCampos);
+                      if (estaCompleto) {
+                          wrapper.style.opacity = "1";
+                          overlay.style.display = "none";
+                          hint.style.display = "none";
+                      } else {
+                          wrapper.style.opacity = "0.5";
+                          overlay.style.display = "block";
+                      }
+                  }
 
-                // Al hacer clic en la "ruedita roja", mostramos el mensaje
-                overlay.addEventListener('click', () => {
-                    hint.style.display = "block";
-                });
-            });
+                  // Escuchamos en todos los campos clave
+                  [inputNombre, inputEmail, inputPass].forEach(input => {
+                      input.addEventListener('input', verificarCampos);
+                  });
+
+                  // Mostrar advertencia si intentan clicar el captcha bloqueado
+                  overlay.addEventListener('click', () => {
+                      hint.style.display = "block";
+                      hint.innerText = "Rellena todos los campos antes de verificar porfavor.";
+                  });
+              });
 		</script>
+
 			<div th:if="${error}" class="error-message" style="color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 20px; text-align: center;">
 				<span th:text="${error}"></span>
 			</div>
@@ -74,20 +83,20 @@
 		<div class="form-row">
 			<div class="form-group">
 				<label for="name">Nombre:</label>
-				<input id="name" type="text" th:field="*{name}">
+				<input id="name" type="text" th:field="*{name}" maxlength="100">
 				<small class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
 			</div>
 			<div class="form-group">
 				<label for="surname">Apellido:</label>
-				<input id="surname" type="text" th:field="*{surname}">
+				<input id="surname" type="text" th:field="*{surname}" maxlength="100">
 				<small class="error-message" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></small>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="mobileNumber">Teléfono:</label>
-			<input id="mobileNumber" type="text" th:field="*{mobileNumber}"
-				   maxlength="10">
+			<input id="mobileNumber" type="tel" th:field="*{mobileNumber}"
+				   maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 			<small class="error-message" th:if="${#fields.hasErrors('mobileNumber')}" th:errors="*{mobileNumber}"></small>
 		</div>
 
@@ -101,7 +110,7 @@
 			<label for="password">Contraseña:</label>
 
 			<div class="password-wrapper">
-				<input id="password" type="password" th:field="*{password}">
+				<input id="password" type="password" th:field="*{password}" minlength="8" maxlength="12">
 
 				<button type="button" id="togglePassword" class="eye-btn">
 					<svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

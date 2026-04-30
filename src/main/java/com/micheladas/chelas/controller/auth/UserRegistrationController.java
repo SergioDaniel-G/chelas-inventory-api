@@ -1,6 +1,6 @@
-package com.micheladas.chelas.controller;
+package com.micheladas.chelas.controller.auth;
 
-import com.micheladas.chelas.config.RecaptchaService;
+import com.micheladas.chelas.authservice.RecaptchaService;
 import com.micheladas.chelas.entity.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,15 +52,14 @@ public class UserRegistrationController {
 									  @RequestParam(name = "g-recaptcha-response") String captchaResponse,
 									  Model model) {
 
-		if (!recaptchaService.validate(captchaResponse)) {
-			model.addAttribute("error", "Por favor, verifica el reCAPTCHA .");
+		if (captchaResponse == null || !recaptchaService.validate(captchaResponse)) {
+			model.addAttribute("error", "Verificación de seguridad fallida. Inténtalo de nuevo.");
 			return "auth/registro";
 		}
 
 		UserAccount accountExist = userService.findByEmail(userRegistrationDto.getEmail());
-
 		if (accountExist != null) {
-			result.rejectValue("email", null, "Ya existe una cuenta registrada con este correo");
+			result.rejectValue("email", null, "Este correo ya esta registrado");
 		}
 		if (result.hasErrors()) {
 			return "auth/registro";

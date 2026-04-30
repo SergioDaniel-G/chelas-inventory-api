@@ -23,7 +23,7 @@
 		<tr><th>Id</th><th>Nombre</th><th>Teléfono</th><th>Ubicación</th><th>Fecha</th><th>Acciones</th></tr>
 		</thead>
 		<tbody>
-		<tr th:each="proveedor : ${proveedores}">
+		<tr th:each="proveedor : ${suppliers}">
 			<td th:text="${proveedor.id}"></td>
 			<td th:text="${proveedor.name}"></td>
 			<td th:text="${proveedor.phone}"></td>

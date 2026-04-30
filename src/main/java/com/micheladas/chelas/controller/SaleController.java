@@ -40,8 +40,8 @@ public class SaleController {
 		return ControllerGenericView.viewDetail(
 				sale,
 				"venta",
-				"see/verventas",
-				"/ventas",
+				"see/viewsales",
+				"/sales",
 				(sale != null ? String.valueOf(sale.getId()) : ""),
 				model,
 				flash
@@ -56,7 +56,7 @@ public class SaleController {
 	public String listAllSales(@RequestParam(name = "page", defaultValue = "0") int page,
 							   Model model, String keyword) {
 
-		return ControllerGenericView.processView("ventas", page, keyword, model,
+		return ControllerGenericView.processView("sales", page, keyword, model,
 				saleService::findAll, saleService::findBykeyword);
 	}
 
@@ -68,8 +68,8 @@ public class SaleController {
 	public String showSalesForm(Model model) {
 		return ControllerGenericView.displayForm(
 				"venta",
-				"ventas",
-				"nuevo/nuevo_ventas",
+				"sales",
+				"newform/new_sales",
 				model,
 				Sale::new
 		);
@@ -92,7 +92,7 @@ public class SaleController {
 				flash,
 				model,
 				"Registro de ventas",
-				"nuevo/nuevo_ventas",
+				"newform/new_sales",
 				() -> saleService.saveSales(sale),
 				"redirect:/ventas/nuevo"
 		);
@@ -106,7 +106,7 @@ public class SaleController {
 	public String showEditForm(@PathVariable Long id, Model model) {
 		model.addAttribute("venta", saleService.getSalesById(id));
 		model.addAttribute("titulo", "Editar Venta");
-		return "edit/editar_ventas";
+		return "edit/edit_sales";
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class SaleController {
 				Sale::updateFrom,
 				() -> saleService.saveSales(sale),
 				"Editar Venta",
-				"edit/editar_ventas",
+				"edit/edit_sales",
 				"/ventas",
 				"/ventas/editar/" + id
 		);
@@ -152,7 +152,7 @@ public class SaleController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFve")
 	public void salesExport(HttpServletResponse response) {
-		ControllerGenericView.processPdfExport(response, "Ventas",
+		ControllerGenericView.processPdfExport(response, "sales",
 				saleService::findAllSales,
 				(lista, resp) -> {
 					try {
@@ -171,7 +171,7 @@ public class SaleController {
 	@GetMapping("/exportarExcelven")
 	public void listSalesExcelExport(HttpServletResponse response) {
 		List<Sale> sales = saleService.findAllSales();
-		ControllerGenericView.exportToExcel(response, "Ventas", res -> {
+		ControllerGenericView.exportToExcel(response, "sales", res -> {
 			new SaleExcelExporter(sales).export(res);
 		});
 	}

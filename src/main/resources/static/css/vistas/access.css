@@ -1,3 +1,5 @@
+/* --- TEMPLATE AUTH LOGIN FORGOT ETC  --- */
+
 :root {
     --primario: #1e293b;
     --accion: #2563eb;
@@ -43,6 +45,7 @@ body.login-page, body.bg-reset, body:has(.auth-container) {
 .user-img img { width: 40px; height: 40px; object-fit: cover; }
 
 /* Formularios y Grupos */
+
 .form-group { margin-bottom: 12px; }
 .form-group label { display: block; font-size: .75rem; font-weight: 600; margin-bottom: 4px; color: var(--primario); }
 
@@ -54,16 +57,19 @@ body.login-page, body.bg-reset, body:has(.auth-container) {
 .form-group input:focus { border-color: var(--accion); }
 
 /* Password Wrapper */
+
 .password-wrapper { position: relative; display: flex; align-items: center; }
 .eye-btn { position: absolute; right: 8px; background: 0; border: 0; cursor: pointer; color: var(--texto-mutado); }
 
 /* Botones */
+
 .btn-login, .btn-primary {
     width: 100%; padding: 10px; background: var(--accion); color: #fff;
     border: 0; border-radius: 6px; font-size: .85rem; font-weight: 600; cursor: pointer; margin-top: 10px;
 }
 
 /* Alertas */
+
 .alert, .alert-message {
     padding: 10px; border-radius: 6px; font-size: .8rem; margin-bottom: 15px;
     text-align: center; border: 1px solid;
@@ -73,7 +79,8 @@ body.login-page, body.bg-reset, body:has(.auth-container) {
 .error-message { color: var(--error); font-size: 0.7rem; display: block; margin-top: 4px; padding-left: 2px;
 }
 
-/* Footers */
+/* Footer */
+
 .form-footer, .auth-footer, .footer-signature { text-align: center; margin-top: 20px; }
 .footer-signature { font-size: .7rem; color: var(--texto-mutado); margin-top: 30px; }
 

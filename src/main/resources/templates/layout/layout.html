@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<!-- HEAD ÚNICO -->
 <head th:fragment="head(title)">
 	<meta charset="utf-8">
 	<title th:text="${title}"></title>
@@ -9,7 +8,6 @@
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 
-<!-- NAVBAR DINÁMICA -->
 <nav th:fragment="navbar(marca, linkNuevo)" class="navbar">
 	<div class="navbar-left">
 		<a class="navbar-brand" href="#" th:text="${marca}">Marca</a>

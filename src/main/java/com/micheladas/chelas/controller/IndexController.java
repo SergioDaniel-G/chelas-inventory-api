@@ -16,7 +16,7 @@ public class IndexController {
 	@GetMapping("/index")
 	public String Index(Model model) {
 		model.addAttribute("usuario", userService.UserLists());
-		return "Main/index";
+		return "main/index";
 	}
 
 	/**

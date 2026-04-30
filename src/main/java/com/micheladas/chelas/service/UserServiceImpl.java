@@ -45,11 +45,14 @@ public class UserServiceImpl implements UserService {
 		if (userAccount == null) {
 			throw new UsernameNotFoundException("Usuario o password inválidos");
 		}
+
+		List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_PRE_VERIFIED"));
+
 		return new User(userAccount.getEmail(), userAccount.getPassword(), true,                       // enabled: ¿Está habilitada?
 				true,
 				true,
 				userAccount.isAccountNonLocked(),
-				mapearAutoridadesRoles(userAccount.getRoles()));
+				authorities);
 	}
 
 	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Role> roles) {

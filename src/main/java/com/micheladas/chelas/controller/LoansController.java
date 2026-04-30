@@ -40,7 +40,7 @@ public class LoansController {
                 loan,
                 "prestado",
                 "see/viewloans",
-                "/prestados",
+                "/loans",
                 (loan != null ? String.valueOf(loan.getId()) : ""),
                 model,
                 flash
@@ -55,7 +55,7 @@ public class LoansController {
     public String list(@RequestParam(name = "page", defaultValue = "0") int page,
                        Model model, String keyword) {
 
-        return ControllerGenericView.processView("prestados", page, keyword, model,
+        return ControllerGenericView.processView("loans", page, keyword, model,
                 loanService::findAll, loanService::findBykeyword);
     }
 
@@ -68,8 +68,8 @@ public class LoansController {
 
         return ControllerGenericView.displayForm(
                 "prestado",
-                "prestados",
-                "nuevo/new_loans",
+                "loans",
+                "newform/new_loans",
                 model,
                 Loan::new
         );
@@ -92,7 +92,7 @@ public class LoansController {
                 flash,
                 model,
                 "Registro de prestados",
-                "nuevo/new_loans",
+                "newform/new_loans",
                 () -> loanService.saveLoans(loan),
                 "redirect:/prestados/nuevo"
         );
@@ -143,7 +143,7 @@ public class LoansController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/prestados/eliminar/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes flash) {
-        return ControllerGenericView.executeDelete(id, loanService::deleteLoans, "prestados", flash);
+        return ControllerGenericView.executeDelete(id, loanService::deleteLoans, "loans", flash);
     }
 
     /**
@@ -153,7 +153,7 @@ public class LoansController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/exportarPDFpr")
     public void exportPdf(HttpServletResponse response) {
-        ControllerGenericView.processPdfExport(response, "Prestado",
+        ControllerGenericView.processPdfExport(response, "loans",
                 loanService::findAllLoans,
                 (list, resp) -> {
                     try { new LoanPdfExporterpr(list).export(resp); }
@@ -169,7 +169,7 @@ public class LoansController {
     @GetMapping("/exportarExcelpr")
     public void exportToExcel(HttpServletResponse response) {
         List<Loan> loans = loanService.findAllLoans();
-        ControllerGenericView.exportToExcel(response, "Prestados", res -> {
+        ControllerGenericView.exportToExcel(response, "loans", res -> {
             new LoanExcelExporterpr(loans).export(res);
         });
     }

@@ -23,7 +23,7 @@
 		<tr><th>Id</th><th>Numero/Producto</th><th>Descripción</th><th>Existencia</th><th>Precio</th><th>Fecha</th><th>Acciones</th></tr>
 		</thead>
 		<tbody>
-		<tr th:each="precio : ${precios}">
+		<tr th:each="precio : ${prices}">
 			<td th:text="${precio.id}"></td>
 			<td th:text="${precio.productId}"></td>
 			<td th:text="${precio.description}"></td>

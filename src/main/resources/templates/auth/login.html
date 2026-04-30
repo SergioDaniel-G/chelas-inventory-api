@@ -29,6 +29,10 @@
     </span>
 		</div>
 
+		<div th:if="${param.timeout}" class="alert alert-warning">
+			Tu sesión expiro por inactividad. Por favor, inicia sesión de nuevo.
+		</div>
+
 		<div th:if="${param.logout}" class="alert alert-info">
 			<i class="fas fa-check-circle"></i> Cerraste sesión correctamente.
 		</div>

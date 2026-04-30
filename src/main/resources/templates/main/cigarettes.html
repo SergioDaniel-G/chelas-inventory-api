@@ -23,7 +23,7 @@
         <tr><th>Id</th><th>Marca</th><th>Precio</th><th>Cantidad</th><th>Total</th><th>Fecha</th><th>Acciones</th></tr>
         </thead>
         <tbody>
-        <tr th:each="cigarro : ${cigarros}">
+        <tr th:each="cigarro : ${cigarettes}">
             <td th:text="${cigarro.id}"></td>
             <td th:text="${cigarro.brand}"></td>
             <td th:text="'$ ' + ${#numbers.formatDecimal(cigarro.unitPrice, 1, 2)}"></td>

@@ -41,7 +41,7 @@ public class CustomerController {
                 customer,
                 "cliente",
                 "see/viewcustomers",
-                "/clientes",
+                "/customers",
                 (customer != null ? customer.getFullName() : ""),
                 model,
                 flash
@@ -55,7 +55,7 @@ public class CustomerController {
     @GetMapping("/clientes")
     public String list(@RequestParam(name = "page", defaultValue = "0") int page,
                        Model model, @RequestParam(required = false) String keyword) {
-        return ControllerGenericView.processView("clientes", page, keyword, model,
+        return ControllerGenericView.processView("customers", page, keyword, model,
                 customerService::findAll, customerService::findBykeyword);
     }
 
@@ -67,8 +67,8 @@ public class CustomerController {
     public String showForm(Model model) {
         return ControllerGenericView.displayForm(
                 "cliente",
-                "clientes",
-                "nuevo/new_customers",
+                "customers",
+                "newform/new_customers",
                 model,
                 Customer::new
         );
@@ -92,7 +92,7 @@ public class CustomerController {
                 flash,
                 model,
                 "Registro de clientes",
-                "nuevo/new_customers",
+                "newform/new_customers",
                 () -> customerService.saveCustomers(customer),
                 "redirect:/clientes/nuevo"
         );
@@ -153,7 +153,7 @@ public class CustomerController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/exportarPDFcli")
     public void pdfExport(HttpServletResponse response) {
-        ControllerGenericView.processPdfExport(response, "Clientes",
+        ControllerGenericView.processPdfExport(response, "customers",
                 customerService::findAllCustomers,
                 (list, resp) -> {
                     try {
@@ -172,7 +172,7 @@ public class CustomerController {
     @GetMapping("/exportarExcelcli")
     public void exportToExcel(HttpServletResponse response) {
         List<Customer> customers = customerService.findAllCustomers();
-        ControllerGenericView.exportToExcel(response, "Clientes", res -> {
+        ControllerGenericView.exportToExcel(response, "customers", res -> {
             new CustomerExcelExporter(customers).export(res);
         });
     }

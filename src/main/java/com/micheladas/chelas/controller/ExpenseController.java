@@ -40,7 +40,7 @@ public class ExpenseController {
 				expense,
 				"gasto",
 				"see/viewexpenses",
-				"/gastos",
+				"/expenses",
 				(expense != null ? expense.getItemName() : ""),
 				model,
 				flash
@@ -54,7 +54,7 @@ public class ExpenseController {
 	@GetMapping("/gastos")
 	public String list(@RequestParam(name = "page", defaultValue = "0") int page,
 					   Model model, String keyword) {
-		return ControllerGenericView.processView("gastos", page, keyword, model,
+		return ControllerGenericView.processView("expenses", page, keyword, model,
 				expenseService::findAll, expenseService::findBykeyword);
 	}
 
@@ -66,8 +66,8 @@ public class ExpenseController {
 	public String expensesForm(Model model) {
 		return ControllerGenericView.displayForm(
 				"gasto",
-				"gastos",
-				"nuevo/new_expenses",
+				"expenses",
+				"newform/new_expenses",
 				model,
 				Expense::new
 		);
@@ -89,7 +89,7 @@ public class ExpenseController {
 				flash,
 				model,
 				"Registro de gastos",
-				"nuevo/new_expenses",
+				"newform/new_expenses",
 				() -> expenseService.saveExpenses(expense),
 				"redirect:/gastos/nuevo"
 		);
@@ -150,7 +150,7 @@ public class ExpenseController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFga")
 	public void exportPdf(HttpServletResponse response) {
-		ControllerGenericView.processPdfExport(response, "OtrosGastos",
+		ControllerGenericView.processPdfExport(response, "expenses",
 				expenseService::findAllExpenses,
 				(lista, resp) -> {
 					try {
@@ -169,7 +169,7 @@ public class ExpenseController {
 	@GetMapping("/exportarExcelga")
 	public void exportToExcel(HttpServletResponse response) {
 		List<Expense> expenses = expenseService.findAllExpenses();
-		ControllerGenericView.exportToExcel(response, "OtrosGastos", res -> {
+		ControllerGenericView.exportToExcel(response, "expenses", res -> {
 			new ExpenseExcelExporter(expenses).export(res);
 		});
 	}

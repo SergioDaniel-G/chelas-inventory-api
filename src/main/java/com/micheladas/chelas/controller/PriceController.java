@@ -38,8 +38,8 @@ public class PriceController {
 		return ControllerGenericView.viewDetail(
 				price,
 				"precio",
-				"see/verprecios",
-				"/precios",
+				"see/viewprices",
+				"/prices",
 				(price != null ? String.valueOf(price.getId()) : ""),
 				model,
 				flash
@@ -54,7 +54,7 @@ public class PriceController {
 	public String listAllPrices(@RequestParam(name = "page", defaultValue = "0") int page,
 								Model model, String keyword) {
 
-		return ControllerGenericView.processView("precios", page, keyword, model,
+		return ControllerGenericView.processView("prices", page, keyword, model,
 				priceService::findAll, priceService::findBykeyword);
 	}
 
@@ -67,8 +67,8 @@ public class PriceController {
 
 		return ControllerGenericView.displayForm(
 				"precio",
-				"precios",
-				"nuevo/nuevo_precios",
+				"prices",
+				"newform/new_prices",
 				model,
 				Price::new
 		);
@@ -91,7 +91,7 @@ public class PriceController {
 				flash,
 				model,
 				"Registro de precios",
-				"nuevo/nuevo_precios",
+				"newform/new_prices",
 				() -> priceService.savePrices(price),
 				"redirect:/precios/nuevo"
 		);
@@ -105,7 +105,7 @@ public class PriceController {
 	public String showEditForm(@PathVariable Long id, Model modelo) {
 		modelo.addAttribute("precio", priceService.getPricesById(id));
 		modelo.addAttribute("titulo", "Editar Precio");
-		return "edit/editar_precios";
+		return "edit/edit_prices";
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class PriceController {
 				Price::updateFrom,
 				() -> priceService.savePrices(price),
 				"Editar Precio",
-				"edit/editar_precios",
+				"edit/edit_prices",
 				"/precios",
 				"/precios/editar/" + id
 		);
@@ -152,7 +152,7 @@ public class PriceController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFpre")
 	public void listExportPricePdf(HttpServletResponse response) {
-		ControllerGenericView.processPdfExport(response, "Precios",
+		ControllerGenericView.processPdfExport(response, "prices",
 				priceService::findAllPrices,
 				(list, resp) -> {
 					try {
@@ -171,7 +171,7 @@ public class PriceController {
 	@GetMapping("/exportarExcelpre")
 	public void listExportPriceExcel(HttpServletResponse response) {
 		List<Price> prices = priceService.findAllPrices();
-		ControllerGenericView.exportToExcel(response, "Precios", res -> {
+		ControllerGenericView.exportToExcel(response, "prices", res -> {
 			new PriceExcelExporter(prices).exportar(res);
 		});
 	}

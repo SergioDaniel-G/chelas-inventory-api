@@ -65,7 +65,7 @@ public class AccountLockoutListener {
 
                     if (newAttempts >= MAX_FAILED_ATTEMPTS) {
                         u.setAccountNonLocked(false);
-                        log.error("¡LIMITE ALCANZADO! Cuenta bloqueada: {}", email);
+                        log.error("¡LIMITE DE INTENTOS ALCANZADO! Cuenta bloqueada: {}", email);
                     }
 
                     userRepository.save(u);

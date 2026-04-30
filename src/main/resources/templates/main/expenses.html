@@ -23,7 +23,7 @@
 		<tr><th>Id</th><th>Artículo</th><th>Cantidad</th><th>Precio</th><th>Total</th><th>Fecha</th><th>Acciones</th></tr>
 		</thead>
 		<tbody>
-		<tr th:each="gasto : ${gastos}">
+		<tr th:each="gasto : ${expenses}">
 			<td th:text="${gasto.id}"></td>
 			<td th:text="${gasto.itemName}"></td>
 			<td th:text="${gasto.quantity}"></td>

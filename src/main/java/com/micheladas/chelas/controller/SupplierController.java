@@ -38,8 +38,8 @@ public class SupplierController {
 		return ControllerGenericView.viewDetail(
 				supplier,
 				"proveedor",
-				"see/verproveedores",
-				"/proveedores",
+				"see/viewsuppliers",
+				"/suppliers",
 				(supplier != null ? supplier.getName() : ""),
 				model,
 				flash
@@ -54,7 +54,7 @@ public class SupplierController {
 	public String listAllSuppliers(@RequestParam(name = "page", defaultValue = "0") int page,
 								   Model model, String keyword) {
 
-		return ControllerGenericView.processView("proveedores", page, keyword, model,
+		return ControllerGenericView.processView("suppliers", page, keyword, model,
 				supplierService::findAll, supplierService::findBykeyword);
 	}
 
@@ -67,8 +67,8 @@ public class SupplierController {
 
 		return ControllerGenericView.displayForm(
 				"proveedor",
-				"proveedores",
-				"nuevo/nuevo_proveedores",
+				"suppliers",
+				"newform/new_suppliers",
 				model,
 				Supplier::new
 		);
@@ -91,7 +91,7 @@ public class SupplierController {
 				flash,
 				model,
 				"Registro de proveedores",
-				"nuevo/nuevo_proveedores",
+				"newform/new_suppliers",
 				() -> supplierService.saveProveedores(supplier),
 				"redirect:/proveedores/nuevo"
 		);
@@ -105,7 +105,7 @@ public class SupplierController {
 	public String showEditForm(@PathVariable Long id, Model model) {
 		model.addAttribute("proveedor", supplierService.getProveedoresById(id));
 		model.addAttribute("titulo", "Editar Proveedor");
-		return "edit/editar_proveedores";
+		return "edit/edit_suppliers";
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class SupplierController {
 				Supplier::updateFrom,
 				() -> supplierService.saveProveedores(supplier),
 				"Editar Proveedor",
-				"edit/editar_proveedores",
+				"edit/edit_suppliers",
 				"/proveedores",
 				"/proveedores/editar/" + id
 		);
@@ -152,7 +152,7 @@ public class SupplierController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/exportarPDFpro")
 	public void exportSuppliers(HttpServletResponse response) {
-		ControllerGenericView.processPdfExport(response, "Proveedores",
+		ControllerGenericView.processPdfExport(response, "suppliers",
 				supplierService::findAllProveedores,
 				(list, resp) -> {
 					try {
@@ -171,7 +171,7 @@ public class SupplierController {
 	@GetMapping("/exportarExcelpro")
 	public void supplierListExportExcel(HttpServletResponse response) {
 		List<Supplier> suppliers = supplierService.findAllProveedores();
-		ControllerGenericView.exportToExcel(response, "Proveedores", res -> {
+		ControllerGenericView.exportToExcel(response, "suppliers", res -> {
 			new SupplierExcelExporterpro(suppliers).export(res);
 		});
 	}

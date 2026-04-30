@@ -23,13 +23,13 @@
 		<tr><th>Id</th><th>Vasos</th><th>Cigarros</th><th>Caguamas</th><th>Total</th><th>Stock_caguamas</th><th>Stock_cigarros</th><th>Fecha</th><th>Acciones</th></tr>
 		</thead>
 		<tbody>
-		<tr th:each="venta : ${ventas}">
+		<tr th:each="venta : ${sales}">
 			<td th:text="${venta.id}"></td>
 			<td th:text="${venta.cupsQuantity}"></td>
 			<td th:text="${venta.cigarettesQuantity}"></td>
-			<td th:text="${venta.caguamasQuantity}"></td>
+			<td th:text="${venta.bigBottleQuantity}"></td>
 			<td th:text="'$ ' + ${#numbers.formatDecimal(venta.totalAmount, 1, 2)}"></td>
-			<td th:text="${venta.caguamasStock}"></td>
+			<td th:text="${venta.bigBottleStock}"></td>
 			<td th:text="${venta.cigarettesStock}"></td>
 			<td th:text="${venta.createdAt}"></td>
 			<td>
