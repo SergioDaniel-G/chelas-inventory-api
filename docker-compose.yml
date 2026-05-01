@@ -55,6 +55,7 @@ services:
       # CONFIGURACIÓN DE RECAPTCHA (Ambiente de pruebas)
       - SPRING_PROFILES_ACTIVE=local
       - RECAPTCHA_ENABLED=false
+      - RECAPTCHA_URL=https://www.google.com/recaptcha/api/siteverify
       - GOOGLE_RECAPTCHA_SITE=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
       - GOOGLE_RECAPTCHA_SECRET=6LeIxAcTAAAAAGG-v3_m9o7NXtW6mxK6S.f-f-f-f
 
