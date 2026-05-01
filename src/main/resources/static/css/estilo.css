@@ -12,7 +12,6 @@
     --danger: #d9534f;
 }
 
-/* --- AJUSTE DE PANTALLA TOTAL --- */
 html, body {
     height: 100%;
     margin: 0;
@@ -39,7 +38,8 @@ body {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* --- TÍTULOS Y NAV --- */
+/* --- TITTLES AND NAV --- */
+
 h2 {
     color: var(--primary);
     text-align: center;
@@ -62,7 +62,6 @@ nav {
     display: inline-block;
 }
 
-/* --- TABLA COMPACTA --- */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -90,7 +89,8 @@ tr:hover {
     color: var(--white);
 }
 
-/* --- SECCIÓN WHATSAPP (SIN ESPACIOS SOBRANTES) --- */
+/* ---  WHATSAPP SECTION --- */
+
 .actions-container {
     margin-top: 8px;
     text-align: center;
@@ -122,7 +122,8 @@ tr:hover {
     transform: scale(1.02);
 }
 
-/* --- ALERTAS --- */
+/* --- ALERTS --- */
+
 .alert-no-phone {
     color: var(--danger);
     background: #f9f2f2;
@@ -131,7 +132,8 @@ tr:hover {
     font-size: 0.75rem;
 }
 
-/* --- FOOTER OCULTO O MINI --- */
+/* --- FOOTER --- */
+
 footer {
     margin-top: 10px;
     padding-top: 5px;
@@ -148,4 +150,81 @@ footer p {
 footer strong {
     color: var(--primary);
     font-weight: 700;
+}
+
+/* --- MOBILE DISPOSITIVE --- */
+
+@media (max-width: 480px) {
+
+    .container {
+        width: 95%;
+        max-width: 80%;
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+
+    /* --- NAV --- */
+
+    .btn-back {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+    }
+
+    /* --- TABLE --- */
+
+    table {
+        width: 100%;
+    }
+
+    th {
+        font-size: 0.6rem;
+        padding: 5px;
+    }
+
+    td {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+
+    /* --- WHATSAPP --- */
+
+    .actions-container {
+        margin-top: 6px;
+        padding-top: 6px;
+    }
+
+    .reminder-text {
+        font-size: 0.7rem;
+    }
+
+    .btn-whatsapp-detail {
+        font-size: 0.75rem;
+        padding: 10px 14px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* --- ALERTS --- */
+
+    .alert-no-phone {
+        font-size: 0.7rem;
+        padding: 6px;
+    }
+
+    /* --- FOOTER --- */
+
+    footer p {
+        font-size: 0.7rem;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 }
