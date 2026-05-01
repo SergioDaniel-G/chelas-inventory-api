@@ -52,6 +52,11 @@ services:
       #- APP_ADMIN_SURNAME=${ADMIN_APELLIDO}
       #- APP_ADMIN_MOBILE=${ADMIN_MOBILE}
 
+      # CONFIGURACIÓN DE RECAPTCHA (Esto es lo que faltaba)
+      - GOOGLE_RECAPTCHA_SECRET=6LeIxAcTAAAAAGG-v3_m9o7NXtW6mxK6S.f-f-f-f
+      - GOOGLE_RECAPTCHA_SITE=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+      - GOOGLE_RECAPTCHA_URL=https://www.google.com/recaptcha/api/siteverify
+
         # Configuración de Mail (Necesaria para que Spring no falle)
       - SPRING_MAIL_HOST=${MAIL_HOST:-smtp.gmail.com}
       - SPRING_MAIL_PORT=${MAIL_PORT:-587}
