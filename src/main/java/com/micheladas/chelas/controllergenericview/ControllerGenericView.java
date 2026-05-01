@@ -59,7 +59,7 @@ public class ControllerGenericView {
         } else {
             model.addAttribute(name, datosPaginados);
         }
-        return "Main/" + name;
+        return "main/" + name;
     }
 
     /** * Initializes the model for displaying a new entity creation form.
