@@ -52,6 +52,14 @@ services:
       #- APP_ADMIN_SURNAME=${ADMIN_APELLIDO}
       #- APP_ADMIN_MOBILE=${ADMIN_MOBILE}
 
+        # Configuración de Mail (Necesaria para que Spring no falle)
+      - SPRING_MAIL_HOST=${MAIL_HOST:-smtp.gmail.com}
+      - SPRING_MAIL_PORT=${MAIL_PORT:-587}
+      - SPRING_MAIL_USERNAME=${MAIL_USERNAME:-test@example.com}
+      - SPRING_MAIL_PASSWORD=${MAIL_PASSWORD:-pfalso}
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_SHOW_SQL=true
     depends_on:
