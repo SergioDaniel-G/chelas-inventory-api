@@ -4,10 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-/**Global controller interceptor to provide common model attributes.
- * This advice simplifies UI navigation by automatically calculating
- * the return path (referer) for "Back" buttons across all views.
- **/
+/* GLOBAL CONTROLLER INTERCEPTOR TO PROVIDE COMMON MODEL ATTRIBUTES
+ * THIS ADVICE  SIMPLIFIES UI NAVIGATION BY AUTOMATICALLY CALCULATING
+ * THE RETURN PATH (REFERER) FOR BACK BUTTONS ACROSS ALL VIEWS.
+ */
 
 @ControllerAdvice
 public class BackNavigationAdvice {

@@ -194,7 +194,7 @@
 .alert-warning { background-color: #fff3cd; }
 .alert-info { background-color: #d1ecf1; }
 
-/* --- MOBILE DISPOSITIVE --- */
+/* MOBILE DISPOSITIVE */
 
 @media (max-width: 480px) {
 

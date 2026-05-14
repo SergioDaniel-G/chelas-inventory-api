@@ -26,6 +26,10 @@ public class UserRegistrationDto {
 
 	@NotBlank(message = "{user.password.required}")
 	@Size(min = 8, max = 12, message = "{validation.password.size}")
+	@Pattern(
+			regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,12}$",
+			message = "{validation.password.complex}"
+	)
 	@ToString.Exclude
 	private String password;
 

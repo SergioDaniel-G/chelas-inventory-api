@@ -10,8 +10,8 @@ import com.lowagie.text.Element;
 import com.micheladas.chelas.entity.Supplier;
 
 /**
- * PDF exporter specialized in Suppliers inventory reports.
- * Utilizes a generic rendering engine to ensure consistent document structure and styling.
+ * PDF EXPORTER SPECIALIZED IN SUPPLIERS INVENTORY REPORTS.
+ * UTILIZES A GENERIC RENDERING ENGINE TO ENSURE CONSISTENT DOCUMENT STRUCTURE AND STYLING.
  */
 
 public class SupplierPdfExporterpro {

@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Custom exception thrown when a requested resource (Entity) cannot be found
- * in the database. Automatically maps to an HTTP 404 Not Found status.
+ * CUSTOM EXCEPTION THROWN WHEN A REQUESTED RESOURCE (ENTITY) CANNOT BE FOUND
+ * IN THE DATABASE. AUTOMATICALLY MAPS TO AN HTTP 404 NOT FOUND STATUS.
  */
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)

@@ -28,7 +28,7 @@ public class ExpenseController {
 	private ExpenseService expenseService;
 
 	/**
-	 * Retrieves and displays the detailed view of a specific Expense by its ID.
+	 * RETRIEVES AND DISPLAYS THE DETAILED VIEW OF A SPECIFIC EXPENSE BY ITS ID.
 	 */
 
 
@@ -48,7 +48,7 @@ public class ExpenseController {
 	}
 
 	/**
-	 * Fetches a paginated list of all Expenses and renders the list view.
+	 * FETCHES A PAGINATED LIST OF ALL EXPENSES AND RENDERS THE LIST VIEW.
 	 */
 
 	@GetMapping("/gastos")
@@ -59,7 +59,7 @@ public class ExpenseController {
 	}
 
 	/**
-	 * Prepares the model and displays the form to register a new Expense.
+	 * PREPARES THE MODEL AND DISPLAYS THE FORM TO REGISTER A NEW EXPENSE.
 	 */
 
 	@GetMapping("/gastos/nuevo")
@@ -74,7 +74,7 @@ public class ExpenseController {
 	}
 
 	/**
-	 * Validates and persists a new Expense entry into the database.
+	 * VALIDATES AND PERSISTS A NEW EXPENSE ENTRY INTO THE DATABASE.
 	 */
 	@PostMapping("/gastos/guardar")
 	public String save(
@@ -96,7 +96,7 @@ public class ExpenseController {
 	}
 
 	/**
-	 * Retrieves an existing Expense data and displays the edit form.
+	 * RETRIEVES AN EXISTING EXPENSE DATA AND DISPLAYS THE EDIT FORM.
 	 */
 
 	@GetMapping("/gastos/editar/{id}")
@@ -107,7 +107,7 @@ public class ExpenseController {
 	}
 
 	/**
-	 * Processes the update of an existing Expense after validating the input data.
+	 * PROCESSES THE UPDATE OF AN EXISTING EXPENSE AFTER VALIDATING THE INPUT DATA.
 	 */
 
 	@PostMapping("/gastos/{id}")
@@ -134,7 +134,7 @@ public class ExpenseController {
 	}
 
 	/**
-	 * Deletes a Expense record from the database. Restricted to ADMIN users.
+	 * DELETES A EXPENSE RECORD FROM THE DATABASE. RESTRICTED TO ADMIN USERS.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -144,7 +144,7 @@ public class ExpenseController {
 	}
 
 	/**
-	 * Generates and triggers the download of a PDF report containing all Expenses.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF A PDF REPORT CONTAINING ALL EXPENSES.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -162,7 +162,7 @@ public class ExpenseController {
 	}
 
 	/**
-	 * Generates and triggers the download of an Excel spreadsheet with the Expense inventory.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF AN EXCEL SPREADSHEET WITH THE EXPENSE INVENTORY.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")

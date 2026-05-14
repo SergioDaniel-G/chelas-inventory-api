@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Controller responsible for handling security-related exceptions and
- * displaying custom error pages for unauthorized access (Access Denied).
+ * CONTROLLER RESPONSIBLE FOR HANDLING SECURITY-RELATED EXCEPTIONS AND
+ * DISPLAYING CUSTOM ERROR PAGES FOR UNAUTHORIZED ACCESS (ACCESS DENIED).
  */
 
 @Controller

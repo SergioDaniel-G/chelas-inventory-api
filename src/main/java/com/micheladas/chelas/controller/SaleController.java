@@ -30,7 +30,7 @@ public class SaleController {
 	private SaleService saleService;
 
 	/**
-	 * Retrieves and displays the detailed view of a specific Sale by its ID.
+	 * RETRIEVES AND DISPLAYS THE DETAILED VIEW OF A SPECIFIC SALE BY ITS ID.
 	 */
 
 	@GetMapping("/verve/{id}")
@@ -49,7 +49,7 @@ public class SaleController {
 	}
 
 	/**
-	 * Fetches a paginated list of all Sales and renders the list view.
+	 * FETCHES A PAGINATED LIST OF ALL SALES AND RENDERS THE LIST VIEW.
 	 */
 
 	@GetMapping("/ventas")
@@ -61,7 +61,7 @@ public class SaleController {
 	}
 
 	/**
-	 * Prepares the model and displays the form to register a new Sale.
+	 * PREPARES THE MODEL AND DISPLAYS THE FORM TO REGISTER A NEW SALE.
 	 */
 
 	@GetMapping("/ventas/nuevo")
@@ -76,7 +76,7 @@ public class SaleController {
 	}
 
 	/**
-	 * Validates and persists a new Sale entry into the database.
+	 * VALIDATES AND PERSISTS A NEW SALE ENTRY INTO THE DATABASE.
 	 */
 
 	@PostMapping("/ventas/guardar")
@@ -99,7 +99,7 @@ public class SaleController {
 	}
 
 	/**
-	 * Retrieves an existing Sale data and displays the edit form.
+	 * RETRIEVES AN EXISTING SALE DATA AND DISPLAYS THE EDIT FORM.
 	 */
 
 	@GetMapping("/ventas/editar/{id}")
@@ -110,7 +110,7 @@ public class SaleController {
 	}
 
 	/**
-	 * Processes the update of an existing Sale after validating the input data.
+	 * PROCESSES THE UPDATE OF AN EXISTING SALE AFTER VALIDATING THE INPUT DATA.
 	 */
 	@PostMapping("/ventas/{id}")
 	public String updteSales(@PathVariable Long id,
@@ -136,7 +136,7 @@ public class SaleController {
 	}
 
 	/**
-	 * Deletes a Sale record from the database. Restricted to ADMIN users.
+	 * DELETES A SALE RECORD FROM THE DATABASE. RESTRICTED TO ADMIN USERS.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -146,7 +146,7 @@ public class SaleController {
 	}
 
 	/**
-	 * Generates and triggers the download of a PDF report containing all Sales.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF A PDF REPORT CONTAINING ALL SALES.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -164,7 +164,7 @@ public class SaleController {
 	}
 
 	/**
-	 * Generates and triggers the download of an Excel spreadsheet with the Sales inventory.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF AN EXCEL SPREADSHEET WITH THE SALES INVENTORY.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")

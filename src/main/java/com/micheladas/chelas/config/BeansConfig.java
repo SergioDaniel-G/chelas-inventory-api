@@ -8,8 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class BeansConfig {
 
     /**
-     * provide a BCrypt password encoder for secure
-     * password hashing.
+     * PROVIDE A BCRYPT PASSWORD ENCODER FOR SECURE PASSWORD HASHING
      **/
 
     @Bean

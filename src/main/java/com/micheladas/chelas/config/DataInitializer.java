@@ -10,9 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
-/**Data seeding component to initialize the database on startup.
- * This class ensures that a default administrative user exists,
- * leveraging externalized configuration for credentials.
+/* DATA SEEDING COMPONENT TO INITIALIZE TEH DATABASE ON STARTUP
+ * THIS CLASS ENSURES THAT A DEFAULT ADMINISTRATIVE USER EXISTS,
+ * LEVERAGING EXTERNALIZED CONFIGURATION FOR CREDENTIALS.
  **/
 
 @Component

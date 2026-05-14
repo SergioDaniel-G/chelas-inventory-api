@@ -44,10 +44,10 @@ public class Sale extends BaseEntity {
 	private Integer cigarettesStock;
 
 	/**
-	 * Compares current sale data with new input to detect modifications.
-	 * Checks all item quantities, total amount, and recorded stock levels.
-	 * param newData The source object with updated sale details.
-	 * return true if any field has changed; false otherwise.
+	 * COMPARES CURRENT SALE DATA WITH NEW INPUT TO DETECT MODIFICATIONS.
+	 * CHECKS ALL ITEM QUANTITIES, TOTAL AMOUNT, AND RECORDED STOCK LEVELS.
+	 * PARAM NEW DATA THE SOURCE OBJECT WITH UPDATED SALE DETAILS.
+	 * RETURN TRUE IF ANY FIELD HAS CHANGED; FALSE OTHERWISE.
 	 */
 
 	public boolean updateFrom(Sale newData) {

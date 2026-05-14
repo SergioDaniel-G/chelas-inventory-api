@@ -6,9 +6,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import java.util.Optional;
 
-/**
- * Custom implementation of AuditorAware to bridge Spring Security's context
- * with JPA Auditing, providing the current authenticated user's identity.
+/*
+ * CUSTOM IMPLEMENTATION OF AUDITOR AWARE TO BRIDGE SPRING SECURITY´S CONTEXT
+ * WITH JPA AUDITING, PROVIDING THE CURRENT AUTHENTICATED USER´S IDENTITY.
  */
 
 @Component("auditorProvider")

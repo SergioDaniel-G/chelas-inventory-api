@@ -42,32 +42,57 @@ public class AuthMfaController {
     public String validateMfa(@RequestParam String code, Authentication auth,
                               HttpServletRequest request, HttpServletResponse response) {
 
+        // OBTAIN THE USER FROM DATABASE
+        UserAccount userAccount = userRepository.findByEmail(auth.getName());
+
+        // CHECK FOR LIMIT REACHED
+        if (userAccount.getOtpFailedAttempts() >= 5) {
+            // LOG ATTEMPT WHILE BLOCKED (MEDIUM-HIGH RISK)
+            ipService.registerAccessAttempt(auth.getName(), "FALLIDO", "Usuario bloqueado por intentos", request);
+            return "redirect:/verificar-codigo?error=bloqueado";
+        }
+
+        // TRY TO VERIFY THE CODE
         if (mfaService.verifyCode(auth.getName(), code)) {
 
-            ipService.registerIp(auth.getName(), request.getRemoteAddr());
+            // SUCCESS
+            userAccount.setOtpFailedAttempts(0);
+            userRepository.save(userAccount);
 
-            // SEARCH REAL USER IN THE DB FOR RECUPERATE ORIGINALS ROLE
-            UserAccount userAccount = userRepository.findByEmail(auth.getName());
+            // DETAILED LOG OF SUCCESSFUL ACCESS (DETECT HUMAN VS BOT)
+            ipService.registerAccessAttempt(auth.getName(), "EXITOSO", null, request);
 
-            // MAP REAL USERS
             var realAuthorities = userAccount.getRoles().stream()
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .collect(Collectors.toList());
 
-            // CREATE THE NEW TOKEN WITH ALL ITS IDENTITY
             Authentication newAuth = new UsernamePasswordAuthenticationToken(
                     auth.getPrincipal(),
-                    null, // THE CREDENTIAL DELETE AFTER FIRST LOGIN
+                    null,
                     realAuthorities
             );
 
-            // PRSISTENCE IN THE CONTEXT AND SESSION
             var context = SecurityContextHolder.getContext();
             context.setAuthentication(newAuth);
             securityContextRepository.saveContext(context, request, response);
 
             return "redirect:/index";
+        } else {
+            // ERROR
+            int nuevosIntentos = userAccount.getOtpFailedAttempts() + 1;
+            userAccount.setOtpFailedAttempts(nuevosIntentos);
+            userRepository.save(userAccount);
+
+            // DETAILED FAILURE LOG FOR AUDIT PURPOSE
+            String motivo = "Código OTP incorrecto. Intento #" + nuevosIntentos;
+            ipService.registerAccessAttempt(auth.getName(), "FALLIDO", motivo, request);
+
+            if (nuevosIntentos >= 5) {
+                return "redirect:/verificar-codigo?error=bloqueado";
+            }
+
+            return "redirect:/verificar-codigo?error&restan=" + (5 - nuevosIntentos);
         }
-        return "redirect:/verificar-codigo?error";
     }
 }
+

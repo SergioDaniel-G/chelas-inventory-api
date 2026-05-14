@@ -8,7 +8,6 @@
 	<h1>Clientes</h1>
 	<img th:src="@{/img/customers.png}" width="60" class="img-rounded float-right">
 
-	<!-- Acciones y Formulario (puedes dejarlos aquí o fragmentarlos si son iguales) -->
 	<div class="actions">
 		<a th:href="@{/exportarPDFcli}" class="btn">PDF</a>
 		<a th:href="@{/exportarExcelcli}" class="btn">Excel</a>
@@ -23,7 +22,7 @@
 		<tr><th>Id</th><th>Numero/Cliente</th><th>Nombre completo</th><th>Dirección</th><th>CP</th><th>Fecha</th><th>Acciones</th></tr>
 		</thead>
 		<tbody>
-		<!--llamamos clientes de listarTodosLosClientes-->
+
 		<tr th:each="cliente : ${customers}">
 			<td th:text="${cliente.id}"></td>
 			<td th:text="${cliente.customerNumber}"></td>

@@ -31,8 +31,8 @@ public class BigBottleController {
     @Autowired
     private BigBottleService bigBottleService;
 
-    /**
-     * Retrieves and displays the detailed view of a specific BigBottle by its ID.
+    /* RETRIEVES AND DISPLAYS THE DETAILED VIEW OF A
+     * SPECIFIC BIG BOTTLE BY ITS ID
      */
 
     @GetMapping("/ver/{id}")
@@ -50,8 +50,7 @@ public class BigBottleController {
         );
     }
 
-    /**
-     * Fetches a paginated list of all BigBottles and renders the list view.
+    /* FETCHES A PAGINATED LIST OF ALL BIG BOTTLES AND RENDERS THE LIST VIEW
      */
 
     @GetMapping("/caguamas")
@@ -61,8 +60,7 @@ public class BigBottleController {
                 bigBottleService::findAll, null);
     }
 
-    /**
-     * Prepares the model and displays the form to register a new BigBottle.
+    /* PREPARES THE MODEL AND DISPLAYS THE FORM TO REGISTER A NEW BIG BOTTLES
      */
 
     @GetMapping("/caguamas/nuevo")
@@ -76,8 +74,7 @@ public class BigBottleController {
         );
     }
 
-    /**
-     * Validates and persists a new BigBottle entry into the database.
+    /* VALIDATES AND PERSISTS A NEW BIG BOTTLE ENTRY INTO THE DATABASE
      */
 
     @PostMapping("/caguamas/guardar")
@@ -99,8 +96,7 @@ public class BigBottleController {
         );
     }
 
-    /**
-     * Retrieves an existing BigBottle's data and displays the edit form.
+    /* RETIREVES AN EXISTING BIG BOTTLE DATA AND DISPLAY THE EDIT FORM
      */
 
     @GetMapping("/caguamas/editar/{id}")
@@ -109,8 +105,7 @@ public class BigBottleController {
         return "edit/edit_bigbottle";
     }
 
-    /**
-     * Processes the update of an existing BigBottle after validating the input data.
+    /* PROCESSES THE UPDATE OF AN EXISTING BIG BOTTLE AFTER VALIDATING THE INPUT DATA
      */
 
     @PostMapping("/caguamas/{id}")
@@ -136,8 +131,7 @@ public class BigBottleController {
         );
     }
 
-    /**
-     * Deletes a BigBottle record from the database. Restricted to ADMIN users.
+    /* DELETE A BIG BOTTLE RECORD FROM THE DATABASE. RESTRICTED TO ADMIN USERS
      */
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -146,8 +140,7 @@ public class BigBottleController {
         return ControllerGenericView.executeDelete(id, bigBottleService::deleteBigBottle, "caguamas", flash);
     }
 
-    /**
-     * Generates and triggers the download of a PDF report containing all BigBottles.
+    /* GENERATES AND TRIGGERS THE DOWNLOAD OF A PDF REPORT CONTAINING ALL BIG BOTTLES
      */
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -164,8 +157,7 @@ public class BigBottleController {
                 });
     }
 
-    /**
-     * Generates and triggers the download of an Excel spreadsheet with the BigBottle inventory.
+    /* GENERATES AND TRIGGERS THE DOWNLOAD OF AN EXCEL SPREADSHEET WITH THE BIG BOTTLE INVENTORY
      */
 
     @PreAuthorize("hasRole('ADMIN')")

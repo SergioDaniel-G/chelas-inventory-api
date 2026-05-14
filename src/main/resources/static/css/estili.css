@@ -10,7 +10,7 @@
     --white: #ffffff;
 }
 
-/* --- RESET --- */
+/* RESET */
 
 * {
     margin: 0;
@@ -30,7 +30,7 @@ body {
     flex-direction: column;
 }
 
-/* --- HEADER --- */
+/* HEADER */
 
 .header-estatico {
     width: 100%;
@@ -67,7 +67,7 @@ body {
     color: var(--white);
 }
 
-/* --- BODY --- */
+/* BODY */
 
 .cuerpo-pagina {
     flex: 1;
@@ -77,7 +77,7 @@ body {
     padding: 25px;
 }
 
-/* --- TABLE --- */
+/*  TABLE */
 
 .tabla-datos {
     width: 900px;
@@ -105,7 +105,7 @@ body {
     background-color: #f8fafc;
 }
 
-/* --- FORM --- */
+/* FORM */
 
 .tarjeta-edicion {
     width: 320px;
@@ -176,7 +176,7 @@ body {
     background: linear-gradient(135deg, #1d4ed8, #1e40af);
 }
 
-/* --- ALERTS --- */
+/* ALERTS */
 
 .alert {
     padding: 6px 8px;
@@ -190,7 +190,7 @@ body {
 .alert-warning { background-color: #fff3cd; }
 .alert-info { background-color: #d1ecf1; }
 
-/* --- FOOTER --- */
+/*  FOOTER  */
 
 .footer-estatico {
     padding: 12px;
@@ -202,6 +202,7 @@ body {
 }
 
 /* --- MOBILE DISPOSITIVE --- */
+
 @media (max-width: 480px) {
 
     body {
@@ -262,7 +263,7 @@ body {
         font-size: 14px;
     }
 
-    /* BUTTÓN */
+    /* BUTTON */
 
     .boton-guardar {
         padding: 12px;

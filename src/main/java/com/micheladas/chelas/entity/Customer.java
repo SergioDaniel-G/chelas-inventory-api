@@ -31,10 +31,10 @@ public class Customer extends BaseEntity {
     private String zipCode;
 
     /**
-     * Updates the customer's information by comparing existing data with new input.
-     * Checks for changes in identification number, name, address, and zip code.
-     * param newData The source object containing the updated customer details.
-     * return true if any field was modified; false if the data is identical.
+     * UPDATES THE CUSTOMER'S INFORMATION BY COMPARING EXISTING DATA WITH NEW INPUT.
+     * CHECKS FOR CHANGES IN IDENTIFICATION NUMBER, NAME, ADDRESS, AND ZIP CODE.
+     * PARAM NEW DATA THE SOURCE OBJECT CONTAINING THE UPDATED CUSTOMER DETAILS.
+     * RETURN TRUE IF ANY FIELD WAS MODIFIED; FALSE IF THE DATA IS IDENTICAL.
      */
 
     public boolean updateFrom(Customer newData) {

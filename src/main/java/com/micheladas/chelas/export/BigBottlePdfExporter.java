@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * PDF exporter specialized in BigBottle inventory reports.
- * Utilizes a generic rendering engine to ensure consistent document structure and styling.
+ * PDF EXPORTER SPECIALIZED IN BIGBOTTLE INVENTORY REPORTS.
+ * UTILIZES A GENERIC RENDERING ENGINE TO ENSURE CONSISTENT DOCUMENT STRUCTURE AND STYLING.
  */
 
 public class BigBottlePdfExporter {

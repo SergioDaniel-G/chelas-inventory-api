@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // 3. LÓGICA DE CERRAR SESIÓN
+    // LOGOUT LOGIC
     const logoutLink = document.querySelector('.navbar-link[href*="logout"], .btn-logout');
 
     if (logoutLink) {
@@ -38,7 +38,64 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// --- FUNCIONES DE TABLA ---
+// reCAPTCHA CONTROL
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const campos = {
+        nombre: document.getElementById('name'),
+        apellido: document.getElementById('surname'),
+        telefono: document.getElementById('mobileNumber'),
+        email: document.getElementById('email'),
+        pass: document.getElementById('password')
+    };
+
+    const wrapper = document.getElementById('captcha-wrapper');
+    const overlay = document.getElementById('captcha-overlay');
+    const hint = document.getElementById('captcha-hint');
+
+    function verificarCampos() {
+
+        // TRIM() DELETE BLANK SPACE
+        const estaCompleto =
+            campos.nombre.value.trim() !== "" &&
+            campos.apellido.value.trim() !== "" &&
+            campos.telefono.value.trim() !== "" &&
+            campos.email.value.trim() !== "" &&
+            campos.pass.value.trim() !== "";
+
+        if (estaCompleto) {
+            // ENABLE THE reCAPTCHA
+            if (wrapper) wrapper.style.opacity = "1";
+            if (overlay) overlay.style.display = "none";
+            if (hint) hint.style.display = "none";
+        } else {
+            // KEEP THE BLOCK
+            if (wrapper) wrapper.style.opacity = "0.5";
+            if (overlay) overlay.style.display = "block";
+        }
+    }
+
+
+    Object.values(campos).forEach(input => {
+        if (input) {
+            input.addEventListener('input', verificarCampos);
+        }
+    });
+
+    // WARNING FOR THE reCAPTCHA
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            hint.style.display = "block";
+            hint.innerText = "Completa todos los campos para habilitar la verificación.";
+        });
+    }
+
+
+    verificarCampos();
+});
+
+// TABLE FUNCTIONS
 
 function buscarEnTabla() {
     const input = document.querySelector('input[name="keyword"]');

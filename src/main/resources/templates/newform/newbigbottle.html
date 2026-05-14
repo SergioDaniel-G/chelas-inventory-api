@@ -16,7 +16,7 @@
 				<td><label for="brand">Marca:</label></td>
 				<td>
 					<input type="text" th:field="*{brand}" id="brand">
-					<span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" style="color: red;"></span>
+					<span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class="error-text"></span>
 				</td>
 			</tr>
 
@@ -25,7 +25,7 @@
 				<td>
 					<span>$MXN</span>
 					<input type="number" th:field="*{unitPrice}" id="unitPrice" step="0.01">
-					<span th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}" style="color: red;"></span>
+					<span th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}" class="error-text"></span>
 				</td>
 			</tr>
 
@@ -33,7 +33,7 @@
 				<td><label for="quantity">Cantidad:</label></td>
 				<td>
 					<input type="number" th:field="*{quantity}" id="quantity" step="1">
-					<span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" style="color: red;"></span>
+					<span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="error-text"></span>
 				</td>
 			</tr>
 

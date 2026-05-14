@@ -22,7 +22,7 @@ body {
     display: flex;
 }
 
-/* --- SIDEBAR --- */
+/* SIDEBAR */
 
 .sidebar {
     width: 260px;
@@ -55,7 +55,7 @@ body {
     color: white;
 }
 
-/* --- MENU --- */
+/* MENU */
 
 .sidebar-menu {
     padding: 20px 0;
@@ -212,7 +212,7 @@ body {
         flex-direction: column;
     }
 
-    /* --- SIDEBAR --- */
+    /* SIDEBAR */
 
     .sidebar {
         transform: translateX(-100%);
@@ -233,7 +233,7 @@ body {
         width: 100%;
     }
 
-    /* --- NAVBAR --- */
+    /* NAVBAR */
 
     .top-nav {
         padding: 0 15px;
@@ -269,7 +269,7 @@ body {
         margin-top: 20px;
     }
 
-    /* --- MENU --- */
+    /* MENU */
 
     .sidebar-menu ul li a,
     .navbar-link {
@@ -277,7 +277,7 @@ body {
         padding: 10px 20px;
     }
 
-    /* --- HAMBURGER MENU --- */
+    /* HAMBURGER MENU */
 
     .menu-icon span {
         width: 20px;

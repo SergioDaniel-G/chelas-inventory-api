@@ -28,7 +28,7 @@ public class CigaretteController {
 	private CigaretteService cigaretteService;
 
 	/**
-	 * Retrieves and displays the detailed view of a specific Cigarette by its ID.
+	 * RETRIEVES AND DISPLAYS THE DETAILED VIEW OF A SPECIFIC CIGARETTE BY ITS ID.
 	 */
 
 	@GetMapping("/verci/{id}")
@@ -47,7 +47,7 @@ public class CigaretteController {
 	}
 
 	/**
-	 * Fetches a paginated list of all Cigarettes and renders the list view.
+	 * FETCHES A PAGINATED LIST OF ALL CIGARETTES AND RENDERS THE LIST VIEW.
 	 */
 
 	@GetMapping("/cigarros")
@@ -58,7 +58,7 @@ public class CigaretteController {
 	}
 
 	/**
-	 * Prepares the model and displays the form to register a new Cigarette.
+	 * PREPARES THE MODEL AND DISPLAYS THE FORM TO REGISTER A NEW CIGARETTE.
 	 */
 
 	@GetMapping("/cigarros/nuevo")
@@ -73,7 +73,7 @@ public class CigaretteController {
 	}
 
 	/**
-	 * Validates and persists a new Cigarette entry into the database.
+	 * VALIDATES AND PERSISTS A NEW CIGARETTE ENTRY INTO THE DATABASE.
 	 */
 
 	@PostMapping("/cigarros/guardar")
@@ -96,7 +96,7 @@ public class CigaretteController {
 	}
 
 	/**
-	 * Retrieves an existing Cigarette data and displays the edit form.
+	 * RETRIEVES AN EXISTING CIGARETTE DATA AND DISPLAYS THE EDIT FORM.
 	 */
 
 	@GetMapping("/cigarros/editar/{id}")
@@ -107,7 +107,7 @@ public class CigaretteController {
 	}
 
 	/**
-	 * Processes the update of an existing Cigarette after validating the input data.
+	 * PROCESSES THE UPDATE OF AN EXISTING CIGARETTE AFTER VALIDATING THE INPUT DATA.
 	 */
 
 	@PostMapping("/cigarros/{id}")
@@ -134,7 +134,7 @@ public class CigaretteController {
 	}
 
 	/**
-	 * Deletes a Cigarette record from the database. Restricted to ADMIN users.
+	 * DELETES A CIGARETTE RECORD FROM THE DATABASE. RESTRICTED TO ADMIN USERS.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -144,7 +144,7 @@ public class CigaretteController {
 	}
 
 	/**
-	 * Generates and triggers the download of a PDF report containing all BigBottles.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF A PDF REPORT CONTAINING ALL BIG BOTTLES.
 	 */
 
 
@@ -163,7 +163,7 @@ public class CigaretteController {
 	}
 
 	/**
-	 * Generates and triggers the download of an Excel spreadsheet with the Cigarette inventory.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF AN EXCEL SPREADSHEET WITH THE CIGARETTE INVENTORY.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")

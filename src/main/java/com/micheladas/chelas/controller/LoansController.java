@@ -28,7 +28,7 @@ public class LoansController {
     private LoanService loanService;
 
     /**
-     * Retrieves and displays the detailed view of a specific Loan by its ID.
+     * RETRIEVES AND DISPLAYS THE DETAILED VIEW OF A SPECIFIC LOAN BY ITS ID.
      */
 
     @GetMapping("/verpr/{id}")
@@ -48,7 +48,7 @@ public class LoansController {
     }
 
     /**
-     * Fetches a paginated list of all Loans and renders the list view.
+     * FETCHES A PAGINATED LIST OF ALL LOANS AND RENDERS THE LIST VIEW.
      */
 
     @GetMapping("/prestados")
@@ -60,7 +60,7 @@ public class LoansController {
     }
 
     /**
-     * Prepares the model and displays the form to register a new Loan.
+     * PREPARES THE MODEL AND DISPLAYS THE FORM TO REGISTER A NEW LOAN.
      */
 
     @GetMapping("/prestados/nuevo")
@@ -76,7 +76,7 @@ public class LoansController {
     }
 
     /**
-     * Validates and persists a new Loans entry into the database.
+     * VALIDATES AND PERSISTS A NEW LOANS ENTRY INTO THE DATABASE.
      */
 
     @PostMapping("/prestados/guardar")
@@ -99,7 +99,7 @@ public class LoansController {
     }
 
     /**
-     * Retrieves an existing Loan data and displays the edit form.
+     * RETRIEVES AN EXISTING LOAN DATA AND DISPLAYS THE EDIT FORM.
      */
 
     @GetMapping("/prestados/editar/{id}")
@@ -110,7 +110,7 @@ public class LoansController {
     }
 
     /**
-     * Processes the update of an existing Loan after validating the input data.
+     * PROCESSES THE UPDATE OF AN EXISTING LOAN AFTER VALIDATING THE INPUT DATA.
      */
 
     @PostMapping("/prestados/{id}")
@@ -137,7 +137,7 @@ public class LoansController {
     }
 
     /**
-     * Deletes a Loans record from the database. Restricted to ADMIN users.
+     * DELETES A LOANS RECORD FROM THE DATABASE. RESTRICTED TO ADMIN USERS.
      */
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -147,7 +147,7 @@ public class LoansController {
     }
 
     /**
-     * Generates and triggers the download of a PDF report containing all Loans.
+     * GENERATES AND TRIGGERS THE DOWNLOAD OF A PDF REPORT CONTAINING ALL LOANS.
      */
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -162,7 +162,7 @@ public class LoansController {
     }
 
     /**
-     * Generates and triggers the download of an Excel spreadsheet with the Loan inventory.
+     * GENERATES AND TRIGGERS THE DOWNLOAD OF AN EXCEL SPREADSHEET WITH THE LOAN INVENTORY.
      */
 
     @PreAuthorize("hasRole('ADMIN')")

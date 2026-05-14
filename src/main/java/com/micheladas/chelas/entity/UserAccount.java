@@ -57,9 +57,18 @@ public class UserAccount {
 	@Column(name = "last_login")
 	private LocalDateTime lastLogin;
 
+	@Column(name = "otp_code")
+	private String otpCode;
+
+	@Column(name = "otp_expiry")
+	private LocalDateTime otpExpiry;
+
+	@Column(name = "otp_failed_attempts")
+	private int otpFailedAttempts = 0;
+
 	/**
-	 * Collection of security roles granted to the user.
-	 * Loaded eagerly to facilitate immediate authorization checks.
+	 * COLLECTION OF SECURITY ROLES GRANTED TO THE USER.
+	 * LOADED EAGERLY TO FACILITATE IMMEDIATE AUTHORIZATION CHECKS.
 	 */
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

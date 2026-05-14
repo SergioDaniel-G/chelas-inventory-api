@@ -32,23 +32,26 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Locates the user based on the email (username) for Spring Security authentication.
-	 * Maps the database UserAccount entity to the Security UserDetails object.
-	 * * @param username The email provided during login.
-	 * return UserDetails containing credentials and authorities.
-	 * throws UsernameNotFoundException if the email is not registered.
+	 * LOCATES THE USER BASED ON THE EMAIL (USERNAME) FOR SPRING SECURITY AUTHENTICATION.
+	 * MAPS THE DATABASE USERACCOUNT ENTITY TO THE SECURITY USERDETAILS OBJECT.
+	 * * @PARAM USERNAME THE EMAIL PROVIDED DURING LOGIN.
+	 * RETURN USERDETAILS CONTAINING CREDENTIALS AND AUTHORITIES.
+	 * THROWS USERNAMENOTFOUNDEXCEPTION IF THE EMAIL IS NOT REGISTERED.
 	 */
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserAccount userAccount = userRepository.findByEmail(username);
+		// 1. Normalizamos el username (email) a minúsculas y quitamos espacios en blanco
+		String normalizedEmail = (username != null) ? username.toLowerCase().trim() : "";
+
+		UserAccount userAccount = userRepository.findByEmail(normalizedEmail);
 		if (userAccount == null) {
 			throw new UsernameNotFoundException("Usuario o password inválidos");
 		}
 
 		List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_PRE_VERIFIED"));
 
-		return new User(userAccount.getEmail(), userAccount.getPassword(), true,                       // enabled: ¿Está habilitada?
+		return new User(userAccount.getEmail(), userAccount.getPassword(), true,
 				true,
 				true,
 				userAccount.isAccountNonLocked(),
@@ -60,8 +63,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Creates and persists a new UserAccount with a default "ROLE_USER" authority.
-	 * Encrypts the password using BCrypt before saving.
+	 * CREATES AND PERSISTS A NEW USERACCOUNT WITH A DEFAULT "ROLE_USER" AUTHORITY.
+	 * ENCRYPTS THE PASSWORD USING BCRYPT BEFORE SAVING.
 	 */
 
 	@Override
@@ -82,8 +85,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Switches the account's lock status between locked and unlocked.
-	 * Resets failed attempts to 0 if the account is being unlocked.
+	 * SWITCHES THE ACCOUNT'S LOCK STATUS BETWEEN LOCKED AND UNLOCKED.
+	 * RESETS FAILED ATTEMPTS TO 0 IF THE ACCOUNT IS BEING UNLOCKED.
 	 */
 
 	@Override
@@ -114,7 +117,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * Records the exact date and time of the user's last successful login.
+	 * RECORDS THE EXACT DATE AND TIME OF THE USER'S LAST SUCCESSFUL LOGIN.
 	 */
 
 	@Override

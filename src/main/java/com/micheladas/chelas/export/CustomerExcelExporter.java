@@ -2,14 +2,13 @@ package com.micheladas.chelas.export;
 
 import java.io.IOException;
 import java.util.List;
-
 import com.micheladas.chelas.genericcontrollerexporter.GenericExcelExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import com.micheladas.chelas.entity.Customer;
 
 /**
- * Excel exporter specialized in Customer data, utilizing a generic engine
- * to handle workbook creation, data type mapping, and currency formatting.
+ * EXCEL EXPORTER SPECIALIZED IN CUSTOMER DATA, UTILIZING A GENERIC ENGINE
+ * TO HANDLE WORKBOOK CREATION, DATA TYPE MAPPING, AND CURRENCY FORMATTING.
  */
 
 public class CustomerExcelExporter {

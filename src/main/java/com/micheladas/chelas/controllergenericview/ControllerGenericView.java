@@ -17,21 +17,21 @@ import java.util.Map;
 import java.util.function.*;
 
 /**
- * Standardized Utility class providing reusable logic for Controller operations,
- * including pagination, CRUD processing, and multi-format report exporting.
+ * STANDARDIZED UTILITY CLASS PROVIDING REUSABLE LOGIC FOR CONTROLLER OPERATIONS,
+ * INCLUDING PAGINATION, CRUD PROCESSING, AND MULTI-FORMAT REPORT EXPORTING.
  */
 
 public class ControllerGenericView {
 
     private static final Logger log = LoggerFactory.getLogger(ControllerGenericView.class);
-    private static final int DEFAULT_PAGE_SIZE = 20;
+    private static final int DEFAULT_PAGE_SIZE = 15;
 
     @FunctionalInterface
     public interface excelExporterAction {
         void execute(HttpServletResponse response) throws Exception;
     }
 
-    /** * Orchestrates paginated listing and optional keyword-based searching.
+    /** * ORCHESTRATES PAGINATED LISTING AND OPTIONAL KEYWORD-BASED SEARCHING.
      */
 
     public static String viewDetail(Object entity, String nameModel, String view, String redir, String tittleItem, Map<String, Object> model, RedirectAttributes flash) {
@@ -45,7 +45,7 @@ public class ControllerGenericView {
         return view;
     }
 
-    /** * Orchestrates paginated listing and optional keyword-based searching.
+    /** * ORCHESTRATES PAGINATED LISTING AND OPTIONAL KEYWORD-BASED SEARCHING.
      */
 
     public static <T> String processView(String name, int page, String keyword, Model model,
@@ -62,7 +62,7 @@ public class ControllerGenericView {
         return "main/" + name;
     }
 
-    /** * Initializes the model for displaying a new entity creation form.
+    /**  INITIALIZES THE MODEL FOR DISPLAYING A NEW ENTITY CREATION FORM.
      */
 
     public static <T> String displayForm(String attibuteName, String tittle, String viewPath, Model model, Supplier<T> entityFactory) {
@@ -71,7 +71,7 @@ public class ControllerGenericView {
         return viewPath;
     }
 
-    /** * Handles validation and persistence for new entity records.
+    /** * HANDLES VALIDATION AND PERSISTENCE FOR NEW ENTITY RECORDS.
      */
 
     public static <T> String saveEntity(T entity, BindingResult result, RedirectAttributes flash, Model model, String tittle, String formPath, Runnable save, String redirect) {
@@ -91,7 +91,7 @@ public class ControllerGenericView {
     }
 
     /**
-     * Processes an update by validating input, checking for changes, and persisting.
+     * PROCESSES AN UPDATE BY VALIDATING INPUT, CHECKING FOR CHANGES, AND PERSISTING.
      */
 
     public static <T> String updateEntity(
@@ -140,7 +140,7 @@ public class ControllerGenericView {
         return "redirect:" + redirSuccess;
     }
 
-    /** * Executes the deletion of a specific record by ID.
+    /** EXECUTES THE DELETION OF A SPECIFIC RECORD BY ID.
      */
 
     public static String executeDelete(Long id, Consumer<Long> deleteAction, String redirect, RedirectAttributes flash) {
@@ -151,7 +151,7 @@ public class ControllerGenericView {
         return "redirect:/" + redirect;
     }
 
-    /** * Configures the HTTP response for PDF report generation.
+    /** CONFIGURES THE HTTP RESPONSE FOR PDF REPORT GENERATION.
      */
 
     public static <T> void processPdfExport(HttpServletResponse response, String prefix, Supplier<List<T>> supplierData, BiConsumer<List<T>, HttpServletResponse> pdfGenerator) {
@@ -165,7 +165,7 @@ public class ControllerGenericView {
         }
     }
 
-    /** * Configures the HTTP response for Excel report generation.
+    /** * CONFIGURES THE HTTP RESPONSE FOR EXCEL REPORT GENERATION.
      */
 
     public static void exportToExcel(HttpServletResponse response, String namePrefix, excelExporterAction exporterAction) {

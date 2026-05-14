@@ -2,7 +2,6 @@ package com.micheladas.chelas.config;
 
 import com.micheladas.chelas.authservice.IpService;
 import com.micheladas.chelas.authservice.MfaEmailService;
-import com.micheladas.chelas.entity.UserAccount;
 import com.micheladas.chelas.repository.UserRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -11,28 +10,17 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import com.micheladas.chelas.service.UserService;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
-
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
-/**
- * Main security configuration class that defines the authentication provider,
- * authorization rules, session management policies, and security headers.
- */
 
 @Configuration
 @EnableMethodSecurity
@@ -46,7 +34,7 @@ public class SecurityConfiguration {
 	private final UserRepository userRepository;
 
 	public SecurityConfiguration(UserService userService,
-                                 BCryptPasswordEncoder passwordEncoder,
+								 BCryptPasswordEncoder passwordEncoder,
 								 Environment env,
 								 MfaEmailService mfaEmailService,
 								 IpService ipService,
@@ -69,10 +57,11 @@ public class SecurityConfiguration {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
 		auth.setUserDetailsService(userService);
 		auth.setPasswordEncoder(passwordEncoder);
-		/*
-		 * [PROD-ACTION]: SET TO TRUE IN PRODUCTION.
+
+		/* [PROD-ACTION]: SET TO TRUE IN PRODUCTION.
 		 * THIS PREVENT ENUMERATION ATTACKS. PREVENTING AN ATTACKING FROM KNOWING WHICH EMAILS EXISTS IN YOUR DB
 		 */
+
 		auth.setHideUserNotFoundExceptions(false);
 		return auth;
 	}
@@ -99,7 +88,7 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(authorize -> authorize
 
 						.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-						.requestMatchers("/login", "/registro/**", "/auth/**", "/error/403").permitAll()
+						.requestMatchers("/login", "/registro/**", "/error/403").permitAll()
 						.requestMatchers("/loadForgotPassword", "/forgotPassword").permitAll()
 						.requestMatchers("/loadResetPassword/**", "/changePassword/**").permitAll()
 						.requestMatchers("/usuarios/bloquear/**").hasRole("ADMIN")
@@ -110,27 +99,57 @@ public class SecurityConfiguration {
 						.loginPage("/login")
 						.usernameParameter("email")
 						.passwordParameter("password")
-						.defaultSuccessUrl("/index")
+						//.defaultSuccessUrl("/index")
 						.successHandler((request, response, authentication) -> {
+							// CACHE CLEAN
+							new org.springframework.security.web.savedrequest.HttpSessionRequestCache()
+									.removeRequest(request, response);
+
 							String email = authentication.getName();
-							if (ipService.isKnownIp(email, request.getRemoteAddr())) {
+							String ip = request.getRemoteAddr(); // OBTAIN THE IP
 
-								// LOAD ACTUAL ROLES HERE AS WELL TO AVOID DEGRADING THE ADMIN
-								UserAccount user = userRepository.findByEmail(email);
-								var authorities = user.getRoles().stream()
-										.map(r -> new SimpleGrantedAuthority(r.getName()))
-										.collect(Collectors.toList());
+							// ¿THE IP IS KNOW?
+							if (ipService.isIpKnown(email, ip)) {
 
-								Authentication fullAuth = new UsernamePasswordAuthenticationToken(
-										authentication.getPrincipal(), null, authorities);
+								// CASE: IP IS KNOW (DIRECT ACCESS)
+								System.out.println("DEBUG: IP conocida para " + email + ". Saltando MFA.");
 
-								var context = SecurityContextHolder.getContext();
-								context.setAuthentication(fullAuth);
-								new HttpSessionSecurityContextRepository().saveContext(context, request, response);
+								// SEARCH REAL USERS TO ASSIGN ACTUAL ROLES
+								var user = userRepository.findByEmail(email);
+								var realAuthorities = user.getRoles().stream()
+										.map(role -> new org.springframework.security.core.authority.SimpleGrantedAuthority(role.getName()))
+										.collect(java.util.stream.Collectors.toList());
+
+								var fullAuth = new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
+										authentication.getPrincipal(), null, realAuthorities);
+
+								org.springframework.security.core.context.SecurityContextHolder.getContext().setAuthentication(fullAuth);
+
+								// SAVE AND TO THE INDEX
+								new org.springframework.security.web.context.HttpSessionSecurityContextRepository()
+										.saveContext(org.springframework.security.core.context.SecurityContextHolder.getContext(), request, response);
 
 								response.sendRedirect("/index");
+
 							} else {
+
+								// CASE: NEW IP (REQUESTING VERIFICATION CODE)
+								System.out.println("DEBUG: IP DESCONOCIDA (" + ip + "). Enviando MFA.");
+
 								mfaEmailService.sendOtpEmail(email);
+
+								ipService.registerAccessAttempt(email, "LOGIN_INICIAL", "Nueva IP detectada", request);
+
+								var partialAuth = new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
+										authentication.getPrincipal(), null,
+										java.util.List.of(new org.springframework.security.core.authority.SimpleGrantedAuthority("ROLE_PRE_VERIFIED"))
+								);
+
+								org.springframework.security.core.context.SecurityContextHolder.getContext().setAuthentication(partialAuth);
+
+								new org.springframework.security.web.context.HttpSessionSecurityContextRepository()
+										.saveContext(org.springframework.security.core.context.SecurityContextHolder.getContext(), request, response);
+
 								response.sendRedirect("/verificar-codigo");
 							}
 						})
@@ -148,9 +167,9 @@ public class SecurityConfiguration {
 						.expiredUrl("/login?expired")
 				)
 
-                .exceptionHandling(exception -> exception
-                        .accessDeniedPage("/error/403")
-                )
+				.exceptionHandling(exception -> exception
+						.accessDeniedPage("/error/403")
+				)
 
 				.logout(logout -> logout
 						.logoutUrl("/logout")
@@ -172,11 +191,11 @@ public class SecurityConfiguration {
 
 		http.headers(headers -> {
 
-				// Anti-Clickjacking
+			// Anti-Clickjacking
 			headers.frameOptions(frame -> frame.sameOrigin());
 
-				// PROTECTION XSS
-				headers.xssProtection(xss -> xss.headerValue(org.springframework.security.web.header.writers.XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK));
+			// PROTECTION XSS
+			headers.xssProtection(xss -> xss.headerValue(org.springframework.security.web.header.writers.XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK));
 
 			/*
 			 * [PROD-ACTION]: UNBLOCKED.
@@ -199,17 +218,17 @@ public class SecurityConfiguration {
               // Enforces secure HTTPS connections only.
               "upgrade-insecure-requests;")
 				)*/
-				// 3. HSTS CONDITIONAL
-				headers.httpStrictTransportSecurity(hsts -> {
-					if (!isDev) {
-						hsts.includeSubDomains(true)
-								.maxAgeInSeconds(31536000) // 1 YEAR
-								.preload(true);
-					} else {
-						hsts.disable();
-					}
-				});
-	});
+			// 3. HSTS CONDITIONAL
+			headers.httpStrictTransportSecurity(hsts -> {
+				if (!isDev) {
+					hsts.includeSubDomains(true)
+							.maxAgeInSeconds(31536000) // 1 YEAR
+							.preload(true);
+				} else {
+					hsts.disable();
+				}
+			});
+		});
 
 		return http.build();
 	}

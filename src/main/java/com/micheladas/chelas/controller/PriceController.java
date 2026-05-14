@@ -28,7 +28,7 @@ public class PriceController {
 	private PriceService priceService;
 
 	/**
-	 * Retrieves and displays the detailed view of a specific Price by its ID.
+	 * RETRIEVES AND DISPLAYS THE DETAILED VIEW OF A SPECIFIC PRICE BY ITS ID.
 	 */
 
 	@GetMapping("/verpre/{id}")
@@ -47,7 +47,7 @@ public class PriceController {
 	}
 
 	/**
-	 * Fetches a paginated list of all Price and renders the list view.
+	 * FETCHES A PAGINATED LIST OF ALL PRICE AND RENDERS THE LIST VIEW.
 	 */
 
 	@GetMapping("/precios")
@@ -59,7 +59,7 @@ public class PriceController {
 	}
 
 	/**
-	 * Prepares the model and displays the form to register a new Price.
+	 * PREPARES THE MODEL AND DISPLAYS THE FORM TO REGISTER A NEW PRICE.
 	 */
 
 	@GetMapping("/precios/nuevo")
@@ -75,7 +75,7 @@ public class PriceController {
 	}
 
 	/**
-	 * Validates and persists a new Price entry into the database.
+	 * VALIDATES AND PERSISTS A NEW PRICE ENTRY INTO THE DATABASE.
 	 */
 
 	@PostMapping("/precios/guardar")
@@ -98,7 +98,7 @@ public class PriceController {
 	}
 
 	/**
-	 * Retrieves an existing Price data and displays the edit form.
+	 * RETRIEVES AN EXISTING PRICE DATA AND DISPLAYS THE EDIT FORM.
 	 */
 
 	@GetMapping("/precios/editar/{id}")
@@ -109,7 +109,7 @@ public class PriceController {
 	}
 
 	/**
-	 * Processes the update of an existing Price after validating the input data.
+	 * PROCESSES THE UPDATE OF AN EXISTING PRICE AFTER VALIDATING THE INPUT DATA.
 	 */
 
 	@PostMapping("/precios/{id}")
@@ -136,7 +136,7 @@ public class PriceController {
 	}
 
 	/**
-	 * Deletes a Price record from the database. Restricted to ADMIN users.
+	 * DELETES A PRICE RECORD FROM THE DATABASE. RESTRICTED TO ADMIN USERS.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -146,7 +146,7 @@ public class PriceController {
 	}
 
 	/**
-	 * Generates and triggers the download of a PDF report containing all Prices.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF A PDF REPORT CONTAINING ALL PRICES.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -164,7 +164,7 @@ public class PriceController {
 	}
 
 	/**
-	 * Generates and triggers the download of an Excel spreadsheet with the Price inventory.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF AN EXCEL SPREADSHEET WITH THE PRICE INVENTORY.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")

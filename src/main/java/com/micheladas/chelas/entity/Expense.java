@@ -37,10 +37,10 @@ public class Expense extends BaseEntity {
 	private BigDecimal totalAmount;
 
 	/**
-	 * Compares the current expense with updated data to determine if a persistence
-	 * update is necessary. Updates fields locally if changes are detected.
-	 * * @param newData The source object with updated expense details.
-	 * return true if changes were applied; false otherwise.
+	 * COMPARES THE CURRENT EXPENSE WITH UPDATED DATA TO DETERMINE IF A PERSISTENCE
+	 * UPDATE IS NECESSARY. UPDATES FIELDS LOCALLY IF CHANGES ARE DETECTED.
+	 * * @PARAM NEWDATA THE SOURCE OBJECT WITH UPDATED EXPENSE DETAILS.
+	 * RETURN TRUE IF CHANGES WERE APPLIED; FALSE OTHERWISE.
 	 */
 
 	public boolean updateFrom(Expense newData) {

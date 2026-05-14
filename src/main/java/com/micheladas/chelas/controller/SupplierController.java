@@ -28,7 +28,7 @@ public class SupplierController {
 	private SupplierService supplierService;
 
 	/**
-	 * Retrieves and displays the detailed view of a specific Supplier by its ID.
+	 * RETRIEVES AND DISPLAYS THE DETAILED VIEW OF A SPECIFIC SUPPLIER BY ITS ID.
 	 */
 
 	@GetMapping("/verpro/{id}")
@@ -47,7 +47,7 @@ public class SupplierController {
 	}
 
 	/**
-	 * Fetches a paginated list of all Supplier and renders the list view.
+	 * FETCHES A PAGINATED LIST OF ALL SUPPLIER AND RENDERS THE LIST VIEW.
 	 */
 
 	@GetMapping("/proveedores")
@@ -59,7 +59,7 @@ public class SupplierController {
 	}
 
 	/**
-	 * Prepares the model and displays the form to register a new Supplier.
+	 * PREPARES THE MODEL AND DISPLAYS THE FORM TO REGISTER A NEW SUPPLIER.
 	 */
 
 	@GetMapping("/proveedores/nuevo")
@@ -75,7 +75,7 @@ public class SupplierController {
 	}
 
 	/**
-	 * Validates and persists a new Supplier entry into the database.
+	 * VALIDATES AND PERSISTS A NEW SUPPLIER ENTRY INTO THE DATABASE.
 	 */
 
 	@PostMapping("/proveedores/guardar")
@@ -98,7 +98,7 @@ public class SupplierController {
 	}
 
 	/**
-	 * Retrieves an existing Supplier data and displays the edit form.
+	 * RETRIEVES AN EXISTING SUPPLIER DATA AND DISPLAYS THE EDIT FORM.
 	 */
 
 	@GetMapping("/proveedores/editar/{id}")
@@ -109,7 +109,7 @@ public class SupplierController {
 	}
 
 	/**
-	 * Processes the update of an existing Supplier after validating the input data.
+	 * PROCESSES THE UPDATE OF AN EXISTING SUPPLIER AFTER VALIDATING THE INPUT DATA.
 	 */
 
 	@PostMapping("/proveedores/{id}")
@@ -136,7 +136,7 @@ public class SupplierController {
 	}
 
 	/**
-	 * Deletes a Supplier record from the database. Restricted to ADMIN users.
+	 * DELETES A SUPPLIER RECORD FROM THE DATABASE. RESTRICTED TO ADMIN USERS.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -146,7 +146,7 @@ public class SupplierController {
 	}
 
 	/**
-	 * Generates and triggers the download of a PDF report containing all Suppliers.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF A PDF REPORT CONTAINING ALL SUPPLIERS.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -164,7 +164,7 @@ public class SupplierController {
 	}
 
 	/**
-	 * Generates and triggers the download of an Excel spreadsheet with the Supplier inventory.
+	 * GENERATES AND TRIGGERS THE DOWNLOAD OF AN EXCEL SPREADSHEET WITH THE SUPPLIER INVENTORY.
 	 */
 
 	@PreAuthorize("hasRole('ADMIN')")

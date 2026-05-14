@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
@@ -38,10 +37,10 @@ public class BigBottle extends BaseEntity {
     private BigDecimal totalAmount;
 
     /**
-     * Updates the current entity's fields with data from another BigBottle instance.
-     * Used by the Generic Controller to detect changes before persisting.
-     * * @param newData The source object containing updated values.
-     * return true if at least one field was modified, false otherwise.
+     * UPDATES THE CURRENT ENTITY'S FIELDS WITH DATA FROM ANOTHER BIGBOTTLE INSTANCE.
+     * USED BY THE GENERIC CONTROLLER TO DETECT CHANGES BEFORE PERSISTING.
+     * * @PARAM NEWDATA THE SOURCE OBJECT CONTAINING UPDATED VALUES.
+     * RETURN TRUE IF AT LEAST ONE FIELD WAS MODIFIED, FALSE OTHERWISE.
      */
 
     public boolean updateFrom(BigBottle newData) {
@@ -69,8 +68,8 @@ public class BigBottle extends BaseEntity {
     }
 
     /**
-     * Automatically calculates the total_amount before saving or updating the record.
-     * Calculation: unitPrice * quantity (rounded to 2 decimal places).
+     * AUTOMATICALLY CALCULATES THE TOTAL_AMOUNT BEFORE SAVING OR UPDATING THE RECORD.
+     * CALCULATION: UNITPRICE * QUANTITY (ROUNDED TO 2 DECIMAL PLACES).
      */
 
     @PrePersist

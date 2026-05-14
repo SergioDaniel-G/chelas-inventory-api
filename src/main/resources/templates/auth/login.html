@@ -1,72 +1,86 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Acceso al Sistema | Micheladas Chelas</title>
-	<link rel="stylesheet" th:href="@{/css/vistas/access.css}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso al Sistema | Micheladas Chelas</title>
+    <link rel="stylesheet" th:href="@{/css/vistas/access.css}">
 </head>
 <body class="login-page">
 
 <div class="login-card">
-	<header class="login-header">
-		<div class="logo-circle">MC</div>
-		<h1>Micheladas <b>Chelas</b></h1>
-		<p>Sistema de Gestión ERP</p>
-	</header>
+    <header class="login-header">
+        <div class="logo-circle">MC</div>
+        <h1>Micheladas <b>Chelas</b></h1>
+        <p>Sistema de Gestión ERP</p>
+    </header>
 
-	<form th:action="@{/login}" th:object="${usuario}" method="post" class="login-form">
+    <form th:action="@{/login}" th:object="${usuario}" method="post" class="login-form">
 
-		<div th:if="${param.error}" class="alert alert-error">
-    <span th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null and (#strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'lock') or #strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'bloque'))}"
-		  th:utext="'Tu cuenta ha sido bloqueada. Contacta al administrador.'">
-       Error de cuenta
+        <div th:if="${param.error}" class="alert alert-error">
+
+            <!-- IF THE COUNT IS BLOCKED -->
+
+            <span th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null and (#strings.contains
+            (#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'lock') or
+            #strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'bloque'))}"
+                  th:text="#{login.error.locked}">
     </span>
 
-			<span th:unless="${session.SPRING_SECURITY_LAST_EXCEPTION != null and (#strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'lock') or #strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'bloque'))}"
-				  th:utext="'Usuario o contrase&ntilde;a incorrectos.'">
-       Error de acceso
+            <!-- CREDENTIAL ERRORS -->
+            <span th:unless="${session.SPRING_SECURITY_LAST_EXCEPTION != null and (#strings.contains
+            (#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'lock') or
+            #strings.contains(#strings.toLowerCase(session.SPRING_SECURITY_LAST_EXCEPTION.message), 'bloque'))}"
+                  th:text="#{login.error.invalid}">
     </span>
-		</div>
+        </div>
 
-		<div th:if="${param.timeout}" class="alert alert-warning">
-			Tu sesión expiro por inactividad. Por favor, inicia sesión de nuevo.
-		</div>
+        <div th:if="${param.expired}" class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span th:text="#{auth.session.expired}"></span>
+        </div>
 
-		<div th:if="${param.logout}" class="alert alert-info">
-			<i class="fas fa-check-circle"></i> Cerraste sesión correctamente.
-		</div>
+        <div th:if="${param.logout}" class="alert alert-info">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="#{login.info.logout}"></span>
+        </div>
 
-		<div class="form-group">
-			<label for="username">Correo electrónico:</label>
-			<input id="username" th:field="*{email}" name="email" type="email" required>
-			<small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
-		</div>
+        <div class="form-group">
+            <label for="username">Correo electrónico:</label>
+            <input id="username" th:field="*{email}" name="email" type="email" required>
+            <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+        </div>
 
-		<div class="form-group">
-			<label for="password">Contraseña:</label>
-			<small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
-			<div class="password-wrapper">
-				<input id="password" th:field="*{password}" name="password" type="password" required>
-				<button type="button" id="togglePassword" class="eye-btn">
-					<svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-				</button>
-			</div>
-		</div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+            <div class="password-wrapper">
+                <input id="password" th:field="*{password}" name="password" type="password" minlength="8" maxlength="12"
+                       required>
+                <button type="button" id="togglePassword" class="eye-btn">
+                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+            </div>
+        </div>
 
-		<button type="submit" class="btn-login">Iniciar Sesión</button>
+        <button type="submit" class="btn-login">Iniciar Sesión</button>
 
-		<div class="form-footer">
-			<a th:href="@{/loadForgotPassword}" class="link-muted">¿Olvidaste tu contraseña?</a>
-			<p class="register-text">
-				¿Eres nuevo? <a th:href="@{/registro}">Regístrate aquí</a>
-			</p>
-		</div>
-	</form>
+        <div class="form-footer">
+            <a th:href="@{/loadForgotPassword}" class="link-muted">¿Olvidaste tu contraseña?</a>
+            <p class="register-text">
+                ¿Eres nuevo? <a th:href="@{/registro}">Regístrate aquí</a>
+            </p>
+        </div>
+    </form>
 </div>
 
 <footer class="footer-signature">
-	<p>Desarrollado y creado por: <b>Micheladas Chelas</b></p>
+    <p>Desarrollado y creado por: <b>Micheladas Chelas</b></p>
 </footer>
 
 <script th:src="@{/js/main.js}"></script>

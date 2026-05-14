@@ -36,10 +36,10 @@ public class Cigarette extends BaseEntity {
 	private BigDecimal totalAmount;
 
 	/**
-	 * Compares the current entity with new data to detect changes.
-	 * If changes are found, it updates the local fields and returns true.
-	 * param newData The object containing potentially updated information.
-	 * return true if the entity was modified; false if all relevant fields remain the same.
+	 * COMPARES THE CURRENT ENTITY WITH NEW DATA TO DETECT CHANGES.
+	 * IF CHANGES ARE FOUND, IT UPDATES THE LOCAL FIELDS AND RETURNS TRUE.
+	 * PARAM NEWDATA THE OBJECT CONTAINING POTENTIALLY UPDATED INFORMATION.
+	 * RETURN TRUE IF THE ENTITY WAS MODIFIED; FALSE IF ALL RELEVANT FIELDS REMAIN THE SAME.
 	 */
 
 	public boolean updateFrom(Cigarette newData) {
@@ -61,8 +61,8 @@ public class Cigarette extends BaseEntity {
 	}
 
 	/**
-	 * Lifecycle callback to automatically calculate the total inventory value
-	 * (Price * Quantity) before persisting or updating the record in the database.
+	 * LIFECYCLE CALLBACK TO AUTOMATICALLY CALCULATE THE TOTAL INVENTORY VALUE
+	 * (PRICE * QUANTITY) BEFORE PERSISTING OR UPDATING THE RECORD IN THE DATABASE.
 	 */
 
 	@PrePersist

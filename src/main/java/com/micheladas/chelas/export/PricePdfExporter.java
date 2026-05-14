@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-
 import com.micheladas.chelas.genericcontrollerexporter.GenericPdfExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import com.lowagie.text.DocumentException;
@@ -12,8 +11,8 @@ import com.lowagie.text.Element;
 import com.micheladas.chelas.entity.Price;
 
 /**
- * PDF exporter specialized in Prices inventory reports.
- * Utilizes a generic rendering engine to ensure consistent document structure and styling.
+ * PDF EXPORTER SPECIALIZED IN PRICES INVENTORY REPORTS.
+ * UTILIZES A GENERIC RENDERING ENGINE TO ENSURE CONSISTENT DOCUMENT STRUCTURE AND STYLING.
  */
 
 public class PricePdfExporter {

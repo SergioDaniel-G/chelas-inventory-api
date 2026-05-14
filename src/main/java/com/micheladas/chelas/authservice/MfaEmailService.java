@@ -23,12 +23,12 @@ public class MfaEmailService {
         // SAVE TO CACHE
         otpCache.put(email, code);
 
-        // PRINT TO CONSOLO FOR TEST
+        // PRINT TO CONSOLE FOR TEST
         System.out.println("---------- DEBUG MFA ----------");
         System.out.println("Email: " + email + " | Código: " + code);
         System.out.println("-------------------------------");
 
-        // CONFIGUES AND SEND RHE EMAIL
+        // CONFIGURE AND SEND THE EMAIL
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(email);

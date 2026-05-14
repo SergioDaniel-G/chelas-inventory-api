@@ -22,12 +22,13 @@
 </header>
 
 <div th:fragment="alerta_success">
-	<div th:if="${success != null}" style="color: green; font-weight: bold; margin-bottom: 10px;">
+	<div th:if="${success != null}" class="alerta-container alerta-success">
 		<p th:text="${success}"></p>
 	</div>
 </div>
+
 <div th:fragment="alertas_flash">
-	<div th:if="${info != null}" style="background-color: blue; color: white; font-weight: bold; margin-bottom: 10px;text-align: center;">
+	<div th:if="${info != null}" class="alerta-container alerta-info">
 		<p th:text="${info}"></p>
 	</div>
 </div>

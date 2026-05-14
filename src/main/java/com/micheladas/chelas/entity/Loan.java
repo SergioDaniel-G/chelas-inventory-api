@@ -41,11 +41,10 @@ public class Loan extends BaseEntity {
 	private String customerPhone;
 
 	/**
-	 * Compares the current loan record with updated data to identify changes.
-	 * Updates all fields if at least one difference is found.
-	 *
-	 * param newData The source object with the updated loan information.
-	 * return true if the entity was updated; false if data remains unchanged.
+	 * COMPARES THE CURRENT LOAN RECORD WITH UPDATED DATA TO IDENTIFY CHANGES.
+	 * UPDATES ALL FIELDS IF AT LEAST ONE DIFFERENCE IS FOUND.
+	 * PARAM NEWDATA THE SOURCE OBJECT WITH THE UPDATED LOAN INFORMATION.
+	 * RETURN TRUE IF THE ENTITY WAS UPDATED; FALSE IF DATA REMAINS UNCHANGED.
 	 */
 
 	public boolean updateFrom(Loan newData) {

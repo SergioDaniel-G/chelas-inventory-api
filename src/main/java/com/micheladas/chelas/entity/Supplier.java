@@ -3,6 +3,7 @@ package com.micheladas.chelas.entity;
 import com.micheladas.chelas.base.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.Objects;
@@ -19,8 +20,8 @@ public class Supplier extends BaseEntity {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@NotBlank(message = "{supplier.phone.required}")
-	@Column(name = "phone")
+	@Pattern(regexp = "^\\d{10}$", message = "{validation.phone.invalid}")
+	@Column(name = "phone", length = 10)
 	private String phone;
 
 	@NotBlank(message = "{supplier.location.required}")
@@ -28,10 +29,10 @@ public class Supplier extends BaseEntity {
 	private String location;
 
 	/**
-	 * Updates the supplier's details by comparing existing values with new data.
-	 * Evaluates changes in name, phone, and location to determine if persistence is needed.
-	 * param newData The source object containing updated supplier information.
-	 * return true if any field was updated; false if the data remains identical.
+	 * UPDATES THE SUPPLIER'S DETAILS BY COMPARING EXISTING VALUES WITH NEW DATA.
+	 * EVALUATES CHANGES IN NAME, PHONE, AND LOCATION TO DETERMINE IF PERSISTENCE IS NEEDED.
+	 * PARAM NEWDATA THE SOURCE OBJECT CONTAINING UPDATED SUPPLIER INFORMATION.
+	 * RETURN TRUE IF ANY FIELD WAS UPDATED; FALSE IF THE DATA REMAINS IDENTICAL.
 	 */
 
 	public boolean updateFrom(Supplier newData) {

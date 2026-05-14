@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 /**
- * Component that reacts to successful authentications.
- * It is responsible for updating user metadata, such as the last login date,
- * and resetting any previous failed authentication attempts.
+ * COMPONENT THAT REACTS TO SUCCESSFUL AUTHENTICATIONS
+ * IT´S RESPONSIBLE FOR UPDATING USER METADATA SUCH AS THE LAST LOGIN DATE
+ * AND RESETTING ANY PREVIOUS FAILED AUTHENTICATION ATTEMPTS.
  */
 
 @Component

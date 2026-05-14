@@ -24,13 +24,21 @@ public class RegistrationController {
 	private UserService userService;
 
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login(@RequestParam(value = "timeout", required = false)String timeout,
+						@RequestParam(value = "expired", required = false) String expired,
+			Model model) {
 		model.addAttribute("usuario", new UserRegistrationDto());
+
+		if (expired != null || timeout != null) {
+			model.addAttribute("msgInfo", "auth.session.expired");
+		}
+
 		return "auth/login";
 	}
 
-	/**
-	 * Displays the initial password recovery screen where the user requests a reset.
+	/*
+	 * DISPLAYS THE INITIAL PASSWORD RECOVERY
+	 * SCREEN WHERE THE USER REQUEST A RESET
 	 */
 
 	@GetMapping("/loadForgotPassword")
@@ -41,8 +49,8 @@ public class RegistrationController {
 		return "auth/forgot_password";
 	}
 
-	/**
-	 * Renders the form to define a new password after successful identity verification.
+	/* RENDERS THE FORM TO DEFINE A NEW PASSWORD AFTER
+	 * SUCCESSFUL IDENTITY VERIFICATION
 	 */
 
 	@GetMapping("/loadResetPassword/{id}")
@@ -52,7 +60,7 @@ public class RegistrationController {
 	}
 
 	/**
-	 * Verifies user credentials to authorize a password reset.
+	 * VERIFIES USER CREDENTIALS TO AUTHORIZE A PASSWORD RESET.
 	 */
 
 	@PostMapping("/forgotPassword")
@@ -65,13 +73,13 @@ public class RegistrationController {
 		if (userAccount != null) {
 			return "redirect:/loadResetPassword/" + userAccount.getId();
 		} else {
-			redirectAttributes.addAttribute("msg", "Correo y/o número de teléfono inválido");
+            redirectAttributes.addFlashAttribute("errorMsg", "auth.reset.invalid");
 			return "redirect:/loadForgotPassword";
 		}
 	}
 
-	/**
-	 * Encrypts and updates the user's password in the database after confirming matching inputs.
+	/* ENCRYPTS AND UPDATES THE USER´S PASSWORD IN
+	 * THE DATABASE AFTER CONFIRMING MATCHING INPUTS
 	 */
 
 	@PostMapping("/changePassword")
@@ -81,7 +89,7 @@ public class RegistrationController {
 								RedirectAttributes redirectAttributes) {
 
 		if (!password.equals(cpassword)) {
-			redirectAttributes.addFlashAttribute("msg", "Las contraseñas no coinciden");
+			redirectAttributes.addFlashAttribute("msg", "auth.reset.mismatch");
 			return "redirect:/loadResetPassword/" + id;
 		}
 
@@ -91,9 +99,9 @@ public class RegistrationController {
 			String encryptPsw = passwordEncoder.encode(password);
 			userAccount.setPassword(encryptPsw);
 			userRepository.save(userAccount);
-			redirectAttributes.addAttribute("msg", "Contrasena cambiada correctamente");
+			redirectAttributes.addAttribute("msg", "auth.reset.success");
 		} else {
-			redirectAttributes.addAttribute("msg", "Usuario no encontrado");
+			redirectAttributes.addAttribute("msg", "auth.reset.notfound");
 		}
 
 		return "redirect:/loadForgotPassword";

@@ -29,7 +29,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     /**
-     * Retrieves and displays the detailed view of a specific Customer by its ID.
+     * RETRIEVES AND DISPLAYS THE DETAILED VIEW OF A SPECIFIC CUSTOMER BY ITS ID.
      */
 
     @GetMapping("/vercli/{id}")
@@ -49,7 +49,7 @@ public class CustomerController {
     }
 
     /**
-     * Fetches a paginated list of all Customers and renders the list view.
+     * FETCHES A PAGINATED LIST OF ALL CUSTOMERS AND RENDERS THE LIST VIEW.
      */
 
     @GetMapping("/clientes")
@@ -60,7 +60,7 @@ public class CustomerController {
     }
 
     /**
-     * Prepares the model and displays the form to register a new Customer.
+     * PREPARES THE MODEL AND DISPLAYS THE FORM TO REGISTER A NEW CUSTOMER.
      */
 
     @GetMapping("/clientes/nuevo")
@@ -75,7 +75,7 @@ public class CustomerController {
     }
 
     /**
-     * Validates and persists a new Customer entry into the database.
+     * VALIDATES AND PERSISTS A NEW CUSTOMER ENTRY INTO THE DATABASE.
      */
 
 
@@ -99,7 +99,7 @@ public class CustomerController {
     }
 
     /**
-     * Retrieves an existing Customer data and displays the edit form.
+     * RETRIEVES AN EXISTING CUSTOMER DATA AND DISPLAYS THE EDIT FORM.
      */
 
     @GetMapping("/clientes/editar/{id}")
@@ -110,7 +110,7 @@ public class CustomerController {
     }
 
     /**
-     * Processes the update of an existing Customer after validating the input data.
+     * PROCESSES THE UPDATE OF AN EXISTING CUSTOMER AFTER VALIDATING THE INPUT DATA.
      */
 
     @PostMapping("/clientes/{id}")
@@ -137,7 +137,7 @@ public class CustomerController {
     }
 
     /**
-     * Deletes a Customer record from the database. Restricted to ADMIN users.
+     * DELETES A CUSTOMER RECORD FROM THE DATABASE. RESTRICTED TO ADMIN USERS.
      */
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -147,7 +147,7 @@ public class CustomerController {
     }
 
     /**
-     * Generates and triggers the download of a PDF report containing all Customers.
+     * GENERATES AND TRIGGERS THE DOWNLOAD OF A PDF REPORT CONTAINING ALL CUSTOMERS.
      */
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -165,7 +165,7 @@ public class CustomerController {
     }
 
     /**
-     * Generates and triggers the download of an Excel spreadsheet with the Customer inventory.
+     * GENERATES AND TRIGGERS THE DOWNLOAD OF AN EXCEL SPREADSHEET WITH THE CUSTOMER INVENTORY.
      */
 
     @PreAuthorize("hasRole('ADMIN')")
